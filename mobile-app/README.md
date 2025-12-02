@@ -1,0 +1,656 @@
+# Mobile App - Ayra Digital Wallet
+
+The Mobile App is a Flutter-based digital wallet application using Affinidi Meetingplace SDK and TDK (Trust Development Kit) for secure credential storage and management. It provides a complete mobile experience for receiving, storing, and presenting verifiable credentials.
+
+## 📋 Overview
+
+The Ayra mobile wallet enables users to:
+
+- **Secure Authentication**: Email + OTP login with organization selection
+- **Credential Reception**: Receive credentials via VDIP protocol
+- **Credential Storage**: Securely store credentials using Affinidi TDK
+- **Ayra Card Management**: Customize and claim business card credentials
+- **QR Code Scanning**: Scan verifier QR codes for credential presentation
+- **Selective Disclosure**: Choose which attributes to share
+- **Multi-Organization**: Support for multiple organizations and identities
+
+## 🏗️ Architecture
+
+```
+┌──────────────────────────────────────┐
+│      Mobile Application              │
+│  ┌────────────────────────────────┐  │
+│  │    Flutter UI Layer            │  │
+│  └───────────┬────────────────────┘  │
+│              │                        │
+│  ┌───────────▼────────────────────┐  │
+│  │  Affinidi Meetingplace SDK     │  │
+│  │  (DIDComm, VDIP, VDSP)         │  │
+│  └───────────┬────────────────────┘  │
+│              │                        │
+│  ┌───────────▼────────────────────┐  │
+│  │  Affinidi TDK                  │  │
+│  │  (Secure Storage)              │  │
+│  └────────────────────────────────┘  │
+└──────────────┬───────────────────────┘
+               │
+      ┌────────▼─────────┐
+      │  Ayra Services   │
+      │  (Issuer,        │
+      │   Verifier,      │
+      │   Mediator)      │
+      └──────────────────┘
+```
+
+## 📁 Structure
+
+```
+mobile-app/
+├── setup.sh                  # Setup and configuration script
+├── configs/                  # Firebase configuration files
+│   ├── google-services.json      # Android Firebase config
+│   └── GoogleService-Info.plist  # iOS Firebase config
+└── code/                     # Cloned repository (generated)
+    ├── lib/
+    │   ├── main.dart         # Application entry point
+    │   ├── screens/          # UI screens
+    │   ├── services/         # Business logic
+    │   ├── models/           # Data models
+    │   └── widgets/          # Reusable components
+    ├── android/              # Android-specific code
+    ├── ios/                  # iOS-specific code
+    ├── configurations/       # Environment configs
+    │   └── .env              # Environment variables (generated)
+    ├── pubspec.yaml          # Flutter dependencies
+    └── README.md             # Original app documentation
+```
+
+## 🚀 Setup Process
+
+### Prerequisites
+
+Before setting up the mobile app:
+
+1. **Flutter SDK** installed and configured
+   ```bash
+   flutter --version
+   # Should show Flutter 3.0 or higher
+   ```
+
+2. **Device/Emulator** ready:
+   - Android Studio with emulator, OR
+   - Xcode with iOS simulator (macOS only), OR
+   - Physical device connected via USB
+
+3. **Firebase** (optional, for push notifications):
+   - Place `google-services.json` in `configs/`
+   - Place `GoogleService-Info.plist` in `configs/`
+
+### Automatic Setup (Recommended)
+
+Run from project root:
+
+```bash
+./setup-ayra.sh
+```
+
+This automatically:
+1. Clones mobile app repository
+2. Creates configuration directory
+3. Generates `.env` file with all settings
+4. Updates organization endpoints
+5. Copies Firebase configs (if present)
+6. Installs Flutter dependencies
+
+### Manual Setup
+
+```bash
+cd mobile-app
+./setup.sh
+```
+
+### What the Setup Does
+
+1. **Clone Repository**: Pulls Flutter app from GitLab
+2. **Environment Configuration**:
+   - Creates `configurations/.env` from template
+   - Populates with values from main `.env`
+   - Configures organization endpoints
+   - Sets up Affinidi service URLs
+3. **Organization Setup**: Updates organization configurations with:
+   - Issuer domains (from ngrok)
+   - Verifier endpoints
+   - Service DIDs
+4. **Firebase Integration**: Copies Firebase configs if available
+5. **Dependency Installation**: Runs `flutter pub get`
+
+## 🔧 Configuration
+
+### Environment Variables
+
+Located in `code/configurations/.env` (auto-generated):
+
+```bash
+# App Configuration
+APP_VERSION_NAME="Panther"
+ENVIRONMENT="development"
+
+# Affinidi Services
+SERVICE_DID=did:web:example.com:service
+MEDIATOR_DID=did:web:example.com:mediator
+MEDIATOR_DOMAIN=https://mediator.example.com
+
+# Organization Endpoints (auto-configured from ngrok)
+SWEETLANE_BANK_ISSUER=https://abc123.ngrok-free.app
+SWEETLANE_GROUP_ISSUER=https://abc123.ngrok-free.app
+AYRA_FORUM_ISSUER=https://abc123.ngrok-free.app
+
+VERIFIER_ENDPOINT=https://def456.ngrok-free.app
+TRUST_REGISTRY_ENDPOINT=https://ghi789.ngrok-free.app
+
+# Feature Flags
+ENABLE_BIOMETRIC_AUTH=true
+ENABLE_PUSH_NOTIFICATIONS=true
+ENABLE_DEBUG_MODE=false
+
+# Storage
+USE_SECURE_STORAGE=true
+```
+
+### Organization Configuration
+
+Organizations are configured in the app with:
+
+```dart
+// Example: Sweetlane Bank
+{
+  "id": "sweetlane-bank",
+  "name": "Sweetlane Bank",
+  "logo": "assets/logos/sweetlane-bank.png",
+  "issuerEndpoint": "https://abc123.ngrok-free.app",
+  "issuerDid": "did:web:abc123.ngrok-free.app:sweetlane-bank",
+  "allowedEmailDomain": "sweetlane-bank.com",
+  "credentialTypes": [
+    "EmployeeCredential",
+    "AyraBusinessCard"
+  ]
+}
+```
+
+### Firebase Configuration
+
+Place Firebase config files in `configs/`:
+
+**Android** (`google-services.json`):
+```json
+{
+  "project_info": {
+    "project_number": "123456789",
+    "project_id": "ayra-wallet-app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123456789:android:abc123",
+        "android_client_info": {
+          "package_name": "com.affinidi.ayra.wallet"
+        }
+      }
+    }
+  ]
+}
+```
+
+**iOS** (`GoogleService-Info.plist`):
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CLIENT_ID</key>
+    <string>123456789-abc123.apps.googleusercontent.com</string>
+    <!-- Additional Firebase configuration -->
+</dict>
+</plist>
+```
+
+## 🎮 Usage
+
+### Building and Running
+
+#### Option 1: Run on Connected Device/Emulator
+
+```bash
+cd mobile-app/code
+
+# List available devices
+flutter devices
+
+# Run on specific device
+flutter run --dart-define-from-file=configurations/.env
+
+# Run with device selection
+flutter run --dart-define-from-file=configurations/.env -d <device-id>
+```
+
+#### Option 2: Build APK (Android)
+
+```bash
+cd mobile-app/code
+
+# Build debug APK
+flutter build apk --debug --dart-define-from-file=configurations/.env
+
+# Build release APK (requires signing)
+flutter build apk --release --dart-define-from-file=configurations/.env
+
+# APK location: build/app/outputs/flutter-apk/app-release.apk
+```
+
+#### Option 3: Build iOS App (macOS only)
+
+```bash
+cd mobile-app/code
+
+# Build iOS app
+flutter build ios --dart-define-from-file=configurations/.env
+
+# Open in Xcode for signing and deployment
+open ios/Runner.xcworkspace
+```
+
+### App Workflows
+
+#### 1. 🔐 Login Flow
+
+**Steps:**
+1. Launch app
+2. Select organization (Sweetlane Bank, Sweetlane Group, or Ayra Forum)
+3. Enter email address
+4. Receive OTP code
+5. Enter OTP to authenticate
+6. Access wallet
+
+**Email Requirements:**
+- Must match organization's allowed domain
+- Example: `john.doe@sweetlane-bank.com` for Sweetlane Bank
+
+#### 2. 📇 Credential Issuance
+
+**Employment Credential:**
+1. Login to organization
+2. Navigate to "Credentials" tab
+3. Tap "Request Employment Credential"
+4. Confirm employee details
+5. Wait for credential offer (via DIDComm)
+6. Review credential details
+7. Accept and store credential
+
+**Ayra Business Card:**
+1. Go to "Ayra Card" section
+2. Customize card:
+   - Upload photo
+   - Enter job title
+   - Add contact details
+   - Select card theme
+3. Tap "Claim Card"
+4. Receive credential offer
+5. Accept and store card
+
+#### 3. 🔍 Credential Verification
+
+**Scanning QR Codes:**
+1. Open app scanner (camera icon)
+2. Point camera at verifier QR code
+3. App decodes presentation request
+4. Review requested attributes
+5. Select credential to present
+6. Choose which attributes to share (selective disclosure)
+7. Tap "Share Credentials"
+8. Receive verification result
+
+**Verification Scenarios:**
+- Building Access: Share employment credentials
+- Session Access: Share role and department
+- Hotel Check-in: Share identity information
+- Coffee Discount: Present Ayra card
+
+#### 4. 📱 Credential Management
+
+**View Credentials:**
+- See all stored credentials
+- View credential details
+- Check expiration dates
+- View issuer information
+
+**Manage Credentials:**
+- Archive old credentials
+- Delete credentials
+- Export credentials (backup)
+- Verify credential validity
+
+## 🔑 Key Features
+
+### 1. Secure Credential Storage
+
+Using Affinidi TDK:
+- End-to-end encryption
+- Secure enclave storage (iOS)
+- KeyStore integration (Android)
+- Biometric protection
+- No cloud storage of private keys
+
+### 2. DIDComm Messaging
+
+Asynchronous communication:
+- Receive credential offers
+- Get status updates
+- Revocation notifications
+- Peer-to-peer messaging
+
+### 3. Selective Disclosure
+
+Privacy-preserving sharing:
+- Choose which attributes to share
+- Minimum disclosure principle
+- Zero-knowledge proofs (where supported)
+- Attribute-level consent
+
+### 4. Multi-Organization Support
+
+Manage multiple identities:
+- Switch between organizations
+- Separate credential storage
+- Organization-specific branding
+- Multiple issuer relationships
+
+### 5. QR Code Scanner
+
+Fast credential presentation:
+- Native camera integration
+- Real-time QR detection
+- Secure data parsing
+- Error handling
+
+## 🛠️ Development
+
+### Running in Development Mode
+
+```bash
+cd code
+
+# Hot reload enabled
+flutter run --dart-define-from-file=configurations/.env
+
+# Enable debug mode
+# In configurations/.env:
+ENABLE_DEBUG_MODE=true
+```
+
+### Testing
+
+```bash
+# Run all tests
+flutter test
+
+# Run with coverage
+flutter test --coverage
+
+# Run specific test
+flutter test test/screens/login_test.dart
+
+# Run integration tests
+flutter test integration_test/
+```
+
+### Code Quality
+
+```bash
+# Analyze code
+flutter analyze
+
+# Format code
+flutter format lib/
+
+# Check for outdated packages
+flutter pub outdated
+```
+
+### Building for Production
+
+#### Android Release
+
+```bash
+# 1. Generate keystore (first time only)
+keytool -genkey -v -keystore ~/ayra-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias ayra
+
+# 2. Configure key.properties
+# In android/key.properties:
+storePassword=<password>
+keyPassword=<password>
+keyAlias=ayra
+storeFile=/path/to/ayra-release-key.jks
+
+# 3. Build release APK
+flutter build apk --release --dart-define-from-file=configurations/.env
+
+# 4. Build App Bundle (for Play Store)
+flutter build appbundle --release --dart-define-from-file=configurations/.env
+```
+
+#### iOS Release
+
+```bash
+# 1. Configure signing in Xcode
+open ios/Runner.xcworkspace
+
+# 2. Build for release
+flutter build ios --release --dart-define-from-file=configurations/.env
+
+# 3. Archive in Xcode and upload to App Store
+```
+
+## 🐛 Troubleshooting
+
+### Issue: "Flutter not found"
+
+**Solution:**
+```bash
+# Check Flutter installation
+which flutter
+
+# Add to PATH (if needed)
+export PATH="$PATH:/path/to/flutter/bin"
+
+# Verify
+flutter doctor
+```
+
+### Issue: "Dependencies won't install"
+
+**Solution:**
+```bash
+cd code
+
+# Clean and reinstall
+flutter clean
+flutter pub get
+
+# If still failing, update Flutter
+flutter upgrade
+```
+
+### Issue: "App can't connect to services"
+
+**Check:**
+1. ngrok tunnels are running
+2. `.env` file has correct URLs
+3. Network connectivity
+4. Firewall settings
+
+**Debug:**
+```bash
+# Test issuer endpoint
+curl https://your-issuer-domain.ngrok-free.app/health
+
+# Check app logs
+flutter logs
+```
+
+### Issue: "Credential issuance fails"
+
+**Solution:**
+- Verify SERVICE_DID and MEDIATOR_DID are correct
+- Check issuer portal is running
+- Ensure email domain matches organization
+- Review app logs for detailed error
+
+### Issue: "QR code scanning not working"
+
+**Solution:**
+- Grant camera permissions in device settings
+- Ensure QR code is well-lit and in focus
+- Check verifier endpoint is accessible
+- Verify QR code format is correct
+
+### Issue: "Biometric authentication not working"
+
+**Solution:**
+```bash
+# Android: Ensure device has fingerprint/face unlock set up
+# iOS: Ensure Face ID/Touch ID is configured
+
+# In .env:
+ENABLE_BIOMETRIC_AUTH=true
+
+# Rebuild app
+flutter clean
+flutter run --dart-define-from-file=configurations/.env
+```
+
+## 📊 Monitoring
+
+### App Logs
+
+```bash
+# Real-time logs
+flutter logs
+
+# Filter by severity
+flutter logs | grep ERROR
+flutter logs | grep WARNING
+
+# Save logs to file
+flutter logs > app-logs.txt
+```
+
+### Performance Profiling
+
+```bash
+# Run with performance overlay
+flutter run --dart-define-from-file=configurations/.env --profile
+
+# Open DevTools
+flutter pub global activate devtools
+flutter pub global run devtools
+```
+
+### Debugging
+
+```bash
+# Run in debug mode
+flutter run --dart-define-from-file=configurations/.env --debug
+
+# Enable verbose logging
+flutter run --dart-define-from-file=configurations/.env --verbose
+```
+
+## 🔒 Security Best Practices
+
+### Production Deployment
+
+1. **Secure Storage**: Always use secure storage for credentials
+2. **Biometric Auth**: Enable biometric authentication
+3. **Certificate Pinning**: Pin SSL certificates for backend services
+4. **Code Obfuscation**: Obfuscate release builds
+5. **Secure Communication**: Only HTTPS connections
+6. **Input Validation**: Validate all user inputs
+7. **Error Handling**: Never expose sensitive data in errors
+
+### Configuration
+
+```bash
+# Production .env
+ENABLE_DEBUG_MODE=false
+USE_SECURE_STORAGE=true
+ENABLE_BIOMETRIC_AUTH=true
+ENVIRONMENT="production"
+```
+
+### Build Commands for Security
+
+```bash
+# Android with obfuscation
+flutter build apk --release --obfuscate --split-debug-info=build/debug-info
+
+# iOS with bitcode
+flutter build ios --release --obfuscate --split-debug-info=build/debug-info
+```
+
+## 📚 Related Documentation
+
+- [Main Setup Guide](../README.md)
+- [Issuer Portal](../issuer-portal/README.md)
+- [Verifier Portal](../verifier-portal/README.md)
+- [Domain Setup](../domain-setup/README.md)
+- [Flutter Documentation](https://docs.flutter.dev/)
+- [Affinidi Meetingplace SDK](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/)
+- [Affinidi TDK](https://docs.affinidi.com/dev-tools/affinidi-tdk/)
+
+## 🚀 Advanced Features
+
+### Custom Credential Types
+
+Add support for new credential types:
+
+```dart
+// In lib/models/credential_types.dart
+class CustomCredential extends CredentialType {
+  @override
+  String get type => 'CustomCredential';
+
+  @override
+  List<String> get requiredFields => ['field1', 'field2'];
+
+  @override
+  Widget buildUI(Credential credential) {
+    // Custom UI for this credential type
+  }
+}
+```
+
+### Deep Linking
+
+Enable opening app from QR codes:
+
+```yaml
+# In android/app/src/main/AndroidManifest.xml
+<intent-filter>
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <data android:scheme="ayra" />
+</intent-filter>
+```
+
+### Push Notifications
+
+Configure Firebase Cloud Messaging for updates:
+- Credential offers
+- Revocation notices
+- Organization messages
+- Verification requests
+
+---
+
+**Note:** Ensure all backend services (issuer, verifier, mediator) are running and accessible for full app functionality!
