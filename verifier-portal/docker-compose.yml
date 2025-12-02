@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  verifier-portal:
+    build:
+      context: ./code
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - NODE_ENV=production
+      - PORT=8081
+      - AUTH_TOKEN=my_secure_token
+      - STORAGE_BACKEND=${VER_STORAGE_BACKEND}
+      # - REDIS_HOST=${VER_REDIS_HOST}
+      # - REDIS_PORT=${VER_REDIS_PORT}
+      # - REDIS_SECURE=${VER_REDIS_SECURE}
+      - SERVICE_DID=${SERVICE_DID}
+      - MEDIATOR_DID=${MEDIATOR_DID}
+    volumes:
+      - ./data:/app/data
+
+    restart: unless-stopped
+
+networks:
+  ayra-network:
+    driver: bridge

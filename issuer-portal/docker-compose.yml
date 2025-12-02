@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  issuer-portal:
+    build:
+      context: ./code
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - AUTH_TOKEN=my_secure_token
+      - STORAGE_BACKEND=${ISS_STORAGE_BACKEND}
+      # - REDIS_HOST=${ISS_REDIS_HOST}
+      # - REDIS_PORT=${ISS_REDIS_PORT}
+      # - REDIS_SECURE=${ISS_REDIS_SECURE}
+      - SERVICE_DID=${SERVICE_DID}
+      - MEDIATOR_DID=${MEDIATOR_DID}
+      - ALLOWED_EMAIL_DOMAIN=${ALLOWED_EMAIL_DOMAIN}
+      - ISSUER_DIDWEB_DOMAIN=${ISSUER_DIDWEB_DOMAIN}
+      - ISSUER_MEDIATOR=${MEDIATOR_DOMAIN}
+      - ECOSYSTEM_DIDWEB_DOMAIN=${ECOSYSTEM_DIDWEB_DOMAIN}
+      - ECOSYSTEM_TRUST_REGISTRY_URL=${TR_API_ENDPOINT}
+      - AYRA_DIDWEB_DOMAIN=${AYRA_DIDWEB_DOMAIN}
+      - AYRA_TRUST_REGISTRY_URL=${TR_API_ENDPOINT}
+    volumes:
+      - ./data:/app/data
+
+    restart: unless-stopped
+
+networks:
+  ayra-network:
+    driver: bridge

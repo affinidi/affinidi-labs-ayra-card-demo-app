@@ -1,0 +1,14 @@
+{
+    "name": "ayra-ngrok-setup",
+    "version": "1.0.0",
+    "description": "Generate ngrok domains for Ayra onboarding",
+    "type": "module",
+    "scripts": {
+        "generate": "node generate.js",
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "@ngrok/ngrok": "^1.4.1",
+        "dotenv": "^16.3.1"
+    }
+}

@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  trust-registry-ui:
+    build:
+      context: ./code
+      dockerfile: Dockerfile
+      target: production
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - API_ENDPOINT=${TR_API_ENDPOINT}
+    restart: unless-stopped
+    volumes:
+      - ./data:/app/src/data
+
+networks:
+  ayra-network:
+    driver: bridge

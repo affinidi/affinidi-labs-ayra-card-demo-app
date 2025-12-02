@@ -1,0 +1,41 @@
+services:
+  # redis:
+  #   extends:
+  #     file: ./mediator/docker-compose.yml
+  #     service: redis
+
+  # mediator:
+  #   extends:
+  #     file: ./mediator/docker-compose.yml
+  #     service: mediator
+  #   volumes:
+  #     - ./mediator/affinidi-messaging:/workspace
+
+  # meeting-place:
+  #   extends:
+  #     file: ./meeting-place/docker-compose.yml
+  #     service: meeting-place
+
+  trust-registry-api:
+    extends:
+      file: ./trust-registry-api/docker-compose.yml
+      service: trust-registry-api
+
+  trust-registry-ui:
+    extends:
+      file: ./trust-registry-ui/docker-compose.yml
+      service: trust-registry-ui
+
+  verifier-portal:
+    extends:
+      file: ./verifier-portal/docker-compose.yml
+      service: verifier-portal
+
+  issuer-portal:
+    extends:
+      file: ./issuer-portal/docker-compose.yml
+      service: issuer-portal
+
+networks:
+  ayra-network:
+    driver: bridge

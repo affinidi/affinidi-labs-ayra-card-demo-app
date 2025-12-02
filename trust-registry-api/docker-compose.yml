@@ -1,0 +1,23 @@
+services:
+  trust-registry-api:
+    platform: linux/arm64
+    image: trust-registry-api:local
+    build:
+      context: ./code
+      dockerfile: trust-registry/Dockerfile
+      platforms:
+        - linux/arm64
+    environment:
+      CORS_ALLOWED_ORIGINS: ${TR_CORS_ALLOWED_ORIGINS}
+      FILE_STORAGE_PATH: ${TR_FILE_STORAGE_PATH}
+      TR_STORAGE_BACKEND: ${TR_STORAGE_BACKEND}
+      ENABLE_DIDCOMM: false
+      DDB_TABLE_NAME: "test"
+    ports:
+      - "3232:3232"
+    volumes:
+      - ./data:/data
+
+networks:
+  ayra-network:
+    driver: bridge
