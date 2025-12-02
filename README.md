@@ -411,49 +411,6 @@ Detailed documentation for each component:
 - [Verifier Portal](./verifier-portal/README.md) - Verification scenarios
 - [Mobile App](./mobile-app/README.md) - Flutter app configuration
 
-## 🐛 Troubleshooting
-
-### Common Issues
-
-**Issue:** ngrok tunnel creation fails
-```bash
-# Solution: Check your auth token
-echo $NGROK_AUTH_TOKEN
-# Re-run domain setup
-cd domain-setup && ./setup.sh
-```
-
-**Issue:** Docker services won't start
-```bash
-# Solution: Check Docker is running and ports are available
-docker ps
-# Check port conflicts
-lsof -i :8080 -i :8081 -i :3000 -i :3001
-```
-
-**Issue:** Mobile app won't connect to services
-```bash
-# Solution: Verify ngrok tunnels are still active
-# Check domains.json has valid URLs
-cat domain-setup/code/domains.json
-```
-
-**Issue:** Flutter build fails
-```bash
-# Solution: Clean and rebuild
-cd mobile-app/code
-flutter clean
-flutter pub get
-flutter run --dart-define-from-file=configurations/.env
-```
-
-### Getting Help
-
-- Check individual component READMEs for specific troubleshooting
-- Review Docker logs for service-specific errors
-- Ensure all prerequisites are properly configured
-- Verify network connectivity and firewall settings
-
 ## 🔒 Security Considerations
 
 **For Development/Demo Use Only**

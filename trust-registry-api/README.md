@@ -376,66 +376,6 @@ curl http://localhost:3000/issuers | jq
 curl "http://localhost:3000/issuers?did=did:web:neworg.com" | jq
 ```
 
-## 🐛 Troubleshooting
-
-### Issue: "Service won't start"
-
-**Check logs:**
-```bash
-docker compose logs trust-registry-api
-```
-
-**Common causes:**
-- Invalid CSV format in `tr-data.csv`
-- Port 3000 already in use
-- Missing data directory or file
-
-**Solution:**
-```bash
-# Validate CSV format
-cat data/tr-data.csv
-
-# Check port availability
-lsof -i :3000
-
-# Recreate data file
-cp data-template.csv data/tr-data.csv
-```
-
-### Issue: "CSV parsing error"
-
-**Cause:** Malformed CSV entries
-
-**Solution:**
-- Ensure all fields are properly quoted
-- Check for URL encoding (`:` should be `%3A` in DIDs)
-- Validate JSON in metadata field
-- No empty required fields
-
-### Issue: "Issuer not found in queries"
-
-**Solution:**
-```bash
-# Check if issuer is in CSV
-grep "did:web:your-domain" data/tr-data.csv
-
-# Verify status is "active"
-# Restart service to reload data
-docker compose restart trust-registry-api
-```
-
-### Issue: "CORS errors from UI"
-
-**Update CORS settings in main `.env`:**
-```bash
-TR_CORS_ALLOWED_ORIGINS="http://localhost:3000,http://localhost:3001,https://your-ui-domain.ngrok-free.app"
-```
-
-**Restart service:**
-```bash
-docker compose restart trust-registry-api
-```
-
 ## 📊 Monitoring
 
 ### API Metrics

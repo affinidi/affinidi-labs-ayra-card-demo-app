@@ -322,43 +322,6 @@ dart run bin/server.dart
 docker compose logs -f issuer-portal
 ```
 
-## 🐛 Troubleshooting
-
-### Issue: "Service won't start"
-
-**Check Docker logs:**
-```bash
-docker compose logs issuer-portal
-```
-
-**Common causes:**
-- Missing environment variables
-- Port 8080 already in use
-- Invalid DID configuration
-
-### Issue: "DID document not accessible"
-
-**Solution:**
-```bash
-# Verify ngrok tunnel is running
-curl https://your-domain.ngrok-free.app/.well-known/did.json
-
-# Check environment variables
-docker compose exec issuer-portal cat .env
-```
-
-### Issue: "Credential issuance fails"
-
-**Check:**
-- SERVICE_DID and MEDIATOR_DID are configured
-- Trust Registry is running and accessible
-- Mobile app has correct issuer domain configured
-
-### Issue: "CORS errors"
-
-**Solution:**
-Update CORS configuration in issuer code or ensure requests include proper headers.
-
 ## 📊 Monitoring
 
 ### Health Endpoint
