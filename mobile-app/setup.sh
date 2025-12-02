@@ -82,9 +82,9 @@ cp configs/google-services.json ./code/android/app/google-services.json
 cp configs/GoogleService-Info.plist ./code/ios/Runner/GoogleService-Info.plist
 
 # Install Flutter dependencies
-echo "📦 Installing Flutter dependencies..."
-cd code
-dart pub get
-cd ..
+# echo "📦 Installing Flutter dependencies..."
+# cd code
+# dart pub get
+# cd ..
 
 echo "✅ Mobile App setup completed successfully!"

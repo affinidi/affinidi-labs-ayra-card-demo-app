@@ -57,31 +57,19 @@ Flutter-based mobile application using Affinidi Meetingplace SDK and TDK for sec
 
 ### 1. Configure Environment
 
-Copy the example environment file and add your credentials:
-
-```bash
-cp .env.example .env
-```
-
-Edit `.env` with required values:
-
-```bash
-USE_NGROK=true                        # Enable ngrok tunneling
-NGROK_AUTH_TOKEN=your_token_here      # Your ngrok auth token
-SERVICE_DID=                          # Meetingplace control plane DID
-MEDIATOR_DID=                         # DIDComm Mediator DID
-MEDIATOR_DOMAIN=                      # DIDComm Mediator domain
-```
-
 **Setup Required Services:**
+
+Before running the setup, ensure you have configured:
 
 - **DIDComm Mediator**: Follow [this guide](https://docs.affinidi.com/products/affinidi-messaging/didcomm-mediator/)
 - **Meetingplace Control Plane**: Follow [these steps](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/)
 
 ### 2. Run Setup Script
 
-The setup script will:
+The setup script will automatically:
 
+- Create `.env` file from `.env.example` if it doesn't exist
+- Prompt you to enter `SERVICE_DID` and `MEDIATOR_DID` if not configured
 - Clone all service repositories
 - Generate ngrok tunnels and update configurations
 - Prepare all services for deployment
@@ -90,7 +78,28 @@ The setup script will:
 ./setup-ayra.sh
 ```
 
-**Note**: Keep the ngrok terminal window open during development to maintain active tunnels.
+When prompted, provide the required values:
+
+- **SERVICE_DID**: Your Meetingplace control plane DID
+- **MEDIATOR_DID**: Your DIDComm Mediator DID
+- **NGROK_AUTH_TOKEN**: Your ngrok authentication token (if `USE_NGROK=true`)
+
+You can also manually configure these values by editing the `.env` file:
+
+```bash
+USE_NGROK=true                        # Enable ngrok tunneling
+NGROK_AUTH_TOKEN=your_token_here      # Your ngrok auth token
+SERVICE_DID=                          # Meetingplace control plane DID
+MEDIATOR_DID=                         # DIDComm Mediator DID
+```
+
+**Important Notes:**
+
+- During domain setup, a new terminal window will open that creates 3 ngrok tunnels using your auth token
+- **Keep this ngrok terminal window running** throughout your development session - closing it will make all domains unreachable
+- The tunnels provide public URLs for the Issuer Portal, Verifier Portal, and Trust Registry UI
+- After testing, press **Control + C** in the ngrok terminal to stop all tunnels and exit gracefully
+- **Alternative to ngrok**: You can use any tunneling service of your choice (Cloudflare Tunnel, LocalTunnel, Tailscale, etc.) by setting `USE_NGROK=false` and manually configuring the public domain URLs in the service configuration files
 
 ### 3. Start Services
 
