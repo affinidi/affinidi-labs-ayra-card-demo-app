@@ -21,10 +21,35 @@ fi
 # Generate domains.json file by running tunnels
 DOMAINS_FILE="$CODE_DIR/domains.json"
 
+# Function to check if a domain is reachable
+check_domain_reachable() {
+    local domain=$1
+    echo "🔍 Checking if $domain is reachable..."
+    
+    # Try to reach the domain with a timeout of 5 seconds
+    if curl -s --max-time 5 --head "https://$domain" > /dev/null 2>&1; then
+        return 0  # Domain is reachable
+    else
+        return 1  # Domain is not reachable
+    fi
+}
+
 # Check if domains.json already exists
 if [ -f "$DOMAINS_FILE" ]; then
-    echo "✅ domains.json already exists, skipping tunnel generation..."
-else
+    echo "✅ domains.json found, checking if tunnels are still active..."
+    
+    # Extract a domain to test (using issuer domain as test)
+    TEST_DOMAIN=$(node -e "try { const data = require('$DOMAINS_FILE'); console.log(data.issuer.domain); } catch(e) { console.log(''); }" 2>/dev/null)
+    
+    if [ -n "$TEST_DOMAIN" ] && check_domain_reachable "$TEST_DOMAIN"; then
+        echo "✅ Tunnels are active, skipping tunnel generation..."
+    else
+        echo "⚠️  Tunnels are not reachable, recreating domains.json..."
+        rm -f "$DOMAINS_FILE"
+    fi
+fi
+
+if [ ! -f "$DOMAINS_FILE" ]; then
     echo ""
     echo "🚀 Generating ngrok tunnels and domains.json..."
     echo "   This will open a new terminal window to keep tunnels running..."
