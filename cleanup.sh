@@ -51,20 +51,18 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 echo "Cleaning Mobile App..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 cleanup_directory "mobile-app/code" "Mobile App code"
-cleanup_directory "mobile-app/code/configurations" "Mobile App configurations"
 
-echo ""
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "Cleaning Domain Setup..."
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-cleanup_directory "domain-setup/code/node_modules" "Domain setup node_modules"
-if [ -f "domain-setup/code/domains.json" ]; then
-    echo "  🗑️  Removing domains.json..."
-    rm -f "domain-setup/code/domains.json"
-    echo "  ✅ domains.json removed"
-else
-    echo "  ⏭️  domains.json not found, skipping..."
-fi
+# echo ""
+# echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+# echo "Cleaning ngrok domains..."
+# echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+# if [ -f "ngrok/domains.json" ]; then
+#     echo "  🗑️  Removing domains.json..."
+#     rm -f "ngrok/domains.json"
+#     echo "  ✅ domains.json removed"
+# else
+#     echo "  ⏭️  domains.json not found, skipping..."
+# fi
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

@@ -355,7 +355,6 @@ The Verifier Portal implements four verification scenarios:
 
 <p align="center">
   <img src="./images/scan-share.png" alt="Scan & Share" width="200"/>
-  <img src="./images/submit QR-Code-data.png" alt="Submit Data" width="200"/>
   <img src="./images/processing-qr-code-data.png" alt="Processing QR Code" width="200"/>
   <img src="./images/verifier-request.png" alt="Verifier Request" width="200"/>
   <img src="./images/verifier-credentials-request.png" alt="Credentials Request" width="200"/>
