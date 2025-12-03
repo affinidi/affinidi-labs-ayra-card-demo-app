@@ -12,6 +12,19 @@ This project implements a complete digital credential infrastructure based on W3
 - **Mobile Wallet**: Flutter-based mobile app with secure credential storage
 - **Verification Scenarios**: Multiple real-world credential verification use cases
 
+### Mobile Wallet Experience
+
+<p align="center">
+  <img src="./images/login.png" alt="Login" width="200"/>
+  <img src="./images/dashboard-with-ayra-card.png" alt="Dashboard" width="200"/>
+  <img src="./images/scan-share.png" alt="Scan & Share" width="200"/>
+  <img src="./images/shared-success.png" alt="Success" width="200"/>
+</p>
+
+<p align="center">
+  <em>From login to credential sharing - Complete mobile wallet experience</em>
+</p>
+
 ## 📋 Prerequisites
 
 Before starting, ensure you have the following installed and configured:
@@ -304,24 +317,58 @@ The Verifier Portal implements four verification scenarios:
 
 ### Mobile App Features
 
-1. **🔐 Login**
-   - Organization selection
-   - Email + OTP authentication
+#### 1. 🔐 Login
+- Organization selection
+- Email + OTP authentication (Simulated)
 
-2. **📇 Credential Management**
-   - Receive and store credentials securely
-   - View credential details
-   - Manage credential lifecycle
+<p align="center">
+  <img src="./images/login.png" alt="Login Screen" width="250"/>
+  <img src="./images/dashboard.png" alt="Dashboard" width="250"/>
+  <img src="./images/profile.png" alt="Profile" width="250"/>
+</p>
 
-3. **🎫 Ayra Card Claiming**
-   - Customize business card appearance
-   - Request credential issuance
-   - Share card with others
+#### 2. 📇 Credential Management
+- Receive and store credentials securely
+- View credential details
+- Manage credential lifecycle
 
-4. **📱 Scan & Share**
-   - Scan QR codes from verifier portals
-   - Select credentials to share
-   - Authorize credential presentation
+<p align="center">
+
+  <img src="./images/credentials.png" alt="Credentials" width="250"/>
+
+</p>
+
+#### 3. 🎫 Ayra Card Claiming
+- Customize business card appearance
+- Request credential issuance
+- Share card with others
+
+<p align="center">
+  <img src="./images/claim-ayra-card.png" alt="Claim Ayra Card" width="250"/>
+  <img src="./images/dashboard-with-ayra-card.png" alt="Dashboard with Ayra Card" width="250"/>
+</p>
+
+#### 4. 📱 Scan & Share
+- Scan QR codes from verifier portals
+- Select credentials to share
+- Authorize credential presentation
+
+<p align="center">
+  <img src="./images/scan-share.png" alt="Scan & Share" width="200"/>
+  <img src="./images/submit QR-Code-data.png" alt="Submit Data" width="200"/>
+  <img src="./images/processing-qr-code-data.png" alt="Processing QR Code" width="200"/>
+  <img src="./images/verifier-request.png" alt="Verifier Request" width="200"/>
+  <img src="./images/verifier-credentials-request.png" alt="Credentials Request" width="200"/>
+  <img src="./images/shared-success.png" alt="Shared Successfully" width="200"/>
+</p>
+
+#### 5. 🔍 Identity Verification
+- Biometric authentication support
+- Secure identity verification flows
+
+<p align="center">
+  <img src="./images/idv.png" alt="Identity Verification" width="250"/>
+</p>
 
 ### Trust Registry
 

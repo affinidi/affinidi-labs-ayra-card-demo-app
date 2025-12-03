@@ -134,3 +134,16 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 cd mobile-app
 ./setup.sh
 cd ..
+
+echo ""
+echo "═══════════════════════════════════════════════════════════"
+echo "✅ Ayra E2E Setup Completed Successfully!"
+echo "═══════════════════════════════════════════════════════════"
+echo ""
+echo "Next steps:"
+echo "  1. Start services: docker compose up -d"
+echo "  2. Check logs: docker compose logs -f"
+echo "  3. Build mobile app: cd mobile-app/code && flutter run --dart-define-from-file=configurations/.env"
+echo ""
+echo "📌 Important: Keep the ngrok terminal window open for services to be accessible"
+echo ""

@@ -13,8 +13,14 @@ fi
 # Set default repo URL if not in .env
 MOBILE_APP_REPO_URL="${MOBILE_APP_REPO_URL:-https://gitlab.com/affinidi/prototypes/ayra/mobile-experience-app}"
 
-# Clone the repository if it doesn't exist
+# Clone the repository if it doesn't exist or is invalid
 if [ ! -d "code" ]; then
+    echo "📦 Cloning Mobile App from repository..."
+    git clone "$MOBILE_APP_REPO_URL" ./code
+elif [ ! -f "code/templates/.example.env" ]; then
+    echo "⚠️  Existing code directory is incomplete or invalid"
+    echo "🗑️  Removing incomplete code directory..."
+    rm -rf code
     echo "📦 Cloning Mobile App from repository..."
     git clone "$MOBILE_APP_REPO_URL" ./code
 else
@@ -68,18 +74,30 @@ echo "📍 Configuration file created at: $TARGET_ENV_FILE"
 # Replace localhost%3A8080 with the issuer domain from .env in organizations.dart
 if [ ! -z "$ISSUER_DIDWEB_DOMAIN" ]; then
     echo "🔧 Updating organizations.dart with issuer domains..."
-    
+
     # Extract just the domain part (e.g., "abc123.ngrok-free.app" from "abc123.ngrok-free.app/sweetlane-bank")
     ISSUER_DOMAIN_BASE=$(echo "$ISSUER_DIDWEB_DOMAIN" | cut -d'/' -f1)
     # URL encode the colon (: becomes %3A)
     ISSUER_DOMAIN_ENCODED=$(echo "$ISSUER_DOMAIN_BASE" | sed 's/:/%3A/g')
-    
+
     sed -i '' "s|issuers.sa.affinidi.io|$ISSUER_DOMAIN_ENCODED|g" ./code/lib/infrastructure/repositories/organizations_repository/organizations.dart
     echo "✅ Updated organizations.dart with domain: $ISSUER_DOMAIN_ENCODED"
 fi
 
-cp configs/google-services.json ./code/android/app/google-services.json
-cp configs/GoogleService-Info.plist ./code/ios/Runner/GoogleService-Info.plist
+# Copy Firebase config files if they exist
+if [ -f "configs/google-services.json" ]; then
+    cp configs/google-services.json ./code/android/app/google-services.json
+    echo "✅ Copied google-services.json"
+else
+    echo "⚠️  google-services.json not found, skipping..."
+fi
+
+if [ -f "configs/GoogleService-Info.plist" ]; then
+    cp configs/GoogleService-Info.plist ./code/ios/Runner/GoogleService-Info.plist
+    echo "✅ Copied GoogleService-Info.plist"
+else
+    echo "⚠️  GoogleService-Info.plist not found, skipping..."
+fi
 
 # Install Flutter dependencies
 # echo "📦 Installing Flutter dependencies..."
