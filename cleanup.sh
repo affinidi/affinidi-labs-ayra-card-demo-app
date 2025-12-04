@@ -3,6 +3,11 @@
 set -e  # Exit on error
 
 echo "🧹 Cleaning up Ayra components..."
+echo ""
+echo "📦 Note: Component code folders (issuer-portal, verifier-portal, trust-registry-ui, mobile-app)"
+echo "   are part of the repository and will NOT be removed"
+echo "   Only Trust Registry API (cloned from GitHub) and generated data will be cleaned"
+echo ""
 
 # Function to clean a directory
 cleanup_directory() {
@@ -22,35 +27,16 @@ echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "Cleaning Trust Registry API..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-cleanup_directory "trust-registry-api/code" "Trust Registry API code"
+cleanup_directory "trust-registry-api/code" "Trust Registry API code (cloned from GitHub)"
 cleanup_directory "trust-registry-api/data" "Trust Registry API data"
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "Cleaning Trust Registry UI..."
+echo "Cleaning generated data directories..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-cleanup_directory "trust-registry-ui/code" "Trust Registry UI code"
 cleanup_directory "trust-registry-ui/data" "Trust Registry UI data"
-
-echo ""
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "Cleaning Verifier Portal..."
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-cleanup_directory "verifier-portal/code" "Verifier Portal code"
 cleanup_directory "verifier-portal/data" "Verifier Portal data"
-
-echo ""
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "Cleaning Issuer Portal..."
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-cleanup_directory "issuer-portal/code" "Issuer Portal code"
 cleanup_directory "issuer-portal/data" "Issuer Portal data"
-
-echo ""
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "Cleaning Mobile App..."
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-cleanup_directory "mobile-app/code" "Mobile App code"
 
 # echo ""
 # echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

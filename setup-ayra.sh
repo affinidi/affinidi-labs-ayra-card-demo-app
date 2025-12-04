@@ -3,6 +3,10 @@
 set -e  # Exit on error
 
 echo "🚀 Setting up Ayra components..."
+echo ""
+echo "📦 Note: Component code is already included in the repository"
+echo "   Only Trust Registry API will be cloned from GitHub"
+echo ""
 
 # Check if .env file exists, if not copy from .env.example
 if [ ! -f .env ]; then

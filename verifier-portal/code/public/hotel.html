@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hotel - Template Example</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+    <script src="/assets/scripts/template-manager.js" defer></script>
+    <script src="kiosk.js?v=1.0.1" defer></script>
+    <script src="shared.js?v=1.0.1" defer></script>
+    <link rel="stylesheet" href="/assets/styles/ayra.css" />
+    <link rel="stylesheet" href="/assets/styles/hotel.css" />
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col items-center">
+    <!-- HEADER -->
+    <header class="w-full bg-gray-900 text-white py-10 flex flex-col items-center shadow-lg">
+        <a href="index.html" class="text-white hover:text-blue-200 transition-colors duration-200" title="Home">
+            <img src="/assets/images/hotel/logo.png" alt="Hotel Logo" class="h-16 mb-4" />
+        </a>
+    </header>
+
+    <div class="hotel-banner">
+        <img src="/assets/images/hotel/banner.jpg" alt="Hotel" class="w-full shadow-lg" />
+    </div>
+
+    <div class="kiosk">
+        <div class="kiosk-screen">
+            <div id="kiosk">
+                <!-- Content will be loaded here -->
+            </div>
+
+            <!-- Modals contained within kiosk screen but outside template area -->
+        </div>
+        <img class="kiosk-body" src="/assets/images/hotel/kiosk-body.png" alt="Hotel Kiosk" />
+    </div>
+
+    <div class="hotel-footer">
+        <img src="/assets/images/hotel/footer.jpg" alt="Hotel" class="w-full shadow-lg" />
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Initialize template manager after DOM is loaded
+        let templateManager;
+        let clientId = "check-in-desk"
+
+        // Wait for DOM to be fully loaded before initializing
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize using common Kiosk function
+            Kiosk.initializeKioskPage('Hotel', {
+                modalIds: ['identityModal', 'payloadDetailsModal'],
+                onTogglePressed: function (mode, isChecked) {
+                    console.log('🔄 Toggle pressed! Mode:', mode, 'Checked:', isChecked);
+                    // Trigger mock response when toggle is pressed
+                    const clients = pageInstance?.clientsData;
+                    if (clients) {
+                        Object.keys(clients).forEach(clientKey => {
+                            console.log('Triggering mock response for client:', clientKey);
+                            //                            setTimeout(() => {
+                            //                                mockResponse(clientKey, pageInstance);
+                            //                            }, 500);
+                        });
+                    }
+                },
+                onDemoStart: function () {
+                    console.log('🛎️🛎️🛎️🛎️🛎️🛎️🛎️🛎️ Hotel demo started');
+                    // Initialize the page data first
+                    if (typeof window.init === 'function') {
+                        window.init();
+                    } else {
+                        console.warn('⚠️ init function is not defined.');
+                    }
+                }
+            });
+
+            //Kiosk.setProcessingStepDelay(1200);
+
+            // Add a test function to window for debugging
+            window.testModalOpen = function () {
+                console.log('🧪 Testing modal open...');
+                console.log('Kiosk type:', Kiosk.getKioskType());
+                console.log('Template data:', Kiosk.getTemplateData());
+                try {
+                    Kiosk.renderBusinessCardModal();
+                } catch (error) {
+                    console.error('❌ Error opening modal:', error);
+                }
+            };
+        });
+
+        // Function to handle display changes based on response (now using Kiosk)
+        function displayResponseStatus(msg) {
+            Kiosk.displayResponseStatus(msg);
+        }
+
+    </script>
+
+    <!-- MOCK DATA AND INITIALIZATION -->
+    <script id="mock">
+        // Create isolated page instance
+        var pageInstance;
+
+        // Global function for button onclick (needed for HTML onclick attribute)
+        function copyQRContentGlobal(clientId) {
+            copyQRContent(clientId, pageInstance);
+        }
+
+        async function init() {
+            pageInstance = createPageInstance()
+            // Initialize DOM elements for this page
+            pageInstance.initializeDOMElements();
+            const clients = await fetchClients();
+            clients.forEach((client) => {
+                if (client.id != clientId) return;
+                // Store client data in page instance
+                pageInstance.clientsData[client.id] = client;
+
+                createQRCode(`main-qrcode`, client);
+                setupWebSocket(client.id, pageInstance);
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>

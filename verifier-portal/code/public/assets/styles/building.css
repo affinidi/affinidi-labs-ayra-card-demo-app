@@ -1,0 +1,87 @@
+/* ===== BUILDING BRANDING STYLES ===== */
+.building-header {
+    width: 100%;
+    background: #d1d5db;
+    background: linear-gradient(to right, #1A1A1A, #9ca3af);
+    color: white;
+    padding: 2.5rem 0;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid #d1d5db;
+}
+
+.building-logo {
+    opacity: .75;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.building-header-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+.building-banner {
+    position: relative;
+    margin-top: -30px;
+    border-top: solid 5px #c7c8c7;
+    overflow: hidden;
+}
+
+.building-banner img {
+    max-width: 1024px;
+}
+
+.building-footer {
+    margin-top: -300px;
+    margin-bottom: 30px;
+    border-top: solid 5px #c7c8c7;
+    overflow: hidden;
+}
+
+.building-controls {
+    z-index: 10;
+}
+
+.building-controls-btn {
+    background: linear-gradient(145deg, #f3f4f6 0%, #e5e7eb 25%, #d1d5db 50%, #9ca3af 75%, #6b7280 100%);
+    border-radius: 12px;
+    padding: 8px 16px;
+    border: 2px solid #e5e7eb;
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.1),
+        0 2px 4px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.building-controls-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 
+        0 8px 12px rgba(0, 0, 0, 0.15),
+        0 4px 6px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-color: #9ca3af;
+}
+
+.building-controls-btn {
+    font-weight: 600;
+    color: #374151;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+    transition: color 0.3s ease;
+}
+
+.building-controls-btn:hover {
+    color: #1f2937;
+}
+
+/* ===== OVERRIDES ===== */
+
+.processing-step {
+    color: #1f2937;
+}

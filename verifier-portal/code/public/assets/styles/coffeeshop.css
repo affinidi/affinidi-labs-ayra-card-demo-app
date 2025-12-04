@@ -1,0 +1,174 @@
+/* ===== COFFEE SHOP BRANDING STYLES ===== */
+
+.logo {
+  z-index: 100;
+  border-radius: 50px;
+  border: solid 0.5rem #8b4513;
+  overflow: hidden;
+  margin-bottom: -3rem;
+}
+
+.logo img {
+  padding: 0;
+  margin: 0;
+  height: 6rem;
+}
+
+.coffeeshop-banner {
+  border-top: solid 0.5rem #8b4513;
+  overflow: hidden;
+}
+
+.coffeeshop-footer {
+  border-top: solid 0.5rem #8b4513;
+  overflow: hidden;
+  margin-top: -205px;
+}
+
+
+/* ===== KIOSK HARDWARE STYLES OVERRIDES ===== */
+.kiosk-screen {
+  /* Rich wood gradient background */
+  background: linear-gradient(
+    135deg,
+    #d2b48c 0%,
+    #8b4513 25%,
+    #a0522d 50%,
+    #8b4513 75%,
+    #d2b48c 100%
+  ) !important;
+
+  /* Wood texture using CSS patterns */
+  background-image: 
+        /* Wood grain lines */ repeating-linear-gradient(
+      0deg,
+      rgba(139, 69, 19, 0.1) 0px,
+      rgba(139, 69, 19, 0.2) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    /* Wood knots/rings pattern */
+      radial-gradient(
+        ellipse 200px 50px at 20% 30%,
+        rgba(101, 67, 33, 0.3) 0%,
+        transparent 50%
+      ),
+    radial-gradient(
+      ellipse 150px 40px at 80% 70%,
+      rgba(101, 67, 33, 0.2) 0%,
+      transparent 50%
+    ),
+    /* Additional wood grain texture */
+      linear-gradient(
+        90deg,
+        rgba(205, 133, 63, 0.4) 0%,
+        rgba(210, 180, 140, 0.2) 25%,
+        rgba(222, 184, 135, 0.3) 50%,
+        rgba(210, 180, 140, 0.2) 75%,
+        rgba(205, 133, 63, 0.4) 100%
+      ) !important;
+
+  /* Wood-themed border shadows */
+  box-shadow: 0 0 0 10px #deb887, 0 0 0 15px #d2b48c, 0 0 0 20px #cd853f,
+    0 0 2px 21px #f5deb3 !important;
+
+  border: 10px solid #8b4513 !important;
+}
+
+/* ===== FIX SCREEN TRANSITION BLINK ===== */
+#kiosk {
+  /* Ensure solid background during transitions */
+  background: linear-gradient(135deg, #2f1b14 0%, #1a0e08 100%) !important;
+  min-height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+/* ===== KIOSK CONTENT STYLES OVERRIDES ===== */
+.kiosk-content {
+  background: linear-gradient(135deg, #2f1b14 0%, #1a0e08 100%) !important;
+  color: #2f1b14 !important;
+  /* Reduce initial opacity flash */
+  opacity: 1 !important;
+  /* Faster, smoother transition */
+  animation: coffeeShopFadeIn 0.3s ease-out forwards !important;
+}
+
+/* Custom animation for coffee shop - faster and smoother */
+@keyframes coffeeShopFadeIn {
+  0% {
+    opacity: 0.7;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.kiosk-content h1 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+  color: #f5deb3 !important;
+}
+
+.kiosk-content h1,
+.kiosk-content p {
+  color: #f5deb3 !important;
+}
+
+/* ===== BUTTON STYLES OVERRIDES ===== */
+.check-in-btn {
+  background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+  color: #f5deb3;
+  border: 2px solid #cd853f;
+  box-shadow: 0 4px 8px rgba(139, 69, 19, 0.3);
+  transition: all 0.3s ease;
+}
+
+.check-in-btn:hover {
+  background: linear-gradient(135deg, #a0522d 0%, #8b4513 100%);
+  border-color: #deb887;
+  box-shadow: 0 6px 12px rgba(139, 69, 19, 0.5);
+  color: #fffacd;
+  transform: translateY(-2px);
+}
+
+/* ===== SCAN AREA STYLES OVERRIDES ===== */
+.scan-area {
+  background: linear-gradient(39deg, #f5deb3, #deb887, #d2b48c);
+  border: 2px solid #cd853f;
+  box-shadow: inset 0 2px 4px rgba(139, 69, 19, 0.2);
+}
+
+.scan-line {
+  background: linear-gradient(90deg, transparent, #8b4513, transparent);
+  height: 4px;
+}
+
+/* ===== PROCESSING STEPS WOOD THEME ===== */
+.processing-step {
+  background: linear-gradient(135deg, #f5f5dc 0%, #f0e68c 100%);
+  border-left: 4px solid #8b4513;
+  box-shadow: 0 2px 8px rgba(139, 69, 19, 0.2);
+  color: #654321;
+}
+
+.processing-step.completed {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border-left: 4px solid #22c55e;
+}
+
+/* ===== MODAL OVERRIDES FOR COFFEE SHOP ===== */
+.modal-content {
+  background: linear-gradient(
+    135deg,
+    #fdf6e3 0%,
+    #f5f5dc 15%,
+    #f0e68c 35%,
+    #deb887 50%,
+    #f0e68c 65%,
+    #f5f5dc 85%,
+    #fdf6e3 100%
+  ) !important;
+  border: 3px solid #8b4513 !important;
+}

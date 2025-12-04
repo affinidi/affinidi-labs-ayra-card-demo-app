@@ -1,0 +1,64 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    sh("echo 'Tests not configured'")
+  end
+
+  desc "Upload to Closed Test Internal Track"
+  lane :android_internal do
+
+  # Get version number from the tag, fail if unset
+  tag = ENV['CI_COMMIT_TAG']
+  if tag.nil?
+    UI.user_error!("CI_COMMIT_TAG environment variable is not set.")
+  end
+  version_number = tag.gsub(/^v/, '').split('+')[0]
+
+  sh("flutter clean")
+
+  default_build_number = "1"
+  build_number = default_build_number
+
+  begin
+    version_codes = google_play_track_version_codes(track: "internal")
+    build_number = version_codes.first + 1 if version_codes.any?
+
+  rescue => e
+    UI.error("Failed to fetch Google Play track version codes: #{e.message}")
+    UI.message("Using default version code: #{default_version_code}")
+  end
+
+  # Set the version number and build number in pubspec.yaml
+  sh("sed -i 's/version:.*/version: #{version_number}+#{build_number}/' ../../pubspec.yaml")
+  
+
+  sh("flutter build appbundle --dart-define-from-file=./configurations/.env")
+
+  UI.important(
+    UI.header("✅ Successfully prepared prod build #{build_number} (#{version_number}) for upload to Play Store!")
+  )
+
+  upload_to_play_store(
+     track: "internal",
+     skip_upload_apk: true,
+     aab: "../build/app/outputs/bundle/release/app-release.aab"
+  )
+  end
+end

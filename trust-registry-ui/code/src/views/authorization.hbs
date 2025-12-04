@@ -1,0 +1,115 @@
+<div class="max-w-6xl mx-auto px-4 py-10">
+    <div class="flex items-center justify-between mb-6">
+        <h1 class="text-2xl font-bold">TRQP Authorization Query</h1>
+    </div>
+
+    <div class="bg-white p-6 shadow rounded-2xl border border-gray-200">
+        <form id="trqpForm" class="space-y-6">
+            <div>
+                <label for="authority_id" class="block text-sm font-medium text-gray-700">
+                    Authority ID
+                </label>
+
+                <input id="authority_id" name="authority_id" value="{{registry.did}}" required disabled
+                    placeholder="Type or select an Authority ID"
+                    class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+
+            </div>
+
+            <div>
+                <label for="entity_id" class="block text-sm font-medium text-gray-700">
+                    Entity ID
+                </label>
+                <input id="entity_id" name="entity_id" required placeholder="Type to see suggestions" list="entityList"
+                    class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                <datalist id="entityList">
+                    {{#each registry.entites}}
+                    <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </datalist>
+            </div>
+
+            <div>
+                <label for="action" class="block text-sm font-medium text-gray-700">
+                    Action
+                </label>
+                <input id="action" name="action" required placeholder="Type to see suggestions" list="actionsList"
+                    class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                <datalist id="actionsList">
+                    {{#each registry.authorization.actions}}
+                    <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </datalist>
+            </div>
+
+            <div>
+                <label for="resource" class="block text-sm font-medium text-gray-700">
+                    Resource
+                </label>
+                <input id="resource" name="resource" required placeholder="Type to see suggestions" list="resourcesList"
+                    class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                <datalist id="resourcesList">
+                    {{#each registry.authorization.resources}}
+                    <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </datalist>
+            </div>
+
+            <div>
+                <button type="submit"
+                    class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow">
+                    Run Query
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="mt-8">
+        <h2 class="text-xl font-semibold mb-3">Response</h2>
+        <pre id="responseBox"
+            class="bg-gray-900 text-green-400 text-sm p-4 rounded-lg overflow-x-auto">No query yet...</pre>
+    </div>
+</div>
+
+<script>
+
+    document.getElementById("trqpForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const entity_id = document.getElementById("entity_id").value;
+        const authority_id = document.getElementById("authority_id").value;
+        const action = document.getElementById("action").value;
+        const resource = document.getElementById("resource").value;
+        const responseBox = document.getElementById("responseBox");
+
+        responseBox.textContent = "Querying...";
+
+        try {
+            const res = await fetch("{{api_endpoint}}/authorization", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ entity_id, authority_id, action, resource }),
+            });
+
+            const data = await res.json();
+
+            if (data && typeof data.authorized !== "undefined") {
+                const icon = data.authorized
+                    ? '<span style="color:limegreen;">&#10004;</span>'
+                    : '<span style="color:red;">&#10008;</span>';
+                responseBox.innerHTML =
+                    icon +
+                    " " +
+                    (data.message || "") +
+                    "\n\n" +
+                    "<pre style='display:inline;'>" +
+                    JSON.stringify(data, null, 2) +
+                    "</pre>";
+            } else {
+                responseBox.textContent = JSON.stringify(data, null, 2);
+            }
+        } catch (err) {
+            responseBox.textContent = "Error: " + err.message;
+        }
+    });
+</script>

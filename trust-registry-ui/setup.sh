@@ -3,6 +3,7 @@
 set -e  # Exit on error
 
 echo "🚀 Setting up Affinidi Trust Registry UI..."
+echo "📦 Using code from included repository (trust-registry-ui/code/)"
 
 # Load main .env file
 MAIN_ENV_FILE="../.env"
@@ -10,16 +11,14 @@ if [ -f "$MAIN_ENV_FILE" ]; then
     source "$MAIN_ENV_FILE"
 fi
 
-# Set default repo URL if not in .env
-TRUST_REGISTRY_UI_REPO_URL="${TRUST_REGISTRY_UI_REPO_URL:-https://gitlab.com/affinidi/prototypes/ayra/trust-registry-server}"
-
-# Clone the repository if it doesn't exist
+# Verify code directory exists
 if [ ! -d "code" ]; then
-    echo "📦 Cloning Trust Registry UI from repository..."
-    git clone "$TRUST_REGISTRY_UI_REPO_URL" ./code
-else
-    echo "✓ Code already cloned"
+    echo "❌ Error: code directory not found at trust-registry-ui/code/"
+    echo "   The repository should include the trust registry UI code."
+    exit 1
 fi
+
+echo "✓ Code directory verified"
 
 
 # Update tr-data.csv with issuer domains
@@ -44,3 +43,15 @@ if [ -f "$MAIN_ENV_FILE" ]; then
         echo "✅ Updated tr-data.csv with domain: $ISSUER_DOMAIN_ENCODED"
     fi
 fi
+
+# Install Node.js dependencies
+echo "📦 Installing Node.js dependencies..."
+cd code
+if npm install; then
+    echo "✅ Dependencies installed successfully"
+else
+    echo "⚠️  Failed to install dependencies, but continuing..."
+fi
+cd ..
+
+echo "✅ Trust Registry UI setup completed successfully!"

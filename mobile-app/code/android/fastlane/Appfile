@@ -1,0 +1,2 @@
+json_key_file(".secrets/ayra-mobile-experience-b10305f09040.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
+package_name("com.experience.ayra") # e.g. com.krausefx.app

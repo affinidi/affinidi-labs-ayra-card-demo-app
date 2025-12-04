@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayra Card Demo</title>
+    <link rel="stylesheet" href="/assets/styles/ayra.css">
+    <style>
+        body {
+            background: #f3f4f6;
+            padding: 2rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo-container">
+        <!-- Basic Ayra Card -->
+        <div class="ayra-card">
+            <h1 class="ayra-card-title">Digital Identity Card</h1>
+            <p class="ayra-card-subtitle">Senior Advisor Access</p>
+            <div class="ayra-card-content">
+                <p><strong>Name:</strong> Alex Thompson</p>
+                <p><strong>Department:</strong> Strategy & Innovation</p>
+                <p><strong>Valid Until:</strong> December 2024</p>
+            </div>
+        </div>
+
+        <!-- Access Badge Card -->
+        <div class="ayra-card">
+            <h2 class="ayra-card-title">🎫 Advisor Badge</h2>
+            <p class="ayra-card-subtitle">Building Access Credentials</p>
+            <div class="ayra-card-content">
+                <p><strong>Access Areas:</strong></p>
+                <ul style="margin: 0.5rem 0; padding-left: 1rem;">
+                    <li>Conference Room</li>
+                    <li>6th Floor Private Strategy Session</li>
+                </ul>
+                <p><strong>Badge Level:</strong> Senior Advisor</p>
+            </div>
+        </div>
+
+        <!-- Welcome Card -->
+        <div class="ayra-card">
+            <h1 class="ayra-card-title">Welcome to Ayra</h1>
+            <p class="ayra-card-subtitle">Your Digital Identity Platform</p>
+            <div class="ayra-card-content">
+                <p>Experience seamless authentication and access management with our cutting-edge digital identity
+                    solution.</p>
+                <br>
+                <p>✨ Secure • Fast • Reliable</p>
+            </div>
+        </div>
+
+        <!-- Status Card -->
+        <div class="ayra-card">
+            <h3 class="ayra-card-title">🔐 Verification Status</h3>
+            <p class="ayra-card-subtitle">Identity Confirmed</p>
+            <div class="ayra-card-content">
+                <p>✅ Identity Verified</p>
+                <p>✅ Access Authorized</p>
+                <p>✅ Session Active</p>
+                <br>
+                <p><strong>Session ID:</strong> AYR-2024-1121-001</p>
+            </div>
+        </div>
+
+        <!-- Simple Card -->
+        <div class="ayra-card">
+            <h2>Simple Card</h2>
+            <p>This is a basic Ayra card without special classes, showing default styling.</p>
+        </div>
+
+        <!-- Custom Content Card -->
+        <div class="ayra-card">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                <div style="font-size: 2rem;">🏢</div>
+                <div>
+                    <h2 class="ayra-card-title" style="margin: 0;">Corporate Access</h2>
+                    <p class="ayra-card-subtitle" style="margin: 0;">Premium Membership</p>
+                </div>
+            </div>
+            <div class="ayra-card-content">
+                <p>Full building access with executive privileges and meeting room reservations.</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

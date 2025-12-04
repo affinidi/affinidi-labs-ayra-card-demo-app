@@ -1,0 +1,4 @@
+gitlab_project("affinidi/prototypes/ayra/mobile-experience-app")
+gitlab_host("https://gitlab.com")
+storage_mode("gitlab_secure_files")
+type("development") 

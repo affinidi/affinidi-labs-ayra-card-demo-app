@@ -3,6 +3,7 @@
 set -e  # Exit on error
 
 echo "🚀 Setting up Issuer Service..."
+echo "📦 Using code from included repository (issuer-portal/code/)"
 
 # Load main .env file
 MAIN_ENV_FILE="../.env"
@@ -10,14 +11,22 @@ if [ -f "$MAIN_ENV_FILE" ]; then
     source "$MAIN_ENV_FILE"
 fi
 
-# Set default repo URL if not in .env
-ISSUER_REPO_URL="${ISSUER_REPO_URL:-https://gitlab.com/affinidi/prototypes/ayra/vdip-issuer-server}"
-
-# Clone the repository if it doesn't exist
+# Verify code directory exists
 if [ ! -d "code" ]; then
-    echo "📦 Cloning Issuer Service from repository..."
-    git clone "$ISSUER_REPO_URL" ./code
-else
-    echo "✓ Code already cloned"
+    echo "❌ Error: code directory not found at issuer-portal/code/"
+    echo "   The repository should include the issuer portal code."
+    exit 1
 fi
+
+echo "✓ Code directory verified"
+
+# Install Dart dependencies
+echo "📦 Installing Dart dependencies..."
+cd code
+if dart pub get; then
+    echo "✅ Dependencies installed successfully"
+else
+    echo "⚠️  Failed to install dependencies, but continuing..."
+fi
+cd ..
 

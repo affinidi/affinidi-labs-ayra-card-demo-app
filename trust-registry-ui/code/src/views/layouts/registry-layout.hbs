@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{authority.name}} Trust Registry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen flex flex-col bg-gray-50 text-gray-900">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 {{theme.headerBg}} {{theme.headerText}} shadow-md">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="/" class="text-2xl font-bold tracking-tight hover:opacity-80">
+                {{authority.name}} TRQP
+            </a>
+            <nav class="hidden sm:flex space-x-6 font-medium">
+                <a href="/{{registry.id}}" class="{{theme.linkHover}}">Home</a>
+                <a href="/{{registry.id}}/authorization" class="{{theme.linkHover}}">Authorization</a>
+                <a href="/{{registry.id}}/recognition" class="{{theme.linkHover}}">Recognition</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <main class="flex-1">
+        {{{ body }}}
+    </main>
+
+    <!-- Footer -->
+    <footer class="{{theme.footerBg}} {{theme.footerText}} mt-12">
+        <div class="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 sm:grid-cols-3 gap-8">
+            <div>
+                <h2 class="text-xl font-bold text-white mb-3">{{authority.name}} Trust Registry</h2>
+                <p class="text-sm opacity-80">
+                    Modern UI to explore organizations and trust metadata.
+                </p>
+            </div>
+            <div>
+                <h3 class="text-sm font-semibold text-white uppercase mb-3">Quick Links</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="/{{registry_id}}" class="{{theme.linkHover}}">Home</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-sm font-semibold text-white uppercase mb-3">Follow Us</h3>
+                <div class="flex space-x-4">
+                    <!-- social icons -->
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 mt-6">
+            <p class="text-center text-xs py-4 text-gray-300">
+                © {{year}} {{authority.name}} Trust Registry. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

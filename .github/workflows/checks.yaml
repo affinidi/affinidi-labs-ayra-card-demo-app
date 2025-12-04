@@ -1,0 +1,133 @@
+name: Code Quality Checks
+
+on:
+  push:
+    branches:
+      - "**"
+      - "!main"
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  security:
+    permissions:
+      contents: read
+      checks: read
+      statuses: read
+      security-events: write
+    uses: affinidi/pipeline-security/.github/workflows/security-scanners.yml@main
+    with:
+      config-path: .github/labeler.yml
+    secrets: inherit
+
+  # Dart projects: issuer-portal, verifier-portal
+  dart-lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: [issuer-portal, verifier-portal]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      - name: Get dependencies
+        working-directory: ${{ matrix.project }}/code
+        run: dart pub get
+
+      - name: Verify formatting
+        working-directory: ${{ matrix.project }}/code
+        run: dart format --output=none --set-exit-if-changed .
+
+      - name: Analyze code
+        working-directory: ${{ matrix.project }}/code
+        run: dart analyze --fatal-infos
+
+      - name: Run tests
+        working-directory: ${{ matrix.project }}/code
+        run: dart test || echo "No tests found"
+
+  # Flutter project: mobile-app
+  flutter-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.24.x"
+          channel: "stable"
+
+      - name: Get dependencies
+        working-directory: mobile-app/code
+        run: flutter pub get
+
+      - name: Verify formatting
+        working-directory: mobile-app/code
+        run: dart format --output=none --set-exit-if-changed .
+
+      - name: Analyze code
+        working-directory: mobile-app/code
+        run: flutter analyze
+
+      - name: Run tests
+        working-directory: mobile-app/code
+        run: flutter test || echo "No tests found"
+
+  # Node.js projects: trust-registry-ui, domain-setup
+  node-lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: [trust-registry-ui, domain-setup]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+          cache-dependency-path: ${{ matrix.project }}/code/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ${{ matrix.project }}/code
+        run: npm ci
+
+      - name: Lint code
+        working-directory: ${{ matrix.project }}/code
+        run: npm run lint || echo "No lint script found"
+
+      - name: Run tests
+        working-directory: ${{ matrix.project }}/code
+        run: npm test || echo "No tests found"
+
+      - name: Build project
+        working-directory: ${{ matrix.project }}/code
+        run: npm run build || echo "No build script found"
+
+  # Shell script validation
+  shellcheck:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: "."
+          ignore_paths: "node_modules vendor"
+          severity: warning

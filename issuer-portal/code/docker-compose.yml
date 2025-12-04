@@ -1,0 +1,17 @@
+services:
+  dart-issuer-server:
+    build: .
+    container_name: dart-issuer-server
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes", "--save", "60", "1"]

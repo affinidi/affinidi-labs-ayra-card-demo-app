@@ -1,0 +1,119 @@
+/* ===== HOTEL BRANDING STYLES ===== */
+.hotel-banner {
+  margin-top: -30px;
+  border-top: solid 5px #e8d396;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  overflow: hidden;
+}
+
+.hotel-footer {
+  margin-bottom: 30px;
+  border-top: solid 5px #e8d396;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  overflow: hidden;
+}
+
+/* ===== KIOSK HARDWARE STYLES ===== */
+.kiosk {
+  margin-top: -200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.kiosk img {
+  position: relative;
+  z-index: 1;
+  box-shadow: none;
+}
+
+.kiosk-screen {
+  position: relative;
+  width: 800px;
+  height: 600px;
+  border-radius: 12px;
+  background-color: #333333;
+  box-shadow: 0 0 0 10px #f3de8f, 0 0 0 15px #e8d396, 0 0 0 20px #c09360,
+    0 0 2px 21px #f3de8f;
+  margin-bottom: 20px;
+  border: 10px solid #000;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.kiosk-body {
+  margin: 0 auto;
+}
+
+/* ===== KIOSK CONTENT STYLES ===== */
+#kiosk {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.kiosk-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 16px;
+  background-color: #333;
+  color: #c09360;
+  padding: 2rem;
+  min-height: 400px;
+  opacity: 0;
+  transform: scale(1);
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.kiosk-content h1 {
+  font-size: 32px;
+  font-weight: bold;
+  text-shadow: 1px 1px 5px #000;
+  text-align: center;
+}
+
+.kiosk-content h1,
+p {
+  color: #c09360;
+}
+
+/* ===== BUTTON STYLES ===== */
+.check-in-btn {
+  background: #1a1a1a; /* charcoal black */
+  color: #c09360; /* gold text */
+}
+
+.check-in-btn:hover {
+  background: #000; /* deeper black */
+  border-color: #c09360; /* gold border */
+}
+
+/* ===== SCAN AREA STYLES OVERRIDES ===== */
+.scan-area {
+  background: linear-gradient(39deg, #f3de8f, #c09360, #a67c4f);
+}
+
+/* ===== HOTEL KIOSK FRAME OVERRIDES ===== */
+/* Restore hotel-specific kiosk frame colors */
+.kiosk-screen {
+  background-color: #333333 !important;
+  box-shadow: 0 0 0 10px #f3de8f, 0 0 0 15px #e8d396, 0 0 0 20px #c09360,
+    0 0 2px 21px #f3de8f !important;
+  border: 10px solid #000 !important;
+}
+
+.kiosk-content {
+  background-color: #333 !important;
+  color: #c09360 !important;
+}
+
+.kiosk-content h1,
+.kiosk-content p {
+  color: #c09360 !important;
+}
+
+

@@ -1,0 +1,46 @@
+{
+    "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://schema.affinidi.io/EmploymentV1R0.jsonld"
+    ],
+    "issuer": {
+        "id": "did:web:marmot-suited-muskrat.ngrok-free.app:sweetlane-bank"
+    },
+    "type": [
+        "VerifiableCredential",
+        "Employment"
+    ],
+    "id": "claimid:2cdba0c1-a8f2-4066-8d8a-72f0d0f35ce0",
+    "credentialSchema": {
+        "id": "https://schema.affinidi.io/EmploymentV1R0.json",
+        "type": "JsonSchemaValidator2018"
+    },
+    "validFrom": "2025-10-14T10:52:19.696758Z",
+    "validUntil": "2026-10-14T10:52:19.696761Z",
+    "credentialSubject": {
+        "id": "did:key:zDnaeuR68WBcLPwVBQ33TDTEbBzKB8tKJcFpDsu6RNFPpwmEW",
+        "recipient": {
+            "type": "PersonName",
+            "givenName": "Paramesh",
+            "familyName": "Kamarthi"
+        },
+        "role": "Solutions Architect",
+        "description": "Solutions Architect Lead",
+        "place": "Bangalore",
+        "legalEmployer": {
+            "type": "Organization",
+            "name": "Sweetlane Bank",
+            "identifier": "did:web:marmot-suited-muskrat.ngrok-free.app:sweetlane-bank",
+            "place": "Bangalore"
+        },
+        "employmentType": "permanent",
+        "startDate": "2022-01"
+    },
+    "proof": {
+        "type": "EcdsaSecp256k1Signature2019",
+        "created": "2025-10-14T16:22:19.696891",
+        "verificationMethod": "did:web:marmot-suited-muskrat.ngrok-free.app:sweetlane-bank#key-1",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..QqFrXiEWZ6n1zLV0QbRpg98yVgkonNvkM3r13ml2wzwG7wsvoOVyXiIDCrkxWYbvK4xt5PEJCFulR11t-svGqw"
+    }
+}

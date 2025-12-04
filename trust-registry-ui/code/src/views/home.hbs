@@ -1,0 +1,13 @@
+<div class="max-w-xl mx-auto py-16">
+    <h1 class="text-3xl font-semibold mb-4">Select Trust Registry</h1>
+    <p class="text-gray-600 mb-8">Choose which registry you want to explore.</p>
+
+    <div class="space-y-4">
+        {{#each registries}}
+        <a href="/{{@key}}" class="block border p-4 rounded-lg shadow-sm hover:bg-gray-100">
+            <h2 class="text-lg font-semibold">{{this.name}}</h2>
+            <p class="text-sm text-gray-600">Visit {{this.name}} Trust Registry</p>
+        </a>
+        {{/each}}
+    </div>
+</div>

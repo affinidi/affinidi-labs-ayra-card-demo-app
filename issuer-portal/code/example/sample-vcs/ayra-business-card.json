@@ -1,0 +1,88 @@
+{
+    "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://schema.affinidi.io/AyraBusinessCardV1R2.jsonld"
+    ],
+    "issuer": {
+        "id": "did:web:marmot-suited-muskrat.ngrok-free.app:sweetlane-bank"
+    },
+    "type": [
+        "VerifiableCredential",
+        "AyraBusinessCard"
+    ],
+    "id": "claimid:c8a33286-345d-4714-a566-c97474a0f020",
+    "credentialSchema": {
+        "id": "https://schema.affinidi.io/AyraBusinessCardV1R2.json",
+        "type": "JsonSchemaValidator2018"
+    },
+    "validFrom": "2025-11-04T05:36:33.389875Z",
+    "validUntil": "2026-11-04T05:36:33.389877Z",
+    "credentialSubject": {
+        "id": "did:key:zDnaezLucPkqin26376hu2BUzoTxHuY4UHShjEhP4beUbTArA",
+        "display_name": "Paramesh Kamarthi",
+        "email": "paramesh.k@affinidi.com",
+        "payloads": [
+            {
+                "id": "phone",
+                "description": "Phone number of the employee",
+                "type": "text",
+                "data": "+919980166067"
+            },
+            {
+                "id": "social",
+                "description": "linikedIn profile of the employee",
+                "type": "url",
+                "data": "https://linkedin.com/kamarthiparamesh"
+            },
+            {
+                "id": "avatar",
+                "description": "Avatar of the employee",
+                "type": "image/png;base64",
+                "data": "Base64EncodedImageString"
+            },
+            {
+                "id": "government_id",
+                "description": "Government ID verifiable credential of the employee",
+                "type": "dcql",
+                "data": "dcql JSON string for requesting credential"
+            },
+            {
+                "id": "idv_credential",
+                "description": "Identity credential issued by affinidi",
+                "type": "credentail/w3ldv2",
+                "data": "W3VC DataMode 2.0 Json string"
+            },
+            {
+                "id": "designation",
+                "description": "Solutions Architect Lead",
+                "type": "text",
+                "data": "Solutions Architect"
+            },
+            {
+                "id": "website",
+                "description": "organization website",
+                "type": "url",
+                "data": "https://sweetlane-bank.com"
+            },
+            {
+                "id": "vlei",
+                "description": "Verifiable Legal Entity Identifier of the organization",
+                "type": "url",
+                "data": "https://sweetlane-bank.com/vlei/sweetlane.json"
+            }
+        ],
+        "ecosystem_id": "did:web:marmot-suited-muskrat.ngrok-free.app:sweetlane-group",
+        "issued_under_assertion_id": "issue:ayracard:businesscard",
+        "issuer_id": "did:web:marmot-suited-muskrat.ngrok-free.app:sweetlane-bank",
+        "egf_id": "did:web:marmot-suited-muskrat.ngrok-free.app:ayra-forum",
+        "ayra_assurance_level": 0,
+        "ayra_card_type": "AyraBusinessCard"
+    },
+    "proof": {
+        "type": "EcdsaSecp256k1Signature2019",
+        "created": "2025-11-04T11:06:33.392092",
+        "verificationMethod": "did:web:marmot-suited-muskrat.ngrok-free.app:sweetlane-bank#key-1",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..c1d05fwURHqRTFG20gp7YTECfOcAHFlVg1uzDgYOaKo9v_emb468xG7q_SUMy4n3pF6mX1QDur-P4n6Ys-rvCg"
+    }
+}

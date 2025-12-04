@@ -35,7 +35,7 @@ trust-registry-ui/
 ├── setup.sh              # Setup and configuration script
 ├── docker-compose.yml    # Docker container configuration
 ├── registries.ts         # Registry configuration template
-└── code/                 # Cloned repository (generated)
+└── code/                 # Trust Registry UI code (included in repository)
     ├── src/
     │   ├── components/   # React components
     │   ├── data/
@@ -57,7 +57,8 @@ Run from project root:
 ```
 
 This automatically:
-1. Clones the Trust Registry UI repository
+
+1. Verifies Trust Registry UI code is present
 2. Copies `registries.ts` template to code
 3. Updates with issuer domains from ngrok
 4. URL-encodes domains for proper DID resolution
@@ -72,7 +73,7 @@ cd trust-registry-ui
 
 ### What the Setup Does
 
-1. **Clone Repository**: Pulls UI code from GitLab
+1. **Verify Code**: Confirms Trust Registry UI code is present in `code/` directory
 2. **Configuration**:
    - Copies `registries.ts` to `code/src/data/`
    - Updates issuer domains
@@ -89,31 +90,31 @@ Located in `code/src/data/registries.ts` (auto-generated):
 ```typescript
 export const registries = [
   {
-    id: 'ayra-ecosystem',
-    name: 'Ayra Ecosystem',
-    description: 'Trust registry for Ayra digital credentials',
-    apiEndpoint: 'https://ghi789.ngrok-free.app',
+    id: "ayra-ecosystem",
+    name: "Ayra Ecosystem",
+    description: "Trust registry for Ayra digital credentials",
+    apiEndpoint: "https://ghi789.ngrok-free.app",
     issuers: [
       {
-        did: 'did:web:abc123.ngrok-free.app%3A8080:sweetlane-bank',
-        name: 'Sweetlane Bank',
-        organization: 'Sweetlane Bank',
-        status: 'active'
+        did: "did:web:abc123.ngrok-free.app%3A8080:sweetlane-bank",
+        name: "Sweetlane Bank",
+        organization: "Sweetlane Bank",
+        status: "active",
       },
       {
-        did: 'did:web:abc123.ngrok-free.app%3A8080:sweetlane-group',
-        name: 'Sweetlane Group',
-        organization: 'Sweetlane Group',
-        status: 'active'
+        did: "did:web:abc123.ngrok-free.app%3A8080:sweetlane-group",
+        name: "Sweetlane Group",
+        organization: "Sweetlane Group",
+        status: "active",
       },
       {
-        did: 'did:web:abc123.ngrok-free.app%3A8080:ayra-forum',
-        name: 'Ayra Forum',
-        organization: 'Ayra Forum',
-        status: 'active'
-      }
-    ]
-  }
+        did: "did:web:abc123.ngrok-free.app%3A8080:ayra-forum",
+        name: "Ayra Forum",
+        organization: "Ayra Forum",
+        status: "active",
+      },
+    ],
+  },
 ];
 ```
 
@@ -171,6 +172,7 @@ docker compose logs -f trust-registry-ui
 #### 1. Dashboard
 
 **Home Page** - Overview of trust registry:
+
 - Total trusted issuers count
 - Active credential schemas count
 - Registry health status
@@ -179,12 +181,14 @@ docker compose logs -f trust-registry-ui
 #### 2. Issuers Browser
 
 **View Trusted Issuers**:
+
 - List all registered issuers
 - Filter by framework, status, organization
 - View issuer details (DID, metadata, validity)
 - Check issuer trust status
 
 **Example View:**
+
 ```
 ╔═══════════════════════════════════════════════════════════╗
 ║ Trusted Issuers                                           ║
@@ -206,6 +210,7 @@ docker compose logs -f trust-registry-ui
 #### 3. Schema Browser
 
 **View Credential Schemas**:
+
 - List registered credential types
 - Filter by issuer, framework
 - View schema details and metadata
@@ -214,12 +219,14 @@ docker compose logs -f trust-registry-ui
 #### 4. Query Tester
 
 **Interactive TRQP Testing**:
+
 - Build custom queries
 - Test issuer verification
 - Test schema validation
 - View API responses in real-time
 
 **Query Builder:**
+
 ```
 ┌──────────────────────────────────────┐
 │ Query Builder                        │
@@ -238,6 +245,7 @@ docker compose logs -f trust-registry-ui
 #### 5. Verification Tool
 
 **Test Credential Verification**:
+
 1. Enter issuer DID
 2. Enter credential schema
 3. Select framework
@@ -245,6 +253,7 @@ docker compose logs -f trust-registry-ui
 5. View verification result
 
 **Verification Result:**
+
 ```
 ✅ Verification Successful
 
@@ -283,6 +292,7 @@ Schema Status: Registered
 ### 4. Multi-Framework Support
 
 Switch between different governance frameworks:
+
 - Ayra Ecosystem
 - Custom frameworks
 - Framework-specific views
@@ -290,6 +300,7 @@ Switch between different governance frameworks:
 ### 5. API Explorer
 
 Built-in API documentation:
+
 - Endpoint descriptions
 - Request/response examples
 - Parameter documentation
@@ -359,18 +370,18 @@ Edit `code/src/data/registries.ts`:
 ```typescript
 export const registries = [
   {
-    id: 'custom-framework',
-    name: 'My Custom Framework',
-    description: 'Custom trust framework',
-    apiEndpoint: 'https://my-registry.example.com',
+    id: "custom-framework",
+    name: "My Custom Framework",
+    description: "Custom trust framework",
+    apiEndpoint: "https://my-registry.example.com",
     issuers: [
       {
-        did: 'did:web:myorg.com',
-        name: 'My Organization',
-        organization: 'My Org',
-        status: 'active'
-      }
-    ]
+        did: "did:web:myorg.com",
+        name: "My Organization",
+        organization: "My Org",
+        status: "active",
+      },
+    ],
   },
   // ... existing registries
 ];
@@ -383,11 +394,11 @@ Customize in `code/src/styles/theme.ts`:
 ```typescript
 export const theme = {
   colors: {
-    primary: '#1E40AF',
-    secondary: '#7C3AED',
-    success: '#10B981',
-    error: '#EF4444',
-    warning: '#F59E0B'
+    primary: "#1E40AF",
+    secondary: "#7C3AED",
+    success: "#10B981",
+    error: "#EF4444",
+    warning: "#F59E0B",
   },
   // ... other theme settings
 };
@@ -436,6 +447,7 @@ docker compose logs trust-registry-ui | grep "API"
 ### Performance
 
 Monitor in browser DevTools:
+
 - Network tab for API call timing
 - Console for any JavaScript errors
 - Performance tab for rendering issues
@@ -466,6 +478,7 @@ For production:
 ### Trust Registry API Integration
 
 UI communicates with API for:
+
 - Fetching issuer list
 - Querying schemas
 - Verifying trust relationships
@@ -474,6 +487,7 @@ UI communicates with API for:
 ### Browser Requirements
 
 Supported browsers:
+
 - Chrome/Edge 90+
 - Firefox 88+
 - Safari 14+
@@ -507,6 +521,7 @@ Use the query builder to test complex scenarios:
 ### Export Functionality
 
 Export registry data:
+
 - CSV format for spreadsheet analysis
 - JSON format for programmatic use
 - PDF reports for documentation
@@ -514,6 +529,7 @@ Export registry data:
 ### Real-time Updates
 
 Enable live updates (if implemented):
+
 - WebSocket connection to API
 - Auto-refresh on data changes
 - Notification on registry updates
@@ -521,6 +537,7 @@ Enable live updates (if implemented):
 ## 📱 Responsive Design
 
 The UI is fully responsive:
+
 - **Desktop**: Full feature set with multi-column layout
 - **Tablet**: Optimized layout for medium screens
 - **Mobile**: Touch-friendly interface with simplified navigation

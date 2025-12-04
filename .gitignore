@@ -61,13 +61,13 @@ pubspec.lock
 trust-registry-api/code
 trust-registry-api/data
 
-trust-registry-ui/code
+# trust-registry-ui/code
 trust-registry-ui/data
 
-verifier-portal/code
+# verifier-portal/code
 verifier-portal/data
 
-issuer-portal/code
+# issuer-portal/code
 issuer-portal/data
 
-mobile-app/code
+# mobile-app/code

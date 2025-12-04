@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Meeting Rooms</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+    <script src="common.js"></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col items-center">
+    <!-- HEADER -->
+    <header class="w-full bg-blue-900 text-white py-10 flex flex-col items-center shadow-lg">
+        <div class="flex items-center gap-4 mb-2">
+            <a href="index.html" class="text-white hover:text-blue-200 transition-colors duration-200" title="Home">
+                <h1 class="text-4xl font-bold tracking-tight">Business Event</h1>
+            </a>
+
+        </div>
+        <p class="text-lg text-blue-200 max-w-2xl text-center">
+            Present your Ayra Business Card at the <span class="font-semibold">Registration Kiosk</span> or access the
+            <span class="font-semibold">Roundtable Conference</span> with group leaders.
+        </p>
+    </header>
+
+    <!-- MAIN -->
+    <div class="flex flex-col items-center w-full max-w-7xl space-y-10 p-8">
+        <!-- Two Column Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full">
+            <!-- QR CODES SECTION (Left Column - 1/3 width) -->
+            <div class="lg:col-span-1">
+                <div id="stations-container" class="space-y-4">
+                    <!-- Room cards will be inserted dynamically -->
+                </div>
+            </div>
+
+            <!-- RESULTS SECTION (Right Column - 2/3 width) -->
+            <div class="lg:col-span-2">
+                <div id="results-section"
+                    class="bg-white shadow-lg rounded-2xl p-8 w-full border border-gray-100 backdrop-blur-sm">
+
+                    <div id="business-card-container"
+                        class="hidden bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 mb-6 border border-green-200 shadow-lg">
+                        <!-- Status Message -->
+                        <div id="card-status-message" class="mb-4 p-4 rounded-xl text-center hidden">
+                            <h3 class="text-xl font-bold" id="status-title"></h3>
+                        </div>
+                        <div id="business-card"></div>
+                    </div>
+
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Status Updates</h2>
+
+                    <div class="pt-4">
+                        <div id="status" class="text-lg font-medium text-gray-500"></div>
+
+                        <!-- Progress timeline container -->
+                        <div id="progress" class="relative mt-4 pl-8 text-gray-600 text-base space-y-5">
+                            <div class="flex items-start gap-2 text-gray-500 italic">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="pt-4 hidden" id="div-response">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-2">Received Response (JSON)</h3>
+                        <pre id="received-info"
+                            class="bg-gray-100 text-gray-700 p-3 rounded-lg text-sm overflow-x-auto whitespace-pre-wrap"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payload Modal -->
+    <div id="payload-modal"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="sticky top-0 bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-6 rounded-t-2xl">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-2xl font-bold" id="modal-title">Payload Details</h3>
+                    <button onclick="closePayloadModal()"
+                        class="text-white hover:text-gray-200 text-3xl leading-none">&times;</button>
+                </div>
+            </div>
+            <div id="modal-content" class="p-6">
+                <!-- Content will be inserted dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Create isolated page instance
+        const pageInstance = createPageInstance();
+
+        // Global function for button onclick (needed for HTML onclick attribute)
+        function copyQRContentGlobal(clientId) {
+            copyQRContent(clientId, pageInstance);
+        }
+
+        async function init() {
+            // Initialize DOM elements for this page
+            pageInstance.initializeDOMElements();
+
+            const clients = await fetchClients();
+            const container = document.getElementById("stations-container");
+            container.innerHTML = '';
+
+            clients.forEach((client) => {
+                if (client.type !== 'internal') return;
+
+                pageInstance.clientsData[client.id] = client;
+
+                const card = document.createElement('div');
+                card.className = 'bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-gray-100';
+
+                card.innerHTML = `
+          <div class="p-4">
+              <div class="space-y-3">
+                  <div class="flex items-center justify-between gap-2">
+                      <h2 class="text-lg font-semibold text-gray-800">${client.name}</h2>
+                      <button onclick="copyQRContentGlobal('${client.id}')" class="text-amber-700 hover:text-amber-900 hover:bg-amber-100 p-1.5 rounded transition-colors duration-200" title="Copy QR Code Content">
+                          📋
+                      </button>
+                  </div>
+                  <p class="text-gray-600 text-sm">${client.description || 'Share your Ayra Card'}</p>
+                  <div id="qrcode-${client.id}" class="bg-white p-3 rounded-lg flex justify-center"></div>
+              </div>
+          </div>
+        `;
+
+                container.appendChild(card);
+                createQRCode(`qrcode-${client.id}`, client);
+                setupWebSocket(client.id, pageInstance);
+            });
+
+            // mockResponse('roundtable', pageInstance)
+        }
+
+        init();
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function (event) {
+            const modal = document.getElementById('payload-modal');
+            if (event.target === modal) {
+                closePayloadModal();
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>

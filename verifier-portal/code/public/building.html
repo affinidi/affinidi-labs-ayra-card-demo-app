@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Building Access</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+    <script src="/assets/scripts/template-manager.js" defer></script>
+    <script src="kiosk.js?v=1.0.1" defer></script>
+    <script src="shared.js?v=1.0.1" defer></script>
+    <link rel="stylesheet" href="/assets/styles/ayra.css" />
+    <link rel="stylesheet" href="/assets/styles/building.css" />
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col items-center">
+    <!-- HEADER -->
+    <header class="building-header">
+        <div class="building-header-wrapper">
+            <a href="index.html" class="text-white hover:text-blue-200 transition-colors duration-200" title="Home"><img
+                    src="/assets/images/building/logo.png" alt="Building Logo" class="building-logo h-16 mb-4" /></a>
+
+            <div class="building-controls flex gap-3 flex-wrap">
+                <a href="building.html" class="building-controls-btn">
+                    Lobby
+                </a>
+                <a href="session.html" class="building-controls-btn">
+                    6th Floor
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="building-banner">
+        <img src="/assets/images/building/banner.jpg" alt="Building" class="w-full shadow-lg" />
+    </div>
+
+    <div class="kiosk">
+        <div class="kiosk-screen">
+            <div id="kiosk">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+        <img class="kiosk-body" src="/assets/images/building/kiosk-body.png" alt="Building Kiosk" />
+    </div>
+
+    <div class="building-footer">
+        <img src="/assets/images/building/footer.jpg" alt="Building" class="w-full shadow-lg" />
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Initialize template manager after DOM is loaded
+        let templateManager;
+
+        // Wait for DOM to be fully loaded before initializing
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize using common Kiosk function
+            Kiosk.initializeKioskPage('Building', {
+                modalIds: ['identityModal', 'payloadDetailsModal'],
+                onTogglePressed: function (mode, isChecked) {
+                    console.log('🔄 Toggle pressed! Mode:', mode, 'Checked:', isChecked);
+                    // Trigger mock response when toggle is pressed
+                    const clients = pageInstance?.clientsData;
+                    if (clients) {
+                        Object.keys(clients).forEach(clientKey => {
+                            console.log('Triggering mock response for client:', clientKey);
+                            //                            setTimeout(() => {
+                            //                                mockResponse(clientKey, pageInstance);
+                            //                            }, 500);
+                        });
+                    }
+                },
+                onDemoStart: function () {
+                    console.log('🏢🏢🏢🏢🏢🏢🏢🏢 Building demo started');
+                    // Initialize the page data first
+                    if (typeof window.init === 'function') {
+                        window.init();
+                    } else {
+                        console.warn('⚠️ init function is not defined.');
+                    }
+                }
+            });
+
+            //Kiosk.setProcessingStepDelay(1200);
+
+            // Add a test function to window for debugging
+            window.testModalOpen = function () {
+                console.log('🧪 Testing modal open...');
+                console.log('Kiosk type:', Kiosk.getKioskType());
+                console.log('Template data:', Kiosk.getTemplateData());
+                try {
+                    Kiosk.renderBusinessCardModal();
+                } catch (error) {
+                    console.error('❌ Error opening modal:', error);
+                }
+            };
+        });
+
+        // Function to handle display changes based on response (now using Kiosk)
+        function displayResponseStatus(msg) {
+            Kiosk.displayResponseStatus(msg);
+        }
+
+    </script>
+
+    <!-- MOCK DATA AND INITIALIZATION -->
+    <script id="mock">
+        // Create isolated page instance
+        var pageInstance;
+
+        // Global function for button onclick (needed for HTML onclick attribute)
+        function copyQRContentGlobal(clientId) {
+            copyQRContent(clientId, pageInstance);
+        }
+
+        async function init() {
+            pageInstance = createPageInstance()
+            // Initialize DOM elements for this page
+            pageInstance.initializeDOMElements();
+            const clients = await fetchClients();
+            clients.forEach((client) => {
+                if (client.id != 'kiosk') return;
+                // Store client data in page instance
+                pageInstance.clientsData[client.id] = client;
+
+                createQRCode(`main-qrcode`, client);
+                setupWebSocket(client.id, pageInstance);
+                //setTimeout(() => {
+                //     mockResponse(client.id, pageInstance);
+                //}, 300); 
+            });
+        }
+    </script>
+
+</body>
+
+</html>

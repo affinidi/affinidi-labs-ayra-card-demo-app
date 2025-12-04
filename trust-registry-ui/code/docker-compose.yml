@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  trust-registry-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - API_ENDPOINT=https://trust-registry-rs.sa.affinidi.io
+    volumes:
+      - /app/node_modules
+    restart: unless-stopped
+
+  # Development service (uncomment to use for development)
+  trust-registry-server-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - API_ENDPOINT=http://localhost:3232
+    volumes:
+      - /app/node_modules
+    restart: unless-stopped
+    profiles:
+      - dev
+
+networks:
+  default:
+    name: trust-registry-network

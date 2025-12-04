@@ -1,0 +1,189 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.affinidi.io/AyraBusinessCardV1R2.json",
+  "$metadata": {
+    "version": 1,
+    "revision": 0,
+    "discoverable": true,
+    "uris": {
+      "jsonLdContext": "https://schema.affinidi.io/AyraBusinessCardV1R2.jsonld",
+      "jsonSchema": "https://schema.affinidi.io/AyraBusinessCardV1R2.json"
+    }
+  },
+  "title": "AyraBusinessCard",
+  "description": "Ayra Business Card",
+  "type": "object",
+  "required": [
+    "@context",
+    "type",
+    "issuer",
+    "validFrom",
+    "credentialSubject"
+  ],
+  "properties": {
+    "@context": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "type": {
+      "type": [
+        "string",
+        "array"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "issuer": {
+      "type": [
+        "string",
+        "object"
+      ],
+      "format": "uri",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "validFrom": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "validUntil": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "credentialSubject": {
+      "type": "object",
+      "properties": {
+        "ecosystem_id": {
+          "type": "string"
+        },
+        "issued_under_assertion_id": {
+          "type": "string"
+        },
+        "issuer_id": {
+          "type": "string"
+        },
+        "egf_id": {
+          "type": "string"
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "ayra_assurance_level": {
+          "type": "number"
+        },
+        "ayra_card_type": {
+          "type": "string"
+        },
+        "payloads": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the payload item",
+                "pattern": "^[a-zA-Z0-9_-]+$",
+                "examples": [
+                  "example-01",
+                  "example-02",
+                  "phone-001",
+                  "credential-004"
+                ]
+              },
+              "type": {
+                "type": "string",
+                "description": "Indicates the type of payload - unmanaged string, max 255 characters",
+                "minLength": 1,
+                "maxLength": 255,
+                "examples": [
+                  "phone",
+                  "social",
+                  "avatar",
+                  "credential",
+                  "designation",
+                  "website",
+                  "vlei"
+                ]
+              },
+              "description": {
+                "type": "string",
+                "description": "Human-readable description of the payload item",
+                "examples": [
+                  "Phone number of the employee",
+                  "LinkedIn profile of the employee",
+                  "Avatar of the employee",
+                  "Government ID verifiable credential of the employee"
+                ]
+              },
+              "format": {
+                "type": "string",
+                "description": "Format or encoding type of the data",
+                "minLength": 1,
+                "maxLength": 255,
+                "examples": [
+                  "text",
+                  "url",
+                  "image/png;base64",
+                  "application/pdf;base64",
+                  "dcql",
+                  "w3c/ldv1",
+                  "w3c/ldv2",
+                  "sd-jwt-vc",
+                  "jwt-vc"
+                ]
+              },
+              "data": {
+                "type": "string",
+                "description": "String data (text, URL, base64-encoded content, json string etc.)"
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "format",
+              "data"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": []
+    },
+    "credentialSchema": {
+      "type": "object",
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+# Ignore local build artifacts and cache
+.dart_tool/
+.pub-cache/
+.packages
+build/
+.pub/
+
+# Ignore local development files
+.env
+*.env
+.vscode/
+.idea/
+
+# Ignore OS specific files
+.DS_Store
+Thumbs.db
+
+# Ignore git
+.git/
+.gitignore
+
+# Ignore documentation and other non-essential files
+*.md
+!README.md
+docs/
+
+# Ignore test files in production builds
+test/
+example/tests/
+
+# Ignore local data files that might contain secrets or test data
+data/

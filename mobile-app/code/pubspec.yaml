@@ -1,0 +1,226 @@
+name: mobile_experience_app
+description: "Sweetlane Group Experience App - open-source reference implementation of a chat application based on DIDComm v2.1 messaging protocol"
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0
+
+environment:
+  sdk: ">=3.9.0 <4.0.0"
+
+dependencies:
+  affinidi_tdk_didcomm_mediator_client: ^1.0.0-dev.1
+  affinidi_tdk_vault: ^1.11.2
+  affinidi_tdk_vault_data_manager: ^1.10.2
+  affinidi_tdk_vault_edge_drift_provider: ^1.1.0
+  affinidi_tdk_vault_edge_provider: ^1.1.0
+  affinidi_tdk_vault_flutter_utils: ^1.10.2
+  affinidi_tdk_vdip: ^1.0.0-dev.1
+  affinidi_tdk_vdsp: ^1.0.0-dev.1
+  app_badge_plus: ^1.2.3
+  bip39_mnemonic: ^4.0.1
+  camera: ^0.11.2
+  clear_all_notifications: ^1.0.0
+  clock: any
+  collection: ^1.19.1
+  confetti: ^0.8.0
+  connectivity_plus: ^7.0.0
+  copy_with_extension: any
+  crypto: ^3.0.6
+  cupertino_icons: ^1.0.8
+  dcql: ^1.2.0
+  didcomm: ^2.0.3
+  drift: ^2.28.1
+  firebase_core: ^4.0.0
+  firebase_messaging: ^16.0.0
+  flutter:
+    sdk: flutter
+  flutter_card_swiper: ^7.0.2
+  flutter_hooks: ^0.21.2
+  flutter_hsvcolor_picker: ^1.5.1
+  flutter_localizations:
+    sdk: flutter
+  flutter_riverpod: ^2.6.1
+  flutter_secure_storage: ^9.2.4
+  form_field_validator: ^1.1.0
+  freezed_annotation: ^3.1.0
+  go_router: ^16.0.0
+  go_router_builder: ^3.0.0
+  hooks_riverpod: ^2.6.1
+  http: ^1.5.0
+  image: ^4.5.4
+  image_picker: ^1.2.0
+  intl: any
+  json_annotation: ^4.9.0
+  local_auth: ^2.3.0
+  meeting_place_control_plane: ^0.0.1-dev.2
+  meeting_place_core: ^0.0.1-dev.2
+  meeting_place_drift_repository: ^0.0.1-dev.2
+  meeting_place_mediator: ^0.0.1-dev.2
+  mobile_scanner:
+    # ^7.0.1
+    git:
+      url: https://github.com/juliansteenbakker/mobile_scanner/
+      ref: bdcb5e544ad60b0234978219077afef46fed6639
+  package_info_plus: ^8.3.1
+  path: ^1.9.1
+  path_provider: ^2.1.5
+  permission_handler: ^12.0.1
+  pie_menu: ^3.3.0
+  qr_flutter: ^4.1.0
+  riverpod_annotation: ^2.6.1
+  shared_preferences: ^2.5.3
+  smooth_page_indicator: ^1.2.1
+  sqlcipher_flutter_libs: ^0.6.8
+  sqlite3: ^2.9.0
+  ssi: ^2.14.1
+  stack_trace: ^1.12.1
+  uuid: ^4.5.1
+  video_player: ^2.10.0
+
+dev_dependencies:
+  build_runner: ^2.4.8
+  copy_with_extension_gen: any
+  coverage: ^1.11.1
+  dart_flutter_team_lints: ^3.5.2
+  drift_dev: ^2.28.0
+  flutter_launcher_icons: ^0.14.1
+  flutter_test:
+    sdk: flutter
+  freezed: ^3.1.0
+  json_serializable: ^6.8.0
+  melos: ^7.1.1
+  riverpod_generator: ^2.6.5
+  test: ^1.24.0
+
+dependency_overrides:
+  meta: 1.17.0
+  pointycastle: ^4.0.0
+
+flutter:
+  generate: true
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/images/
+    - assets/icons/
+    - assets/videos/
+
+  fonts:
+    - family: Figtree
+      fonts:
+        - asset: assets/fonts/Figtree-Light.ttf
+
+# Configuration for flutter_launcher_icons
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/bb-logo-colorl-light.png"
+  # You can also specify different images for different platforms:
+  # android: "assets/images/bb-logo-colorl-light.png"
+  # ios: "assets/images/bb-logo-colorl-light.png"
+
+  # Optional: Configure adaptive icons for Android (API 26+)
+  adaptive_icon_foreground: "assets/images/bb-logo-colorl-light.png"
+
+  # Optional: Remove old launcher icon
+  remove_alpha_ios: true
+
+  # Web configuration (optional)
+  web:
+    generate: true
+    image_path: "assets/images/bb-logo-colorl-light.png"
+    background_color: "#FFFFFF"
+    theme_color: "#FFFFFF"
+
+  # Windows configuration (optional)
+  windows:
+    generate: true
+    image_path: "assets/images/bb-logo-colorl-light.png"
+    icon_size: 48
+
+  # macOS configuration (optional)
+  macos:
+    generate: true
+    image_path: "assets/images/bb-logo-colorl-light.png"
+
+melos:
+  # TODO: migrate to app / packages structure
+  useRootAsPackage: true
+  scripts:
+    analyze:
+      # exec: dart analyze --fatal-infos .
+      exec: dart analyze .
+      concurrency: 4
+      failFast: true
+      noSelect: true
+      packageFilters:
+        flutter: true
+        includePrivatePackages: true
+        #diff: 'origin/main'
+
+    test:
+      run: |
+        melos run test-flutter &&
+        melos run coverage-report
+
+    test-flutter:
+      description: Run tests in each flutter package
+      exec: flutter test --coverage
+      dirExists: test
+      concurrency: 4
+      failFast: true
+      noSelect: true
+      packageFilters:
+        flutter: true
+        includePrivatePackages: true
+        #diff: 'origin/main'
+        ignore:
+          - "*_example*"
+
+    coverage-report:
+      run: >
+        mkdir -p coverage
+
+        find ./ -name "lcov.info" -path "*/coverage/lcov.info" -exec cat
+        {} + > coverage/lcov.info
+
+    pubget:
+      run: flutter pub get
+      exec:
+        concurrency: 5
+        orderDependents: true
+      description: Get dependencies for all workspace packages
+
+    ios-deps:
+      run: |
+        melos exec --scope=mobile_experience_app -- flutter precache --ios
+        melos exec --scope=mobile_experience_app -- "cd ios; pod install --repo-update"
+
+    gen:
+      run: |
+        echo "------------------------------------------------------------------------"
+        echo "Generating code"
+        echo "------------------------------------------------------------------------"
+        melos exec --scope=mobile_experience_app -- flutter clean
+        melos exec --scope=mobile_experience_app -- dart run build_runner build --delete-conflicting-outputs
+        dart format -l 80 .
+
+    strings:
+      run: |
+        echo "------------------------------------------------------------------------"
+        echo "Generating localized strings"
+        echo "------------------------------------------------------------------------"
+        melos exec --scope=mobile_experience_app -- flutter gen-l10n
+        dart format -l 80 .

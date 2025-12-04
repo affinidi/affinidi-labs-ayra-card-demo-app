@@ -3,6 +3,7 @@
 set -e  # Exit on error
 
 echo "🚀 Setting up Mobile App..."
+echo "📦 Using code from included repository (mobile-app/code/)"
 
 # Load main .env file
 MAIN_ENV_FILE="../.env"
@@ -10,22 +11,22 @@ if [ -f "$MAIN_ENV_FILE" ]; then
     source "$MAIN_ENV_FILE"
 fi
 
-# Set default repo URL if not in .env
-MOBILE_APP_REPO_URL="${MOBILE_APP_REPO_URL:-https://gitlab.com/affinidi/prototypes/ayra/mobile-experience-app}"
-
-# Clone the repository if it doesn't exist or is invalid
+# Verify code directory exists
 if [ ! -d "code" ]; then
-    echo "📦 Cloning Mobile App from repository..."
-    git clone "$MOBILE_APP_REPO_URL" ./code
-elif [ ! -f "code/templates/.example.env" ]; then
-    echo "⚠️  Existing code directory is incomplete or invalid"
-    echo "🗑️  Removing incomplete code directory..."
-    rm -rf code
-    echo "📦 Cloning Mobile App from repository..."
-    git clone "$MOBILE_APP_REPO_URL" ./code
-else
-    echo "✓ Code already cloned"
+    echo "❌ Error: code directory not found at mobile-app/code/"
+    echo "   The repository should include the mobile app code."
+    exit 1
 fi
+
+# Verify template file exists
+if [ ! -f "code/templates/.example.env" ]; then
+    echo "❌ Error: Template file not found at code/templates/.example.env"
+    echo "   The code directory may be incomplete."
+    exit 1
+fi
+
+echo "✓ Code directory verified"
+
 if [ ! -f "$MAIN_ENV_FILE" ]; then
     echo "❌ Error: Main .env file not found at $MAIN_ENV_FILE"
     exit 1
@@ -80,7 +81,10 @@ if [ ! -z "$ISSUER_DIDWEB_DOMAIN" ]; then
     # URL encode the colon (: becomes %3A)
     ISSUER_DOMAIN_ENCODED=$(echo "$ISSUER_DOMAIN_BASE" | sed 's/:/%3A/g')
 
+    # Replace the default domain
     sed -i '' "s|issuers.sa.affinidi.io|$ISSUER_DOMAIN_ENCODED|g" ./code/lib/infrastructure/repositories/organizations_repository/organizations.dart
+    # Replace any existing ngrok domains
+    sed -i '' "s|[a-zA-Z0-9-]*\.ngrok-free\.app|$ISSUER_DOMAIN_ENCODED|g" ./code/lib/infrastructure/repositories/organizations_repository/organizations.dart
     echo "✅ Updated organizations.dart with domain: $ISSUER_DOMAIN_ENCODED"
 fi
 
@@ -100,9 +104,13 @@ else
 fi
 
 # Install Flutter dependencies
-# echo "📦 Installing Flutter dependencies..."
-# cd code
-# dart pub get
-# cd ..
+echo "📦 Installing Flutter dependencies..."
+cd code
+if flutter pub get; then
+    echo "✅ Dependencies installed successfully"
+else
+    echo "⚠️  Failed to install dependencies, but continuing..."
+fi
+cd ..
 
 echo "✅ Mobile App setup completed successfully!"

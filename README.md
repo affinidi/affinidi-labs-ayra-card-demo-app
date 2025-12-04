@@ -52,7 +52,7 @@ Before starting, ensure you have the following installed and configured:
   - [Install Node.js](https://nodejs.org/)
 - **Flutter SDK** (v3.0+) - To build and run the mobile app
   - [Install Flutter](https://docs.flutter.dev/get-started/install)
-- **Git** - For cloning repositories
+- **Git** - For cloning the Trust Registry API repository (GitHub)
 
 ### Required Accounts & Credentials
 
@@ -183,12 +183,13 @@ This project consists of six interconnected components:
 
 ## 🚀 Quick Start Guide
 
-### Step 1: Clone the Repository
+### Step 1: Get the Repository
 
 ```bash
-git clone <repository-url>
 cd ayra-e2e-setup
 ```
+
+**Note**: The repository includes all component code in their respective `code/` folders (issuer-portal, verifier-portal, trust-registry-ui, mobile-app). Only the Trust Registry API will be cloned from GitHub during setup.
 
 ### Step 2: Configure Prerequisites
 
@@ -211,7 +212,7 @@ chmod +x setup-ayra.sh
 
 - Creates `.env` file from `.env.example` if not present
 - Prompts for required credentials (`SERVICE_DID`, `MEDIATOR_DID`, `NGROK_AUTH_TOKEN`)
-- Clones all service repositories to their respective folders
+- Clones Trust Registry API repository from GitHub (only external dependency)
 - Runs individual setup scripts for each component
 - Generates ngrok tunnels and updates all configurations
 - Prepares services for deployment
@@ -275,12 +276,14 @@ The `.env` file contains all configuration settings. Key variables:
 USE_NGROK=true                        # Enable/disable ngrok tunneling
 NGROK_AUTH_TOKEN=your_token_here      # Your ngrok authentication token
 
-# Repository URLs (customizable for private forks)
-VERIFIER_REPO_URL="https://gitlab.com/affinidi/prototypes/ayra/vdsp-verifier-server"
-ISSUER_REPO_URL="https://gitlab.com/affinidi/prototypes/ayra/vdip-issuer-server"
-TRUST_REGISTRY_UI_REPO_URL="https://gitlab.com/affinidi/prototypes/ayra/trust-registry-server"
+# Trust Registry API Repository (only external dependency cloned during setup)
 TRUST_REGISTRY_API_REPO_URL="https://github.com/affinidi/affinidi-trust-registry-rs"
-MOBILE_APP_REPO_URL="https://gitlab.com/affinidi/prototypes/ayra/mobile-experience-app"
+
+# Component code is included in the repository under respective 'code/' folders:
+# - issuer-portal/code/
+# - verifier-portal/code/
+# - trust-registry-ui/code/
+# - mobile-app/code/
 
 # Affinidi Services
 SERVICE_DID=                          # Meetingplace control plane DID
@@ -477,7 +480,7 @@ docker compose down -v
 
 ## 🧹 Cleanup
 
-To remove all cloned repositories and generated data:
+To remove cloned repositories and generated data:
 
 ```bash
 chmod +x cleanup.sh
@@ -486,13 +489,11 @@ chmod +x cleanup.sh
 
 **This will remove:**
 
-- All `code` directories (cloned repositories)
+- Trust Registry API `code` directory (cloned from GitHub)
 - All `data` directories (generated data)
-- Generated configuration files
-- `domains.json` file
-- `node_modules` in domain-setup
+- Docker containers and volumes
 
-**Note:** The `.env` file is preserved for easy re-setup.
+**Note:** The `.env` file and component `code/` folders (issuer-portal, verifier-portal, trust-registry-ui, mobile-app) are preserved as they are part of the repository.
 
 ## 📚 Additional Documentation
 

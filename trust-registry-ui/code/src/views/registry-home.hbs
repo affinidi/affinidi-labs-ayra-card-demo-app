@@ -1,0 +1,51 @@
+<div class="max-w-6xl mx-auto px-4 py-10">
+    <!-- Authority Info -->
+    <div class="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 mb-8">
+        <h1 class="text-3xl font-semibold mb-2">{{registry.name}} - Trust Registry</h1>
+        <p class="text-base leading-relaxed mb-8 text-gray-700">
+            This UI allows you to explore and query the Trust Registry using TRQP-compliant API endpoints.
+            Click any section below to view data or run API queries interactively.
+        </p>
+
+        <p class="text-gray-700 mb-2">
+            <strong>DID:</strong> <span class="text-gray-800">
+                {{registry.did}}</span>
+        </p>
+        <p class="text-gray-700 mb-2">
+            <strong>DID Document Path:</strong> <span class="text-gray-800">
+                <a href="{{authorityDidUrl}}" target="_blank"
+                    class="text-blue-600 hover:underline">{{authorityDidUrl}}</a></span>
+        </p>
+
+    </div>
+
+    <h2 class="text-2xl font-semibold mb-2">TRQP Queries</h2>
+    <!-- Query Cards -->
+    <div class="grid gap-6 sm:grid-cols-2">
+        <div class="rounded-2xl border p-6 shadow-sm bg-white">
+            <h2 class="text-lg font-medium mb-2">Authorization Query</h2>
+            <p class="text-sm mb-3 text-gray-700">
+                Verify if an <span class="font-medium">entity</span> holds a specific
+                <span class="font-medium">assertion/role</span> under a given
+                <span class="font-medium">authority</span>.
+            </p>
+            <a href="/{{registry.id}}/authorization"
+                class="inline-block mt-2 text-blue-600 hover:underline text-sm font-medium">
+                Try /authorization →
+            </a>
+        </div>
+
+        <div class="rounded-2xl border p-6 shadow-sm bg-white">
+            <h2 class="text-lg font-medium mb-2">Recognition Query</h2>
+            <p class="text-sm mb-3 text-gray-700">
+                Check if an <span class="font-medium">entity</span> is
+                <span class="font-medium">recognized</span> by an authority for a particular role.
+            </p>
+            <a href="/{{registry.id}}/recognition"
+                class="inline-block mt-2 text-blue-600 hover:underline text-sm font-medium">
+                Try /recognition →
+            </a>
+        </div>
+
+    </div>
+</div>
