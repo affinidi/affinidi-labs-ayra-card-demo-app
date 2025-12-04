@@ -12,6 +12,20 @@ This project implements a complete digital credential infrastructure based on W3
 - **Mobile Wallet**: Flutter-based mobile app with secure credential storage
 - **Verification Scenarios**: Multiple real-world credential verification use cases
 
+## Affinidi Components
+
+This POC leverages several Affinidi components and protocols to build a complete verifiable credential ecosystem:
+
+| Component                                    | Resources                                                                                                                                                                                                                                                                                                                |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Affinidi TDK Vault**                       | [GitHub Repository](https://github.com/affinidi/affinidi-tdk), [Documentation](https://docs.affinidi.com/dev-tools/affinidi-tdk/), [pub.dev](https://pub.dev/packages/affinidi_tdk_vault), [Reference Application](https://github.com/affinidi/affinidi-tdk-vault-reference-app)                                         |
+| **Affinidi Meeting Place SDK**               | [GitHub Repository](https://github.com/affinidi/affinidi-meetingplace-sdk-dart), [Documentation](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/), [pub.dev](https://pub.dev/packages/meeting_place_core), [Reference Application](https://github.com/affinidi/affinidi-meetingplace-reference-app) |
+| **Affinidi Meeting Place Control Plane API** | [GitHub Repository](https://github.com/affinidi/affinidi-meetingplace-controlplane-api-dart), [Documentation](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/)                                                                                                                                      |
+| **DIDComm v2.1**                             | [GitHub Repository](https://github.com/affinidi/affinidi-didcomm-dart), [pub.dev](https://pub.dev/packages/didcomm), [Specification](https://identity.foundation/didcomm-messaging/spec/)                                                                                                                                |
+| **Verifiable Data Issuance Protocol (VDIP)** | [GitHub Repository](https://github.com/affinidi/affinidi-tdk/tree/main/libs/dart/didcomm/vdip), [pub.dev](https://pub.dev/packages/affinidi_tdk_vdip), [Documentation](https://github.com/affinidi/affinidi-vdxp-docs)                                                                                                   |
+| **Verifiable Data Sharing Protocol (VDSP)**  | [GitHub Repository](https://github.com/affinidi/affinidi-tdk/tree/main/libs/dart/didcomm/vdsp), [pub.dev](https://pub.dev/packages/affinidi_tdk_vdsp), [Documentation](https://github.com/affinidi/affinidi-vdxp-docs)                                                                                                   |
+| **Affinidi Trust Registry**                  | [GitHub Repository](https://github.com/affinidi/affinidi-trust-registry-rs)                                                                                                                                                                                                                                              |
+
 ### Mobile Wallet Experience
 
 <p align="center">
@@ -43,6 +57,7 @@ Before starting, ensure you have the following installed and configured:
 ### Required Accounts & Credentials
 
 - **ngrok Account** - For public domain tunneling
+
   - [Sign up for ngrok](https://dashboard.ngrok.com/signup)
   - Get your [auth token](https://dashboard.ngrok.com/get-started/your-authtoken)
   - Free tier is sufficient for development
@@ -135,16 +150,36 @@ This project consists of six interconnected components:
    └─────────────┘
 ```
 
+### Trust Triangle
+
+<p align="center">
+  <img src="./images/arc/trust-triangle.png" alt="Trust Triangle with Issuer, Verifier, Holder and Trust Registries" width="600"/>
+</p>
+
+<p align="center">
+  <em>The trust triangle showing the relationships between Issuer, Verifier, Holder, and Trust Registries</em>
+</p>
+
+### Architecture Overview
+
+<p align="center">
+  <img src="./images/arc/architecture.png" alt="High-level architecture showing components and their interactions" width="700"/>
+</p>
+
+<p align="center">
+  <em>High-level architecture diagram showing the components involved and their interactions/flows</em>
+</p>
+
 ### Component Details
 
-| Component | Technology | Port | Purpose |
-|-----------|-----------|------|---------|
-| **Domain Setup** | Node.js, ngrok | N/A | Generates public domains via tunnels |
-| **Issuer Portal** | Dart | 8080 | Issues verifiable credentials (VDIP) |
-| **Trust Registry API** | Rust | 3000 | TRQP-compliant trust registry |
-| **Trust Registry UI** | TypeScript/React | 3001 | Web interface for trust registry |
-| **Verifier Portal** | Dart | 8081 | Verifies credentials (VDSP) |
-| **Mobile App** | Flutter/Dart | N/A | Mobile wallet for credential management |
+| Component              | Technology       | Port | Purpose                                 |
+| ---------------------- | ---------------- | ---- | --------------------------------------- |
+| **Domain Setup**       | Node.js, ngrok   | N/A  | Generates public domains via tunnels    |
+| **Issuer Portal**      | Dart             | 8080 | Issues verifiable credentials (VDIP)    |
+| **Trust Registry API** | Rust             | 3232 | TRQP-compliant trust registry           |
+| **Trust Registry UI**  | TypeScript/React | 3000 | Web interface for trust registry        |
+| **Verifier Portal**    | Dart             | 8081 | Verifies credentials (VDSP)             |
+| **Mobile App**         | Flutter/Dart     | N/A  | Mobile wallet for credential management |
 
 ## 🚀 Quick Start Guide
 
@@ -173,6 +208,7 @@ chmod +x setup-ayra.sh
 ```
 
 **What the script does:**
+
 - Creates `.env` file from `.env.example` if not present
 - Prompts for required credentials (`SERVICE_DID`, `MEDIATOR_DID`, `NGROK_AUTH_TOKEN`)
 - Clones all service repositories to their respective folders
@@ -208,6 +244,7 @@ docker compose ps
 ```
 
 You should see all services in "Up" state:
+
 - `issuer-portal`
 - `verifier-portal`
 - `trust-registry-api`
@@ -282,6 +319,7 @@ If you prefer to use your own tunneling solution or have static domains:
 The Issuer Portal provides two main credential issuance workflows:
 
 1. **Employment Credential Issuance**
+
    - Organizations can issue employment credentials to their employees
    - Credentials include employee details, role, and organization information
    - Uses VDIP (Verifiable Data Issuance Protocol)
@@ -298,14 +336,17 @@ The Issuer Portal provides two main credential issuance workflows:
 The Verifier Portal implements four verification scenarios:
 
 1. **🏢 Building Access**
+
    - Verify employee credentials for building entry
    - Checks employment status and organization
 
 2. **🎯 6th Floor Session**
+
    - Secure area access for roundtable sessions
    - Validates specific credential attributes
 
 3. **🏨 Hotel Check-in**
+
    - Fast check-in with identity credentials
    - Streamlined guest verification
 
@@ -318,6 +359,7 @@ The Verifier Portal implements four verification scenarios:
 ### Mobile App Features
 
 #### 1. 🔐 Login
+
 - Organization selection
 - Email + OTP authentication (Simulated)
 
@@ -328,6 +370,7 @@ The Verifier Portal implements four verification scenarios:
 </p>
 
 #### 2. 📇 Credential Management
+
 - Receive and store credentials securely
 - View credential details
 - Manage credential lifecycle
@@ -339,6 +382,7 @@ The Verifier Portal implements four verification scenarios:
 </p>
 
 #### 3. 🎫 Ayra Card Claiming
+
 - Customize business card appearance
 - Request credential issuance
 - Share card with others
@@ -349,6 +393,7 @@ The Verifier Portal implements four verification scenarios:
 </p>
 
 #### 4. 📱 Scan & Share
+
 - Scan QR codes from verifier portals
 - Select credentials to share
 - Authorize credential presentation
@@ -362,6 +407,7 @@ The Verifier Portal implements four verification scenarios:
 </p>
 
 #### 5. 🔍 Identity Verification
+
 - Biometric authentication support
 - Secure identity verification flows
 
@@ -371,11 +417,12 @@ The Verifier Portal implements four verification scenarios:
 
 ### Trust Registry
 
-**API Access:** `http://localhost:3000` (or ngrok URL)
+**API Access:** `http://localhost:3232` (or ngrok URL)
 
-**UI Access:** `http://localhost:3001` (or ngrok URL)
+**UI Access:** `http://localhost:3000` (or ngrok URL)
 
 **Functions:**
+
 - Register trusted issuers
 - Manage credential schemas
 - Query issuer trustworthiness
@@ -387,14 +434,14 @@ The Verifier Portal implements four verification scenarios:
 
 Each component has its own setup script that:
 
-| Component | Setup Actions |
-|-----------|--------------|
-| **domain-setup** | Installs npm dependencies, starts ngrok tunnels, generates `domains.json` with public URLs |
-| **issuer-portal** | Clones repository, updates `.env` with domains and DIDs |
-| **verifier-portal** | Clones repository, configures VDSP endpoints |
-| **trust-registry-api** | Clones repository, generates `tr-data.csv` with issuer domains |
-| **trust-registry-ui** | Clones repository, updates `registries.ts` with API endpoints |
-| **mobile-app** | Clones repository, configures `.env`, updates organization endpoints, copies Firebase configs |
+| Component              | Setup Actions                                                                                 |
+| ---------------------- | --------------------------------------------------------------------------------------------- |
+| **domain-setup**       | Installs npm dependencies, starts ngrok tunnels, generates `domains.json` with public URLs    |
+| **issuer-portal**      | Clones repository, updates `.env` with domains and DIDs                                       |
+| **verifier-portal**    | Clones repository, configures VDSP endpoints                                                  |
+| **trust-registry-api** | Clones repository, generates `tr-data.csv` with issuer domains                                |
+| **trust-registry-ui**  | Clones repository, updates `registries.ts` with API endpoints                                 |
+| **mobile-app**         | Clones repository, configures `.env`, updates organization endpoints, copies Firebase configs |
 
 ### Viewing Service Logs
 
@@ -438,6 +485,7 @@ chmod +x cleanup.sh
 ```
 
 **This will remove:**
+
 - All `code` directories (cloned repositories)
 - All `data` directories (generated data)
 - Generated configuration files
@@ -456,6 +504,14 @@ Detailed documentation for each component:
 - [Trust Registry UI](./trust-registry-ui/README.md) - Web interface setup
 - [Verifier Portal](./verifier-portal/README.md) - Verification scenarios
 - [Mobile App](./mobile-app/README.md) - Flutter app configuration
+
+## Demo Video
+
+Watch the complete Ayra demo in action:
+
+[![Ayra Demo](https://img.youtube.com/vi/PwSsXNuUFR0/maxresdefault.jpg)](https://www.youtube.com/watch?v=PwSsXNuUFR0)
+
+[▶️ Watch on YouTube](https://www.youtube.com/watch?v=PwSsXNuUFR0)
 
 ## 🔒 Security Considerations
 
@@ -497,6 +553,7 @@ See [LICENSE](./LICENSE) file for details.
 ## 📞 Support
 
 For issues and questions:
+
 - Open an issue in this repository
 - Check Affinidi documentation: https://docs.affinidi.com
 - Review individual component repositories
@@ -504,6 +561,7 @@ For issues and questions:
 ## 🙏 Acknowledgments
 
 This project uses open-source implementations from:
+
 - Affinidi Trust Registry (Rust implementation)
 - Affinidi Verifiable Data Protocols
 - ngrok tunneling service
