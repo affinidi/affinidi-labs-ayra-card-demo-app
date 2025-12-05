@@ -29,10 +29,10 @@ This POC leverages several Affinidi components and protocols to build a complete
 ### Mobile Wallet Experience
 
 <p align="center">
-  <img src="./images/login.png" alt="Login" width="200"/>
-  <img src="./images/dashboard-with-ayra-card.png" alt="Dashboard" width="200"/>
-  <img src="./images/scan-share.png" alt="Scan & Share" width="200"/>
-  <img src="./images/shared-success.png" alt="Success" width="200"/>
+  <img src="./images/mobile-app/login.png" alt="Login" width="200"/>
+  <img src="./images/mobile-app/dashboard-with-ayra-card.png" alt="Dashboard" width="200"/>
+  <img src="./images/mobile-app/scan-share.png" alt="Scan & Share" width="200"/>
+  <img src="./images/mobile-app/shared-success.png" alt="Success" width="200"/>
 </p>
 
 <p align="center">
@@ -367,9 +367,9 @@ The Verifier Portal implements four verification scenarios:
 - Email + OTP authentication (Simulated)
 
 <p align="center">
-  <img src="./images/login.png" alt="Login Screen" width="250"/>
-  <img src="./images/dashboard.png" alt="Dashboard" width="250"/>
-  <img src="./images/profile.png" alt="Profile" width="250"/>
+  <img src="./images/mobile-app/login.png" alt="Login Screen" width="250"/>
+  <img src="./images/mobile-app/dashboard.png" alt="Dashboard" width="250"/>
+  <img src="./images/mobile-app/profile.png" alt="Profile" width="250"/>
 </p>
 
 #### 2. 📇 Credential Management
@@ -380,7 +380,7 @@ The Verifier Portal implements four verification scenarios:
 
 <p align="center">
 
-  <img src="./images/credentials.png" alt="Credentials" width="250"/>
+  <img src="./images/mobile-app/credentials.png" alt="Credentials" width="250"/>
 
 </p>
 
@@ -391,8 +391,8 @@ The Verifier Portal implements four verification scenarios:
 - Share card with others
 
 <p align="center">
-  <img src="./images/claim-ayra-card.png" alt="Claim Ayra Card" width="250"/>
-  <img src="./images/dashboard-with-ayra-card.png" alt="Dashboard with Ayra Card" width="250"/>
+  <img src="./images/mobile-app/claim-ayra-card.png" alt="Claim Ayra Card" width="250"/>
+  <img src="./images/mobile-app/dashboard-with-ayra-card.png" alt="Dashboard with Ayra Card" width="250"/>
 </p>
 
 #### 4. 📱 Scan & Share
@@ -402,11 +402,11 @@ The Verifier Portal implements four verification scenarios:
 - Authorize credential presentation
 
 <p align="center">
-  <img src="./images/scan-share.png" alt="Scan & Share" width="200"/>
-  <img src="./images/processing-qr-code-data.png" alt="Processing QR Code" width="200"/>
-  <img src="./images/verifier-request.png" alt="Verifier Request" width="200"/>
-  <img src="./images/verifier-credentials-request.png" alt="Credentials Request" width="200"/>
-  <img src="./images/shared-success.png" alt="Shared Successfully" width="200"/>
+  <img src="./images/mobile-app/scan-share.png" alt="Scan & Share" width="200"/>
+  <img src="./images/mobile-app/processing-qr-code-data.png" alt="Processing QR Code" width="200"/>
+  <img src="./images/mobile-app/verifier-request.png" alt="Verifier Request" width="200"/>
+  <img src="./images/mobile-app/verifier-credentials-request.png" alt="Credentials Request" width="200"/>
+  <img src="./images/mobile-app/shared-success.png" alt="Shared Successfully" width="200"/>
 </p>
 
 #### 5. 🔍 Identity Verification
@@ -415,7 +415,7 @@ The Verifier Portal implements four verification scenarios:
 - Secure identity verification flows
 
 <p align="center">
-  <img src="./images/idv.png" alt="Identity Verification" width="250"/>
+  <img src="./images/mobile-app/idv.png" alt="Identity Verification" width="250"/>
 </p>
 
 ### Trust Registry

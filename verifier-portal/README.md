@@ -149,235 +149,160 @@ docker compose logs -f verifier-portal
 
 ### Verification Scenarios
 
-The portal implements four verification scenarios:
+The portal implements four real-world verification scenarios. All scenarios accept **Ayra Business Card** credentials issued through the issuer portal. Each scenario has specific requirements and validation rules.
 
-#### 1. 🏢 Building Access
+## 🔐 Verification Protocol Flow
 
-**Use Case**: Verify employee credentials for building entry
+All verification scenarios follow the standard VDSP (Verifiable Data Sharing Protocol) flow:
 
-**Required Credentials**:
+### Step-by-Step Flow
 
-- Employment Credential
-- Must be from trusted issuer
-- Active employment status
+1. **QR Code Display**: Verifier portal generates and displays QR code containing OOB (Out-of-Band) URL
+2. **Connection Establishment**: Mobile app scans QR code and uses OOB URL to establish secure connection with verifier via DIDComm
+3. **Trigger Request**: Holder (mobile app) sends a trigger request to the verifier
+4. **VDSP Request**: Verifier responds with a VDSP presentation request containing DCQL (Data Credential Query Language) for requesting Ayra Business Card credential
+5. **Credential Selection**: Holder receives the request and selects matching Ayra Business Card credential
+6. **VP Creation**: Holder creates Verifiable Presentation (VP) with the requested credential
+7. **Data Response**: Holder sends VDSP data response containing the VP to verifier
+8. **Integrity Check**: Verifier validates the VP for cryptographic integrity and signature verification
+9. **Trust Registry Validation**: Verifier performs comprehensive checks:
+   - Is issuer(Sweetlane-bank) recognized by ecosystem (Sweetlane-group) ?
+   - Is issuer authorized to issue ayra business card under ecosystem ?
+   - Is ecosystem recognised by ayra ?
+10. **Rule Engine Validation**: Additional scenario-specific checks (see individual scenarios below)
+11. **Access Decision**: Grant or deny access based on validation results
 
-**Attributes Requested**:
+## 🎯 Scenario Configurations
 
-- Employee ID
-- Name
-- Organization
-- Employment status
+Below are the four verification scenarios with their specific configurations:
 
-**Workflow**:
+#### 1. 🏢 Building Access (Kiosk)
 
-1. Security guard opens Building Access page
-2. Portal displays QR code
-3. Employee scans with mobile app
-4. App presents employment credential
-5. Portal verifies and grants/denies access
+**Scenario ID**: `kiosk`  
+**Use Case**: Secure access control for office building entry
+
+**Configuration**:
+
+```json
+{
+  "id": "kiosk",
+  "name": "Building Access",
+  "description": "Secure access control for office building",
+  "type": "internal",
+  "purpose": "Share your credentials to get secure access to the building",
+  "permanent_did": "did:key:zDnaepSYCXiKhKJxekjMDApARBnqFPvghsLgDMJDBLFyHtvrc",
+  "oob_url": "https://b1140049-55a0-4a0b-8515-dd2bb82a237a.mpx.affinidi.io/v1/get-oob/d713f7b6-3535-4d69-a163-32802efdaca3"
+}
+```
 
 **Screenshots**:
 
 ![Building Access QR](../images/verifier/building-access.png)
-*QR code display for building access verification*
+_QR code display for building access verification_
 
 ![Building Access Success](../images/verifier/building-access-success.png)
-*Successful verification result*
+_Successful verification result_
 
-#### 2. 🎯 6th Floor Session
+#### 2. 🎯 Strategy Session (Round Table)
 
-**Use Case**: Secure area access for roundtable sessions
+**Scenario ID**: `roundtable`  
+**Use Case**: Secure access control for 6th floor strategy session area
 
-**Required Credentials**:
+**Configuration**:
 
-- Employment Credential
-- Department: Engineering or Management
-- Seniority level: Senior+
-
-**Attributes Requested**:
-
-- Name
-- Department
-- Position/Role
-- Clearance level (if applicable)
-
-
-**Workflow**:
-
-1. Session organizer generates QR code
-2. Participants scan code
-3. App selectively discloses required attributes
-4. Portal validates department and role
-5. Access granted based on criteria
+```json
+{
+  "id": "roundtable",
+  "name": "Strategy Session",
+  "description": "Secure access control for 6th floor session",
+  "type": "internal",
+  "purpose": "Share your credentials to have session in secure area",
+  "permanent_did": "did:key:zDnaejk34idcWVvzuAmm68PwZByZsmwtJtxH8Ka8yeUqXMA8b",
+  "oob_url": "https://b1140049-55a0-4a0b-8515-dd2bb82a237a.mpx.affinidi.io/v1/get-oob/a6ce91e6-a373-4c88-b9de-c0e1a38cae10"
+}
+```
 
 **Screenshots**:
 
 ![Lobby Access QR](../images/verifier/lobby-access.png)
-*QR code display for secure area access*
+_QR code display for secure area access_
 
 #### 3. 🏨 Hotel Check-in
 
-**Use Case**: Fast hotel check-in with identity credentials
+**Scenario ID**: `check-in-desk`  
+**Use Case**: Fast and secure hotel check-in with identity verification
 
-**Required Credentials**:
+**Configuration**:
 
-- Employment Credential OR ID Credential
-- Name verification
-- Organization verification (for corporate bookings)
-
-**Attributes Requested**:
-
-- Full name
-- Email
-- Organization (optional)
-- Booking reference (from app)
-
-
-**Workflow**:
-
-1. Hotel staff generates check-in QR
-2. Guest scans code
-3. App presents identity credential
-4. Portal verifies identity
-5. Check-in completed automatically
+```json
+{
+  "id": "check-in-desk",
+  "name": "Hotel Check-in",
+  "description": "Fast and secure hotel check-in",
+  "type": "external",
+  "purpose": "Share your credentials to have a smooth check-in experience",
+  "permanent_did": "did:key:zDnaehEXxK2zEBKGimA8TtUDjYoYpYhQU8gwAAWsfdKvPVdUf",
+  "oob_url": "https://b1140049-55a0-4a0b-8515-dd2bb82a237a.mpx.affinidi.io/v1/get-oob/77d5617c-99b4-471a-af71-26b8d3665a80"
+}
+```
 
 **Screenshots**:
 
 ![Hotel Access QR](../images/verifier/hotel-access.png)
-*QR code display for hotel check-in*
+_QR code display for hotel check-in_
 
 ![Hotel Check-in Success](../images/verifier/hotel-checking-success.png)
-*Successful check-in verification*
+_Successful check-in verification_
 
 #### 4. ☕ Coffee Shop Discount
 
-**Use Case**: Exclusive discounts with Ayra business card
+**Scenario ID**: `coffeeshop`  
+**Use Case**: Exclusive offers and rewards for Ayra Business Card holders
 
-**Required Credentials**:
+**Configuration**:
 
-- Ayra Business Card
-- Valid card status
-
-**Attributes Requested**:
-
-- Name
-- Organization
-- Card validity
-
-
-**Workflow**:
-
-1. Barista displays discount QR code
-2. Customer scans with Ayra card
-3. App presents business card credential
-4. Portal validates card
-5. Discount applied to purchase
+```json
+{
+  "id": "coffeeshop",
+  "name": "Coffee Shop",
+  "description": "Exclusive offers and rewards",
+  "type": "external",
+  "purpose": "Share your credentials to get exclusive offers/rewards",
+  "permanent_did": "did:key:zDnaemjDtrFMhF28BvDaWLJJVs5SihgJxeAs5aQizmRw9e4tY",
+  "oob_url": "https://b1140049-55a0-4a0b-8515-dd2bb82a237a.mpx.affinidi.io/v1/get-oob/24310fdc-294a-483b-b256-99c4928f4b17"
+}
+```
 
 **Screenshots**:
 
 ![Coffee Shop QR](../images/verifier/coffee-shop.png)
-*QR code display for coffee shop discount*
+_QR code display for coffee shop discount_
 
 ![Coffee Shop Success](../images/verifier/coffee-shop-success.png)
-*Successful discount verification*
+_Successful discount verification_
+
+---
 
 ## 🔑 Key Features
 
 ### 1. VDSP Protocol Implementation
 
-Implements Verifiable Data Sharing Protocol:
+The verifier portal implements the Verifiable Data Sharing Protocol (VDSP) with DIDComm messaging and DCQL (Data Credential Query Language) for requesting credentials.
 
-**Presentation Request**:
+#### Connection Flow via OOB URL
 
-```json
-{
-  "type": "presentation-request",
-  "id": "req-12345",
-  "verifier": "did:web:def456.ngrok-free.app",
-  "challenge": "random-challenge-string",
-  "credentials": [
-    {
-      "type": "EmployeeCredential",
-      "issuer": "did:web:abc123.ngrok-free.app:sweetlane-bank",
-      "constraints": {
-        "fields": [
-          {
-            "path": ["$.credentialSubject.employeeId"],
-            "purpose": "Verify employment status"
-          },
-          {
-            "path": ["$.credentialSubject.name"],
-            "purpose": "Identity verification"
-          }
-        ]
-      }
-    }
-  ]
-}
-```
-
-**Presentation Submission** (from holder):
-
-```json
-{
-  "type": "presentation-submission",
-  "presentation": {
-    "@context": [...],
-    "type": "VerifiablePresentation",
-    "holder": "did:key:z6Mk...",
-    "verifiableCredential": [{
-      // Verifiable Credential with requested attributes
-    }],
-    "proof": {
-      // Cryptographic proof
-    }
-  }
-}
-```
-
-### 2. Dynamic QR Code Generation
-
-Each scenario generates unique QR codes containing:
-
-- Presentation request details
-- Challenge for replay protection
-- Verifier DID
-- Callback endpoint
-- Expiry timestamp
-
-### 3. Trust Registry Validation
-
-Before accepting credentials:
-
-1. Query Trust Registry API
-2. Verify issuer is trusted
-3. Check credential type is registered
-4. Validate governance framework
-5. Confirm issuer status is active
-
-### 4. Selective Disclosure
-
-Request only necessary attributes:
-
-- Minimize data exposure
-- Privacy-preserving verification
-- Attribute-level authorization
-- Zero-knowledge proofs (where supported)
-
-### 5. Real-time Verification
-
-- WebSocket for instant results
-- Mobile app callback
-- Status updates
-- Verification history
+1. **QR Code Generation**: Portal generates QR code containing OOB (Out-of-Band) invitation URL using Meeting place SDK
+2. **Scanning**: Mobile app scans QR code and extracts OOB URL
+3. **Connection Establishment**: App uses OOB URL to establish secure DIDComm connection with verifier
+4. **Handshake**: DIDComm connection handshake completed, both parties exchange DIDs
 
 **Verification Results**:
 
 ![Verified Details](../images/verifier/verified-details.png)
-*Detailed view of verified credential attributes*
+_Detailed view of verified credential attributes_
 
 ![Verified Payload](../images/verifier/verified-payload.png)
-*Complete verification payload and response*
+_Complete verification payload and response_
 
 ## 🛠️ Development
 
@@ -393,211 +318,6 @@ dart pub get
 dart run bin/server.dart
 ```
 
-### Adding Custom Scenarios
-
-Create new scenario in `code/lib/scenarios/`:
-
-```dart
-// custom_scenario.dart
-class CustomScenario {
-  String get scenarioId => 'custom-scenario';
-
-  String get name => 'Custom Verification';
-
-  String get description => 'Custom verification scenario';
-
-  PresentationRequest createRequest() {
-    return PresentationRequest(
-      id: generateId(),
-      verifier: verifierDid,
-      credentials: [
-        CredentialRequest(
-          type: 'CustomCredential',
-          constraints: FieldConstraints(
-            fields: [
-              Field(path: ['$.credentialSubject.customField'])
-            ]
-          )
-        )
-      ]
-    );
-  }
-
-  Future<VerificationResult> verify(VerifiablePresentation presentation) {
-    // Custom verification logic
-  }
-}
-```
-
-Register in `code/lib/scenarios/registry.dart`:
-
-```dart
-final scenarios = [
-  BuildingAccessScenario(),
-  SessionAccessScenario(),
-  HotelCheckinScenario(),
-  CoffeeDiscountScenario(),
-  CustomScenario(), // Add your scenario
-];
-```
-
-### Testing
-
-```bash
-# Run tests
-dart test
-
-# Test specific scenario
-dart test test/scenarios/building_access_test.dart
-
-# Run with coverage
-dart test --coverage=coverage
-
-# Format code
-dart format .
-```
-
-## 📡 API Endpoints
-
-### Scenario Management
-
-```bash
-# List all scenarios
-GET /scenarios
-
-# Get specific scenario
-GET /scenarios/:scenario_id
-
-# Generate QR code
-GET /scenarios/:scenario_id/qr
-```
-
-### Verification Flow
-
-```bash
-# Create presentation request
-POST /verify/request
-
-# Submit presentation
-POST /verify/submit
-
-# Check verification status
-GET /verify/status/:request_id
-
-# Get verification result
-GET /verify/result/:request_id
-```
-
-### Health & Status
-
-```bash
-# Health check
-GET /health
-
-# Service status
-GET /status
-```
-
-## 📊 Monitoring
-
-### Verification Metrics
-
-Track key metrics:
-
-- Total verification requests
-- Success/failure rate
-- Average verification time
-- Scenario usage breakdown
-
-### Logs
-
-```bash
-# Real-time logs
-docker compose logs -f verifier-portal
-
-# Filter by scenario
-docker compose logs verifier-portal | grep "building-access"
-
-# Check verification results
-docker compose logs verifier-portal | grep "verification:success"
-```
-
-### Debugging
-
-```bash
-# Enable debug logging
-# In code/.env:
-LOG_LEVEL=debug
-
-# Restart service
-docker compose restart verifier-portal
-```
-
-## 🔒 Security Features
-
-### Challenge-Response
-
-Each verification uses unique challenge:
-
-- Prevents replay attacks
-- Time-limited validity
-- Cryptographically secure random generation
-
-### Signature Verification
-
-All credentials are verified:
-
-- Issuer signature validation
-- Holder signature validation
-- Presentation proof verification
-- DID resolution for public keys
-
-### Trust Validation
-
-Before accepting credentials:
-
-- Query Trust Registry
-- Verify issuer trust status
-- Check credential type authorization
-- Validate governance framework compliance
-
-### Privacy Protection
-
-- Request minimum necessary attributes
-- Support for selective disclosure
-- Zero-knowledge proofs (where applicable)
-- No unnecessary data retention
-
-## 🔄 Integration Points
-
-### Mobile App Integration
-
-Mobile app interacts with verifier:
-
-1. Scans QR code with presentation request
-2. Selects matching credentials
-3. Creates verifiable presentation
-4. Submits to verifier endpoint
-5. Receives verification result
-
-### Trust Registry Integration
-
-Verifier queries registry:
-
-- Validate issuer trustworthiness
-- Check credential schema registration
-- Verify governance compliance
-- Monitor issuer status
-
-### DIDComm Integration
-
-Optional DIDComm messaging:
-
-- Asynchronous verification results
-- Status notifications
-- Error handling
-- Receipt confirmation
-
 ## 📚 Related Documentation
 
 - [Main Setup Guide](../README.md)
@@ -606,49 +326,5 @@ Optional DIDComm messaging:
 - [Mobile App](../mobile-app/README.md)
 - [VDSP Protocol](https://github.com/affinidi/affinidi-vdxp-docs)
 - [W3C Verifiable Presentations](https://www.w3.org/TR/vc-data-model/#presentations)
-
-## 🚀 Advanced Features
-
-### Custom Verification Rules
-
-Implement custom business logic:
-
-```dart
-class CustomRule extends VerificationRule {
-  @override
-  Future<bool> validate(VerifiableCredential credential) async {
-    // Custom validation logic
-    final subject = credential.credentialSubject;
-    return subject['customField'] == 'expected_value';
-  }
-}
-```
-
-### Webhook Notifications
-
-Send verification results to external systems:
-
-```dart
-// Configure webhook
-WEBHOOK_URL=https://your-system.com/webhook
-
-// Automatically posts verification results
-```
-
-### Multi-Credential Verification
-
-Request multiple credentials in single flow:
-
-```json
-{
-  "credentials": [
-    { "type": "EmployeeCredential" },
-    { "type": "BackgroundCheckCredential" }
-  ],
-  "operator": "AND"
-}
-```
-
----
 
 **Note:** Keep ngrok tunnels running for QR codes and verification endpoints to be accessible!
