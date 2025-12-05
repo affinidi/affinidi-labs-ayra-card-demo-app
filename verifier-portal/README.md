@@ -12,6 +12,14 @@ This service acts as the verification endpoint in the Ayra ecosystem, enabling:
 - **Trust Registry Integration**: Validates issuer trustworthiness
 - **Selective Disclosure**: Request only necessary credential attributes
 
+### Landing Page
+
+![Verifier Portal Landing](../images/verifier/landing-page.png)
+
+### Home Dashboard
+
+![Verifier Portal Home](../images/verifier/home.png)
+
 ## 🏗️ Architecture
 
 ```
@@ -160,12 +168,6 @@ The portal implements four verification scenarios:
 - Organization
 - Employment status
 
-**QR Code Endpoint**:
-
-```
-GET /scenarios/building-access/qr
-```
-
 **Workflow**:
 
 1. Security guard opens Building Access page
@@ -173,6 +175,14 @@ GET /scenarios/building-access/qr
 3. Employee scans with mobile app
 4. App presents employment credential
 5. Portal verifies and grants/denies access
+
+**Screenshots**:
+
+![Building Access QR](../images/verifier/building-access.png)
+*QR code display for building access verification*
+
+![Building Access Success](../images/verifier/building-access-success.png)
+*Successful verification result*
 
 #### 2. 🎯 6th Floor Session
 
@@ -191,11 +201,6 @@ GET /scenarios/building-access/qr
 - Position/Role
 - Clearance level (if applicable)
 
-**QR Code Endpoint**:
-
-```
-GET /scenarios/session-access/qr
-```
 
 **Workflow**:
 
@@ -204,6 +209,11 @@ GET /scenarios/session-access/qr
 3. App selectively discloses required attributes
 4. Portal validates department and role
 5. Access granted based on criteria
+
+**Screenshots**:
+
+![Lobby Access QR](../images/verifier/lobby-access.png)
+*QR code display for secure area access*
 
 #### 3. 🏨 Hotel Check-in
 
@@ -222,11 +232,6 @@ GET /scenarios/session-access/qr
 - Organization (optional)
 - Booking reference (from app)
 
-**QR Code Endpoint**:
-
-```
-GET /scenarios/hotel-checkin/qr
-```
 
 **Workflow**:
 
@@ -235,6 +240,14 @@ GET /scenarios/hotel-checkin/qr
 3. App presents identity credential
 4. Portal verifies identity
 5. Check-in completed automatically
+
+**Screenshots**:
+
+![Hotel Access QR](../images/verifier/hotel-access.png)
+*QR code display for hotel check-in*
+
+![Hotel Check-in Success](../images/verifier/hotel-checking-success.png)
+*Successful check-in verification*
 
 #### 4. ☕ Coffee Shop Discount
 
@@ -251,11 +264,6 @@ GET /scenarios/hotel-checkin/qr
 - Organization
 - Card validity
 
-**QR Code Endpoint**:
-
-```
-GET /scenarios/coffee-discount/qr
-```
 
 **Workflow**:
 
@@ -264,6 +272,14 @@ GET /scenarios/coffee-discount/qr
 3. App presents business card credential
 4. Portal validates card
 5. Discount applied to purchase
+
+**Screenshots**:
+
+![Coffee Shop QR](../images/verifier/coffee-shop.png)
+*QR code display for coffee shop discount*
+
+![Coffee Shop Success](../images/verifier/coffee-shop-success.png)
+*Successful discount verification*
 
 ## 🔑 Key Features
 
@@ -354,6 +370,14 @@ Request only necessary attributes:
 - Mobile app callback
 - Status updates
 - Verification history
+
+**Verification Results**:
+
+![Verified Details](../images/verifier/verified-details.png)
+*Detailed view of verified credential attributes*
+
+![Verified Payload](../images/verifier/verified-payload.png)
+*Complete verification payload and response*
 
 ## 🛠️ Development
 
