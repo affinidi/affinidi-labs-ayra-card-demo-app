@@ -1,6 +1,12 @@
-# Ayra E2E Setup - Complete Digital Credential Ecosystem
+# Ayra Card Demonstration, Powered by Affinidi Trust Infrastructure
+ 
+This repository showcases the Ayra Card, a digital credential idea developed and overseen by the Ayra Forum. The Ayra Forum is a non-profit, multi-stakeholder foundation dedicated to tackling the challenges of secure data exchange and digital identity.
+ 
+Affinidi is a strategic member of the Ayra Foundation, offering Affinidi Trust Infrastructure (ATI), which includes a collection of open-source features that help developers quickly and easily realise complex concepts, such as the Ayra Card.
+ 
+This repository provides a practical demonstration of how Ayra Cards can be received, stored, and presented across various systems. The applications are made up of composable components—modular building blocks that developers can expand or adapt. This repository provides automated setup and orchestration of all required services using Docker containers, enabling a complete end-to-end experience in a few minutes. With Affinidi Trust Infrastructure, complexity is minimised and innovation speeds up: you can create new trust networks in just days, not months.
 
-A comprehensive, production-ready demonstration environment for the Ayra digital credential ecosystem. This repository provides automated setup and orchestration of all required services using Docker containers, enabling a complete end-to-end verifiable credential issuance and verification experience.
+
 
 ## 🎯 Overview
 
