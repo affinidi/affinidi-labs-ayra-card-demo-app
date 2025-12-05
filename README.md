@@ -1,8 +1,8 @@
 # Ayra Card Demonstration, Powered by Affinidi Trust Infrastructure
  
-This repository showcases the Ayra Card, a digital credential idea developed and overseen by the Ayra Forum. The Ayra Forum is a non-profit, multi-stakeholder foundation dedicated to tackling the challenges of secure data exchange and digital identity.
+This repository showcases [the Ayra Card](https://docs.ayra.forum/ayra-cards), a digital credential idea developed and overseen by [the Ayra Association](https://ayra.forum/about/). The Ayra Association is a Swiss non-profit, multi-stakeholder foundation that acts as the governing body for the Ayra Trust Network dedicated to growth of safe, secure, interoperable, and sustainable digital trust ecosystems that connect and enrich our world.
  
-Affinidi is a strategic member of the Ayra Foundation, offering Affinidi Trust Infrastructure (ATI), which includes a collection of open-source features that help developers quickly and easily realise complex concepts, such as the Ayra Card.
+Affinidi is [a strategic member of the Ayra Association](https://ayra.forum/members/), offering Affinidi Trust Infrastructure (ATI), which includes a collection of open-source features that help developers quickly and easily realise complex concepts, such as the Ayra Card.
  
 This repository provides a practical demonstration of how Ayra Cards can be received, stored, and presented across various systems. The applications are made up of composable components—modular building blocks that developers can expand or adapt. This repository provides automated setup and orchestration of all required services using Docker containers, enabling a complete end-to-end experience in a few minutes. With Affinidi Trust Infrastructure, complexity is minimised and innovation speeds up: you can create new trust networks in just days, not months.
 
