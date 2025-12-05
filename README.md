@@ -1,6 +1,11 @@
-# Ayra E2E Setup - Complete Digital Credential Ecosystem
+# Ayra Card Demonstration, Powered by Affinidi Trust Infrastructure
+ 
+This repository showcases [the Ayra Card](https://docs.ayra.forum/ayra-cards), a digital credential idea developed and overseen by [the Ayra Association](https://ayra.forum/about/). The Ayra Association is a Swiss non-profit, multi-stakeholder foundation that acts as the governing body for the Ayra Trust Network dedicated to growth of safe, secure, interoperable, and sustainable digital trust ecosystems that connect and enrich our world.
+ 
+This repository provides a practical demonstration of how Ayra Card can be received, stored, and presented across various systems. The applications are made up of composable components—modular building blocks that developers can expand or adapt. This repository provides automated setup and orchestration of all required services using Docker containers, enabling a complete end-to-end experience in a few minutes. With Affinidi Trust Infrastructure, complexity is minimised and innovation speeds up: you can create new trust networks in just days, not months.
 
-A comprehensive, production-ready demonstration environment for the Ayra digital credential ecosystem. This repository provides automated setup and orchestration of all required services using Docker containers, enabling a complete end-to-end verifiable credential issuance and verification experience.
+Affinidi is [a strategic member of the Ayra Association](https://ayra.forum/members/), offering Affinidi Trust Infrastructure (ATI), which includes a collection of open-source features that help developers quickly and easily realise complex concepts, such as the Ayra Card.
+
 
 ## 🎯 Overview
 
@@ -14,7 +19,7 @@ This project implements a complete digital credential infrastructure based on W3
 
 ## Affinidi Components
 
-This POC leverages several Affinidi components and protocols to build a complete verifiable credential ecosystem:
+This application leverages several Affinidi Open Source components and Open protocols to build a complete verifiable credential ecosystem:
 
 | Component                                    | Resources                                                                                                                                                                                                                                                                                                                |
 | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -24,7 +29,7 @@ This POC leverages several Affinidi components and protocols to build a complete
 | **DIDComm v2.1**                             | [GitHub Repository](https://github.com/affinidi/affinidi-didcomm-dart), [pub.dev](https://pub.dev/packages/didcomm), [Specification](https://identity.foundation/didcomm-messaging/spec/)                                                                                                                                |
 | **Verifiable Data Issuance Protocol (VDIP)** | [GitHub Repository](https://github.com/affinidi/affinidi-tdk/tree/main/libs/dart/didcomm/vdip), [pub.dev](https://pub.dev/packages/affinidi_tdk_vdip), [Documentation](https://github.com/affinidi/affinidi-vdxp-docs)                                                                                                   |
 | **Verifiable Data Sharing Protocol (VDSP)**  | [GitHub Repository](https://github.com/affinidi/affinidi-tdk/tree/main/libs/dart/didcomm/vdsp), [pub.dev](https://pub.dev/packages/affinidi_tdk_vdsp), [Documentation](https://github.com/affinidi/affinidi-vdxp-docs)                                                                                                   |
-| **Affinidi Trust Registry**                  | [GitHub Repository](https://github.com/affinidi/affinidi-trust-registry-rs)                                                                                                                                                                                                                                              |
+| **Affinidi Trust Registry**                  | [GitHub Repository](https://github.com/affinidi/affinidi-trust-registry-rs), [Documentation](https://docs.affinidi.com/open-source-community/affinidi-trust-registry/)                                                                                                                                                                                                                                              |
 
 ### Mobile Wallet Experience
 
@@ -85,7 +90,7 @@ A Dart-based server that:
 
 - Generates DID:web identifiers for organizations
 - Issues employment credentials
-- Issues Ayra business card credentials using [VDIP protocol](https://github.com/affinidi/affinidi-vdxp-docs)
+- Issues Ayra business card credentials using [VDIP protocol](https://github.com/affinidi/affinidi-vdxp-docs) built on the DIDComm v2.1 protocol
 
 ### 3. Trust Registry API
 
@@ -97,7 +102,7 @@ Web-based interface for testing and interacting with Trust Registry APIs.
 
 ### 5. Verifier Portal
 
-A Dart server implementing the [VDSP protocol](https://github.com/affinidi/affinidi-vdxp-docs) with multiple verification scenarios:
+A Dart server implementing the [VDSP protocol](https://github.com/affinidi/affinidi-vdxp-docs) built on the DIDComm v2.1 protocol with multiple verification scenarios:
 
 - **Building Access** - Verify credentials for building entry
 - **6th Floor Session** - Secure area access for roundtable sessions
