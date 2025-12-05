@@ -90,7 +90,7 @@ A Dart-based server that:
 
 - Generates DID:web identifiers for organizations
 - Issues employment credentials
-- Issues Ayra business card credentials using [VDIP protocol](https://github.com/affinidi/affinidi-vdxp-docs)
+- Issues Ayra business card credentials using [VDIP protocol](https://github.com/affinidi/affinidi-vdxp-docs) built on the DIDComm v2.1 protocol
 
 ### 3. Trust Registry API
 
@@ -102,7 +102,7 @@ Web-based interface for testing and interacting with Trust Registry APIs.
 
 ### 5. Verifier Portal
 
-A Dart server implementing the [VDSP protocol](https://github.com/affinidi/affinidi-vdxp-docs) with multiple verification scenarios:
+A Dart server implementing the [VDSP protocol](https://github.com/affinidi/affinidi-vdxp-docs) built on the DIDComm v2.1 protocol with multiple verification scenarios:
 
 - **Building Access** - Verify credentials for building entry
 - **6th Floor Session** - Secure area access for roundtable sessions
