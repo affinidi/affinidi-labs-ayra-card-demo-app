@@ -17,8 +17,25 @@ TRUST_REGISTRY_API_REPO_URL="${TRUST_REGISTRY_API_REPO_URL:-https://github.com/a
 if [ ! -d "code" ]; then
     echo "📦 Cloning Affinidi Trust Registry API from repository..."
     git clone "$TRUST_REGISTRY_API_REPO_URL" ./code
+    
+    # Checkout specific commit/tag/branch if specified
+    if [ ! -z "$TRUST_REGISTRY_API_COMMIT" ]; then
+        echo "📌 Checking out commit/tag: $TRUST_REGISTRY_API_COMMIT"
+        cd ./code
+        git checkout "$TRUST_REGISTRY_API_COMMIT"
+        cd ..
+    fi
 else
     echo "✓ Repository already cloned"
+    
+    # Update to specific commit if specified
+    if [ ! -z "$TRUST_REGISTRY_API_COMMIT" ]; then
+        echo "📌 Updating to commit/tag: $TRUST_REGISTRY_API_COMMIT"
+        cd ./code
+        git fetch origin
+        git checkout "$TRUST_REGISTRY_API_COMMIT"
+        cd ..
+    fi
 fi
 
 # Update tr-data.csv with issuer domains

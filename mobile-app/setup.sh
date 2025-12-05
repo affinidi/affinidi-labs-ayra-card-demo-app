@@ -72,19 +72,28 @@ fi
 echo "✅ Mobile App environment configuration completed!"
 echo "📍 Configuration file created at: $TARGET_ENV_FILE"
 
-# Replace localhost%3A8080 with the issuer domain from .env in organizations.dart
+# Copy organizations.dart template and replace localhost%3A8080 with the issuer domain
 if [ ! -z "$ISSUER_DIDWEB_DOMAIN" ]; then
-    echo "🔧 Updating organizations.dart with issuer domains..."
+    echo "🔧 Setting up organizations.dart with issuer domains..."
+
+    # Copy template from configs to code directory
+    TEMPLATE_ORG_FILE="./configs/organizations.dart"
+    TARGET_ORG_FILE="./code/lib/infrastructure/repositories/organizations_repository/organizations.dart"
+    
+    if [ -f "$TEMPLATE_ORG_FILE" ]; then
+        cp "$TEMPLATE_ORG_FILE" "$TARGET_ORG_FILE"
+        echo "✓ Copied organizations.dart template"
+    else
+        echo "⚠️  Template organizations.dart not found at $TEMPLATE_ORG_FILE"
+    fi
 
     # Extract just the domain part (e.g., "abc123.ngrok-free.app" from "abc123.ngrok-free.app/sweetlane-bank")
     ISSUER_DOMAIN_BASE=$(echo "$ISSUER_DIDWEB_DOMAIN" | cut -d'/' -f1)
     # URL encode the colon (: becomes %3A)
     ISSUER_DOMAIN_ENCODED=$(echo "$ISSUER_DOMAIN_BASE" | sed 's/:/%3A/g')
 
-    # Replace the default domain
-    sed -i '' "s|issuers.sa.affinidi.io|$ISSUER_DOMAIN_ENCODED|g" ./code/lib/infrastructure/repositories/organizations_repository/organizations.dart
-    # Replace any existing ngrok domains
-    sed -i '' "s|[a-zA-Z0-9-]*\.ngrok-free\.app|$ISSUER_DOMAIN_ENCODED|g" ./code/lib/infrastructure/repositories/organizations_repository/organizations.dart
+    # Replace localhost%3A8080 with the actual domain
+    sed -i '' "s|localhost%3A8080|$ISSUER_DOMAIN_ENCODED|g" "$TARGET_ORG_FILE"
     echo "✅ Updated organizations.dart with domain: $ISSUER_DOMAIN_ENCODED"
 fi
 

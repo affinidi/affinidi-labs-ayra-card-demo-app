@@ -35,8 +35,13 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 echo "Cleaning generated data directories..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 cleanup_directory "trust-registry-ui/data" "Trust Registry UI data"
+cp "trust-registry-ui/registries.ts" "trust-registry-ui/code/src/data/registries.ts"
+
 cleanup_directory "verifier-portal/data" "Verifier Portal data"
 cleanup_directory "issuer-portal/data" "Issuer Portal data"
+
+
+cp "mobile-app/configs/organizations.dart" "mobile-app/code/lib/infrastructure/repositories/organizations_repository/organizations.dart"
 
 # echo ""
 # echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

@@ -4,7 +4,7 @@ export const registries = {
     'sweetlane-group': {
         id: "sweetlane-group",
         name: "Sweetlane Group Inc",
-        did: "did:web:a20fa1b24def.ngrok-free.app:sweetlane-group",
+        did: "did:web:localhost%3A8080:sweetlane-group",
         theme: {
             headerBg: "bg-blue-700",
             headerText: "text-white",
@@ -13,9 +13,9 @@ export const registries = {
             linkHover: "hover:text-blue-300"
         },
         entites: [
-            "did:web:a20fa1b24def.ngrok-free.app:sweetlane-bank",
-            "did:web:a20fa1b24def.ngrok-free.app:sweetlane-retail",
-            "did:web:a20fa1b24def.ngrok-free.app:sweetlane-green",
+            "did:web:localhost%3A8080:sweetlane-bank",
+            "did:web:localhost%3A8080:sweetlane-retail",
+            "did:web:localhost%3A8080:sweetlane-green",
             "did:key:zDnaejk34idcWVvzuAmm68PwZByZsmwtJtxH8Ka8yeUqXMA8b",
         ],
         recognition: {
@@ -30,7 +30,7 @@ export const registries = {
     'ayra-forum': {
         id: "ayra-forum",
         name: "Ayra Trust Network",
-        did: "did:web:a20fa1b24def.ngrok-free.app:ayra-forum",
+        did: "did:web:localhost%3A8080:ayra-forum",
         theme: {
             headerBg: "bg-emerald-700",
             headerText: "text-white",
@@ -39,9 +39,9 @@ export const registries = {
             linkHover: "hover:text-emerald-200"
         },
         entites: [
-            "did:web:a20fa1b24def.ngrok-free.app:sweetlane-group",
-            "did:web:a20fa1b24def.ngrok-free.app:xyz-group",
-            "did:web:a20fa1b24def.ngrok-free.app:abc-corp"
+            "did:web:localhost%3A8080:sweetlane-group",
+            "did:web:localhost%3A8080:xyz-group",
+            "did:web:localhost%3A8080:abc-corp"
         ],
         recognition: {
             actions: ["recognize"],

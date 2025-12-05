@@ -163,14 +163,19 @@ class MpxClient {
         prettyPrint('Issuer received Feature Query Message', object: message);
       },
       onRequestToIssueCredential:
-          ({required message, holderDidFromAssertion, isAssertionValid}) async {
+          ({
+            required message,
+            holderDidFromAssertion,
+            assertionValidationResult,
+            challenge,
+          }) async {
             try {
               prettyPrint(
                 'Issuer received Request to Issue Credential Message',
                 //object: message,
               );
 
-              if (isAssertionValid != true) {
+              if (assertionValidationResult?.isValid != true) {
                 await _sendProblemReport(
                   sdk,
                   message,
