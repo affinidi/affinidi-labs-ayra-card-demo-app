@@ -4,25 +4,25 @@
         "https://schema.affinidi.io/TPassportDataV1R1.jsonld"
     ],
     "issuer": {
-        "id": "did:web:marmot-suited-muskrat.ngrok-free.app:sweetlane-bank"
+        "id": "did:web:issuers.sa.affinidi.io:sweetlane-bank"
     },
     "type": [
         "VerifiableCredential",
         "VerifiedIdentityDocument"
     ],
-    "id": "claimid:a98ff931-c350-4470-ab7a-56a3311574a9",
+    "id": "claimid:3c89861f-5d50-431f-80e6-5d44fd9018f2",
     "credentialSchema": {
         "id": "https://schema.affinidi.io/TPassportDataV1R1.json",
         "type": "JsonSchemaValidator2018"
     },
-    "validFrom": "2025-10-29T10:06:05.417075Z",
-    "validUntil": "2026-10-29T10:06:05.417079Z",
+    "validFrom": "2025-11-23T09:19:26.765140Z",
+    "validUntil": "2026-11-23T09:19:26.765141Z",
     "credentialSubject": {
-        "id": "did:key:zDnaezUzJvimJzwJVcqwrobZPwSGNxBszcqZdQe72zzjuhZMr",
+        "id": "did:key:zQ3shsew5aobruVWDrQsuH1BK7tjLgHRTQmPP7hZ3D9hbspCH",
         "verification": {
             "document": {
-                "passportNumber": "P9439",
-                "docType": "PASSPORT",
+                "passportNumber": "P1694",
+                "docType": "Passport",
                 "country": "IN",
                 "state": null,
                 "issuanceDate": "2024-06-04",
@@ -30,8 +30,8 @@
             },
             "person": {
                 "firstName": "Paramesh",
-                "lastName": "Kamarthi",
-                "dateOfBirth": "1916-05-15",
+                "lastName": "K",
+                "dateOfBirth": "1985-02-15",
                 "gender": "M",
                 "nationality": "IN",
                 "yearOfBirth": null,
@@ -41,9 +41,9 @@
     },
     "proof": {
         "type": "EcdsaSecp256k1Signature2019",
-        "created": "2025-10-29T15:36:05.417287",
-        "verificationMethod": "did:web:marmot-suited-muskrat.ngrok-free.app:sweetlane-bank#key-1",
+        "created": "2025-11-23T09:19:26.765172",
+        "verificationMethod": "did:web:issuers.sa.affinidi.io:sweetlane-bank#key-1",
         "proofPurpose": "assertionMethod",
-        "jws": "eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..3KyxOtOMbJ--2Kvp9ocPYXRv38mhNSQSLknMpHhiSmkyJlAekm-5nAjlofBmsh19jirfnisn0EfYWHv8o3VFPg"
+        "jws": "eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..ZhmJK8b3nNI2Laba1_DlfJv068i6Ak-ytJw4cBKbbIJMpwoZXTM2lG53k0ZKuSWLlCgMHaB4btRcbFidjFv-PQ"
     }
 }

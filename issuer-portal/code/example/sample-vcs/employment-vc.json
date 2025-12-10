@@ -4,33 +4,33 @@
         "https://schema.affinidi.io/EmploymentV1R0.jsonld"
     ],
     "issuer": {
-        "id": "did:web:marmot-suited-muskrat.ngrok-free.app:sweetlane-bank"
+        "id": "did:web:issuers.sa.affinidi.io:sweetlane-bank"
     },
     "type": [
         "VerifiableCredential",
         "Employment"
     ],
-    "id": "claimid:2cdba0c1-a8f2-4066-8d8a-72f0d0f35ce0",
+    "id": "claimid:5269ee5b-eb00-4c26-a7b3-7f527711284e",
     "credentialSchema": {
         "id": "https://schema.affinidi.io/EmploymentV1R0.json",
         "type": "JsonSchemaValidator2018"
     },
-    "validFrom": "2025-10-14T10:52:19.696758Z",
-    "validUntil": "2026-10-14T10:52:19.696761Z",
+    "validFrom": "2025-11-23T09:19:14.366461Z",
+    "validUntil": "2026-11-23T09:19:14.366461Z",
     "credentialSubject": {
-        "id": "did:key:zDnaeuR68WBcLPwVBQ33TDTEbBzKB8tKJcFpDsu6RNFPpwmEW",
+        "id": "did:key:zQ3shsew5aobruVWDrQsuH1BK7tjLgHRTQmPP7hZ3D9hbspCH",
         "recipient": {
             "type": "PersonName",
             "givenName": "Paramesh",
-            "familyName": "Kamarthi"
+            "familyName": "K"
         },
-        "role": "Solutions Architect",
-        "description": "Solutions Architect Lead",
+        "role": "Advisor",
+        "description": "Your role is Advisor",
         "place": "Bangalore",
         "legalEmployer": {
             "type": "Organization",
             "name": "Sweetlane Bank",
-            "identifier": "did:web:marmot-suited-muskrat.ngrok-free.app:sweetlane-bank",
+            "identifier": "did:web:issuers.sa.affinidi.io:sweetlane-bank",
             "place": "Bangalore"
         },
         "employmentType": "permanent",
@@ -38,9 +38,9 @@
     },
     "proof": {
         "type": "EcdsaSecp256k1Signature2019",
-        "created": "2025-10-14T16:22:19.696891",
-        "verificationMethod": "did:web:marmot-suited-muskrat.ngrok-free.app:sweetlane-bank#key-1",
+        "created": "2025-11-23T09:19:14.366491",
+        "verificationMethod": "did:web:issuers.sa.affinidi.io:sweetlane-bank#key-1",
         "proofPurpose": "assertionMethod",
-        "jws": "eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..QqFrXiEWZ6n1zLV0QbRpg98yVgkonNvkM3r13ml2wzwG7wsvoOVyXiIDCrkxWYbvK4xt5PEJCFulR11t-svGqw"
+        "jws": "eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..HM7GgFEnqQPvzkQEp2BWFndQD_1wAUdmFyjK-ng1D9M9iYpL4IQF0YHk38-YVw7yFhT74yeXdrgHHE7jHcNuCg"
     }
 }

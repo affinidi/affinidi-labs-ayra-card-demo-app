@@ -4,23 +4,29 @@
         "https://schema.affinidi.io/AyraBusinessCardV1R2.jsonld"
     ],
     "issuer": {
-        "id": "did:web:marmot-suited-muskrat.ngrok-free.app:sweetlane-bank"
+        "id": "did:web:issuers.sa.affinidi.io:sweetlane-bank"
     },
     "type": [
         "VerifiableCredential",
         "AyraBusinessCard"
     ],
-    "id": "claimid:c8a33286-345d-4714-a566-c97474a0f020",
+    "id": "claimid:2d3bd6b3-ca36-424c-9dfe-3fb2b48142df",
     "credentialSchema": {
         "id": "https://schema.affinidi.io/AyraBusinessCardV1R2.json",
         "type": "JsonSchemaValidator2018"
     },
-    "validFrom": "2025-11-04T05:36:33.389875Z",
-    "validUntil": "2026-11-04T05:36:33.389877Z",
+    "validFrom": "2025-11-23T09:19:49.665020Z",
+    "validUntil": "2026-11-23T09:19:49.665021Z",
     "credentialSubject": {
-        "id": "did:key:zDnaezLucPkqin26376hu2BUzoTxHuY4UHShjEhP4beUbTArA",
-        "display_name": "Paramesh Kamarthi",
+        "id": "did:key:zQ3shsew5aobruVWDrQsuH1BK7tjLgHRTQmPP7hZ3D9hbspCH",
+        "display_name": "Paramesh K",
         "email": "paramesh.k@affinidi.com",
+        "ecosystem_id": "did:web:issuers.sa.affinidi.io:sweetlane-group",
+        "issued_under_assertion_id": "issue:ayracard:businesscard",
+        "issuer_id": "did:web:issuers.sa.affinidi.io:sweetlane-bank",
+        "egf_id": "did:web:issuers.sa.affinidi.io:ayra-forum",
+        "ayra_assurance_level": 0,
+        "ayra_card_type": "AyraBusinessCard",
         "payloads": [
             {
                 "id": "phone",
@@ -29,34 +35,46 @@
                 "data": "+919980166067"
             },
             {
+                "id": "designation",
+                "description": "designation of the employee",
+                "type": "text",
+                "data": "Advisor"
+            },
+            {
+                "id": "designation_level",
+                "description": "designation level of the employee",
+                "type": "number",
+                "data": 50
+            },
+            {
                 "id": "social",
-                "description": "linikedIn profile of the employee",
+                "description": "LinkedIn profile of the employee",
                 "type": "url",
-                "data": "https://linkedin.com/kamarthiparamesh"
+                "data": "https://linkedin.com/in/kamarthiparamesh"
+            },
+            {
+                "id": "book_meeting",
+                "description": "Schedule a meeting with the employee",
+                "type": "url",
+                "data": "https://doodle.com/meeting/participate/id/azljpO8d"
             },
             {
                 "id": "avatar",
                 "description": "Avatar of the employee",
                 "type": "image/png;base64",
-                "data": "Base64EncodedImageString"
+                "data": "iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAQMAAAD+wSzIAAAABlBMVEX///+/v7+jQ3Y5AAAADklEQVQI12P4AIX8EAgALgAD/aNpbtEAAAAASUVORK5CYII"
             },
             {
-                "id": "government_id",
-                "description": "Government ID verifiable credential of the employee",
-                "type": "dcql",
-                "data": "dcql JSON string for requesting credential"
+                "id": "employment_credential",
+                "description": "Embedded Employment Credential credential",
+                "type": "credential/w3ldv2",
+                "data": "{\"@context\":[\"https://www.w3.org/ns/credentials/v2\",\"https://schema.affinidi.io/EmploymentV1R0.jsonld\"],\"issuer\":{\"id\":\"did:web:issuers.sa.affinidi.io:sweetlane-bank\"},\"type\":[\"VerifiableCredential\",\"Employment\"],\"id\":\"claimid:5269ee5b-eb00-4c26-a7b3-7f527711284e\",\"credentialSchema\":{\"id\":\"https://schema.affinidi.io/EmploymentV1R0.json\",\"type\":\"JsonSchemaValidator2018\"},\"validFrom\":\"2025-11-23T09:19:14.366461Z\",\"validUntil\":\"2026-11-23T09:19:14.366461Z\",\"credentialSubject\":{\"id\":\"did:key:zQ3shsew5aobruVWDrQsuH1BK7tjLgHRTQmPP7hZ3D9hbspCH\",\"recipient\":{\"type\":\"PersonName\",\"givenName\":\"Paramesh\",\"familyName\":\"K\"},\"role\":\"Advisor\",\"description\":\"Your role is Advisor\",\"place\":\"Bangalore\",\"legalEmployer\":{\"type\":\"Organization\",\"name\":\"Sweetlane Bank\",\"identifier\":\"did:web:issuers.sa.affinidi.io:sweetlane-bank\",\"place\":\"Bangalore\"},\"employmentType\":\"permanent\",\"startDate\":\"2022-01\"},\"proof\":{\"type\":\"EcdsaSecp256k1Signature2019\",\"created\":\"2025-11-23T09:19:14.366491\",\"verificationMethod\":\"did:web:issuers.sa.affinidi.io:sweetlane-bank#key-1\",\"proofPurpose\":\"assertionMethod\",\"jws\":\"eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..HM7GgFEnqQPvzkQEp2BWFndQD_1wAUdmFyjK-ng1D9M9iYpL4IQF0YHk38-YVw7yFhT74yeXdrgHHE7jHcNuCg\"}}"
             },
             {
-                "id": "idv_credential",
-                "description": "Identity credential issued by affinidi",
-                "type": "credentail/w3ldv2",
-                "data": "W3VC DataMode 2.0 Json string"
-            },
-            {
-                "id": "designation",
-                "description": "Solutions Architect Lead",
-                "type": "text",
-                "data": "Solutions Architect"
+                "id": "identity_credential",
+                "description": "Embedded Verified Identity Document credential",
+                "type": "credential/w3ldv2",
+                "data": "{\"@context\":[\"https://www.w3.org/ns/credentials/v2\",\"https://schema.affinidi.io/TPassportDataV1R1.jsonld\"],\"issuer\":{\"id\":\"did:web:issuers.sa.affinidi.io:sweetlane-bank\"},\"type\":[\"VerifiableCredential\",\"VerifiedIdentityDocument\"],\"id\":\"claimid:3c89861f-5d50-431f-80e6-5d44fd9018f2\",\"credentialSchema\":{\"id\":\"https://schema.affinidi.io/TPassportDataV1R1.json\",\"type\":\"JsonSchemaValidator2018\"},\"validFrom\":\"2025-11-23T09:19:26.765140Z\",\"validUntil\":\"2026-11-23T09:19:26.765141Z\",\"credentialSubject\":{\"id\":\"did:key:zQ3shsew5aobruVWDrQsuH1BK7tjLgHRTQmPP7hZ3D9hbspCH\",\"verification\":{\"document\":{\"passportNumber\":\"P1694\",\"docType\":\"Passport\",\"country\":\"IN\",\"state\":null,\"issuanceDate\":\"2024-06-04\",\"expiryDate\":\"2034-06-03\"},\"person\":{\"firstName\":\"Paramesh\",\"lastName\":\"K\",\"dateOfBirth\":\"1915-02-15\",\"gender\":\"M\",\"nationality\":\"IN\",\"yearOfBirth\":null,\"placeOfBirth\":null}}},\"proof\":{\"type\":\"EcdsaSecp256k1Signature2019\",\"created\":\"2025-11-23T09:19:26.765172\",\"verificationMethod\":\"did:web:issuers.sa.affinidi.io:sweetlane-bank#key-1\",\"proofPurpose\":\"assertionMethod\",\"jws\":\"eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..ZhmJK8b3nNI2Laba1_DlfJv068i6Ak-ytJw4cBKbbIJMpwoZXTM2lG53k0ZKuSWLlCgMHaB4btRcbFidjFv-PQ\"}}"
             },
             {
                 "id": "website",
@@ -70,19 +88,13 @@
                 "type": "url",
                 "data": "https://sweetlane-bank.com/vlei/sweetlane.json"
             }
-        ],
-        "ecosystem_id": "did:web:marmot-suited-muskrat.ngrok-free.app:sweetlane-group",
-        "issued_under_assertion_id": "issue:ayracard:businesscard",
-        "issuer_id": "did:web:marmot-suited-muskrat.ngrok-free.app:sweetlane-bank",
-        "egf_id": "did:web:marmot-suited-muskrat.ngrok-free.app:ayra-forum",
-        "ayra_assurance_level": 0,
-        "ayra_card_type": "AyraBusinessCard"
+        ]
     },
     "proof": {
         "type": "EcdsaSecp256k1Signature2019",
-        "created": "2025-11-04T11:06:33.392092",
-        "verificationMethod": "did:web:marmot-suited-muskrat.ngrok-free.app:sweetlane-bank#key-1",
+        "created": "2025-11-23T09:19:49.665053",
+        "verificationMethod": "did:web:issuers.sa.affinidi.io:sweetlane-bank#key-1",
         "proofPurpose": "assertionMethod",
-        "jws": "eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..c1d05fwURHqRTFG20gp7YTECfOcAHFlVg1uzDgYOaKo9v_emb468xG7q_SUMy4n3pF6mX1QDur-P4n6Ys-rvCg"
+        "jws": "eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..Z53x2QHV1SSQIEKPrHkc2_LcRPskcR4xS_BREV_wK5sd0ABgnDy7PlPQ5ZpC6qS2eVPMlR5My2yex79xeHr7Yw"
     }
 }
