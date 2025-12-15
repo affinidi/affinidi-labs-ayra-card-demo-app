@@ -6,7 +6,6 @@ This repository provides a practical demonstration of how Ayra Card can be recei
 
 Affinidi is [a strategic member of the Ayra Association](https://ayra.forum/members/), offering Affinidi Trust Infrastructure (ATI), which includes a collection of open-source features that help developers quickly and easily realise complex concepts, such as the Ayra Card.
 
-
 ## 🎯 Overview
 
 This project implements a complete digital credential infrastructure based on W3C Verifiable Credentials standards, featuring:
@@ -29,13 +28,14 @@ This application leverages several Affinidi Open Source components and Open prot
 | **DIDComm v2.1**                             | [GitHub Repository](https://github.com/affinidi/affinidi-didcomm-dart), [pub.dev](https://pub.dev/packages/didcomm), [Specification](https://identity.foundation/didcomm-messaging/spec/)                                                                                                                                |
 | **Verifiable Data Issuance Protocol (VDIP)** | [GitHub Repository](https://github.com/affinidi/affinidi-tdk/tree/main/libs/dart/didcomm/vdip), [pub.dev](https://pub.dev/packages/affinidi_tdk_vdip), [Documentation](https://github.com/affinidi/affinidi-vdxp-docs)                                                                                                   |
 | **Verifiable Data Sharing Protocol (VDSP)**  | [GitHub Repository](https://github.com/affinidi/affinidi-tdk/tree/main/libs/dart/didcomm/vdsp), [pub.dev](https://pub.dev/packages/affinidi_tdk_vdsp), [Documentation](https://github.com/affinidi/affinidi-vdxp-docs)                                                                                                   |
-| **Affinidi Trust Registry**                  | [GitHub Repository](https://github.com/affinidi/affinidi-trust-registry-rs), [Documentation](https://docs.affinidi.com/open-source-community/affinidi-trust-registry/)                                                                                                                                                                                                                                              |
+| **Affinidi Trust Registry**                  | [GitHub Repository](https://github.com/affinidi/affinidi-trust-registry-rs), [Documentation](https://docs.affinidi.com/open-source-community/affinidi-trust-registry/)                                                                                                                                                   |
 
 ### Mobile Wallet Experience
 
 <p align="center">
   <img src="./images/mobile-app/login.png" alt="Login" width="200"/>
   <img src="./images/mobile-app/dashboard-with-ayra-card.png" alt="Dashboard" width="200"/>
+  <img src="./images/mobile-app/credentials.png" alt="Credentials" width="200"/>
   <img src="./images/mobile-app/scan-share.png" alt="Scan & Share" width="200"/>
   <img src="./images/mobile-app/shared-success.png" alt="Success" width="200"/>
 </p>
@@ -373,6 +373,7 @@ The Verifier Portal implements four verification scenarios:
 
 <p align="center">
   <img src="./images/mobile-app/login.png" alt="Login Screen" width="250"/>
+  <img src="./images/mobile-app/login-otp.png" alt="Login Screen" width="250"/>
   <img src="./images/mobile-app/dashboard.png" alt="Dashboard" width="250"/>
   <img src="./images/mobile-app/profile.png" alt="Profile" width="250"/>
 </p>
@@ -386,6 +387,7 @@ The Verifier Portal implements four verification scenarios:
 <p align="center">
 
   <img src="./images/mobile-app/credentials.png" alt="Credentials" width="250"/>
+  <img src="./images/mobile-app/credentials-ayra-card.png" alt="Credentials Ayra" width="250"/>
 
 </p>
 
@@ -397,6 +399,7 @@ The Verifier Portal implements four verification scenarios:
 <p align="center">
   <img src="./images/mobile-app/claim-ayra-card.png" alt="Claim Ayra Card" width="250"/>
   <img src="./images/mobile-app/dashboard-with-ayra-card.png" alt="Dashboard with Ayra Card" width="250"/>
+  <img src="./images/mobile-app/dashboard-with-ayra-card-flip.png" alt="Dashboard with Ayra Card flip" width="250"/>
 </p>
 
 #### 4. 📱 Scan & Share
@@ -411,6 +414,7 @@ The Verifier Portal implements four verification scenarios:
   <img src="./images/mobile-app/verifier-request.png" alt="Verifier Request" width="200"/>
   <img src="./images/mobile-app/verifier-credentials-request.png" alt="Credentials Request" width="200"/>
   <img src="./images/mobile-app/shared-success.png" alt="Shared Successfully" width="200"/>
+  <img src="./images/mobile-app/verifier-request-success-portal.png" alt="Shared Portal Successfully" width="200"/>
 </p>
 
 #### 5. 🔍 Identity Verification
@@ -420,6 +424,7 @@ The Verifier Portal implements four verification scenarios:
 
 <p align="center">
   <img src="./images/mobile-app/idv.png" alt="Identity Verification" width="250"/>
+  <img src="./images/mobile-app/credentials-idv.png" alt="Identity Credential" width="250"/>
 </p>
 
 ### Trust Registry
