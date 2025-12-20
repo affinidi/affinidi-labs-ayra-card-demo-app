@@ -235,15 +235,13 @@ Future<Channel> establishChannel(MeetingPlaceCoreSDK sdk) async {
 Future<Channel> acceptOobFlow(MeetingPlaceCoreSDK sdk, String oobUrl) async {
   final completer = Completer<Channel?>();
   final oobUri = Uri.parse(oobUrl);
-  const displayName = 'Holder Person';
-  final acceptVCard = VCard(
-    values: {
-      'n': {'given': 'Holder'},
-      'fullName': displayName,
-    },
+  final contactCard = ContactCard(
+    did: 'did:test:holderperson',
+    type: 'individual',
+    contactInfo: {"firstName": "Holder", "lastName": "Person"},
   );
 
-  final acceptance = await sdk.acceptOobFlow(oobUri, vCard: acceptVCard);
+  final acceptance = await sdk.acceptOobFlow(oobUri, contactCard: contactCard);
 
   acceptance.streamSubscription.listen((data) {
     print('acceptOobFlow onDone with id: ${data.channel.id}');

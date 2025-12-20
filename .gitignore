@@ -49,7 +49,7 @@ Thumbs.db
 
 # Avoid committing pubspec.lock for library packages; see
 # https://dart.dev/guides/libraries/private-files#pubspeclock.
-pubspec.lock
+# pubspec.lock
 
 # env files
 .env*

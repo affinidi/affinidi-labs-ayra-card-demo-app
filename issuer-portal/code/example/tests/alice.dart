@@ -25,7 +25,11 @@ Future<void> main() async {
   print('Alice permanent DID: ${didDoc.id}');
 
   final createOobFlowResult = await aliceSDK.createOobFlow(
-    vCard: VCard(values: {'fullName': 'Alice'}),
+    contactCard: ContactCard(
+      did: 'did:test:alice',
+      type: 'individual',
+      contactInfo: {'firstName': 'Alice'},
+    ),
     did: didDoc.id,
   );
   print('OOB URL: ${createOobFlowResult.oobUrl.toString()}');

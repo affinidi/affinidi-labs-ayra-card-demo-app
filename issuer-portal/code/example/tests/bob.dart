@@ -17,7 +17,11 @@ Future<void> main() async {
       'https://9bd289af-5a58-4604-afab-18bff860ce27.mpx.dev.affinidi.io/v1/oob/189057a7-f54a-425b-9a3e-032124162474';
   final acceptOobFlowResult = await bobSDK.acceptOobFlow(
     Uri.parse(oobUrl),
-    vCard: VCard(values: {'fullName': 'Bob'}),
+    contactCard: ContactCard(
+      did: 'did:test:bob',
+      type: 'individual',
+      contactInfo: {'firstName': 'Bob'},
+    ),
   );
 
   final bobCompleter = Completer<Channel>();

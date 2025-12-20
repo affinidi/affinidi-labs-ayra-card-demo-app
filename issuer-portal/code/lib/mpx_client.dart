@@ -535,13 +535,16 @@ class MpxClient {
   /// Public method for OOB invite creation
 
   Future<String> createOobInvite() async {
-    final vCard = VCard(
-      values: {
-        "n": {"given": "Sweetlane Bank", "surname": "Issuer"},
-      },
+    final contactCard = ContactCard(
+      did: permanentDid,
+      type: 'individual',
+      contactInfo: {"firstName": "Sweetlane Bank", "lastName": "Issuer"},
     );
 
-    final result = await mpxSDK.createOobFlow(did: permanentDid, vCard: vCard);
+    final result = await mpxSDK.createOobFlow(
+      did: permanentDid,
+      contactCard: contactCard,
+    );
 
     final completer = Completer<void>();
     result.streamSubscription.listen(

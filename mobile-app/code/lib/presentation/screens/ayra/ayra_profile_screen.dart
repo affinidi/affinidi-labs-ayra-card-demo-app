@@ -11,7 +11,6 @@ import '../../../application/services/settings_service/settings_service.dart';
 import '../../../application/services/vault_service/vault_service.dart';
 import '../../../application/services/vdip_service/vdip_service.dart';
 import '../../../infrastructure/configuration/environment.dart';
-import '../../../infrastructure/extensions/vcard_extensions.dart';
 import '../../../infrastructure/providers/channel_repository_drift_provider.dart';
 import '../../../infrastructure/providers/shared_preferences_provider.dart';
 import '../../../infrastructure/utils/credential_helper.dart';
@@ -1085,10 +1084,10 @@ class _AyraProfileScreenState extends ConsumerState<AyraProfileScreen> {
   }
 
   String _getChannelDisplayName(Channel channel) {
-    final otherVCard = channel.otherPartyVCard;
-    if (otherVCard != null && otherVCard.firstName.isNotEmpty) {
-      final firstName = otherVCard.firstName;
-      final lastName = otherVCard.lastName;
+    final otherVCard = channel.otherPartyContactCard;
+    if (otherVCard != null && otherVCard.contactInfo.isNotEmpty) {
+      final firstName = otherVCard.contactInfo['firstName'] ?? 'Unnamed';
+      final lastName = otherVCard.contactInfo['lastName'] ?? '';
       return '$firstName $lastName';
     }
     return 'Unnamed Channel';

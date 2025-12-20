@@ -169,10 +169,10 @@ class MpxClient {
       } else {
         print('${client.id}::Using Existing Permanent DID...');
       }
-      final vCard = getVCard(client.name);
+      final contactCard = getContactCard(client.name);
       print('${client.id}::Permanent DID: ${client.permanentDid}');
 
-      client.oobUrl = await createOobInvite(vCard, client.permanentDid);
+      client.oobUrl = await createOobInvite(contactCard, client.permanentDid);
       print('${client.id}::OOB Url: ${client.oobUrl}');
 
       print('${client.id}::Creating VDSP Client');
@@ -259,10 +259,13 @@ class MpxClient {
   }
 
   static Future<String> createOobInvite(
-    VCard oobVCard,
+    ContactCard contactCard,
     String? permanentDid,
   ) async {
-    final result = await sdk.createOobFlow(did: permanentDid, vCard: oobVCard);
+    final result = await sdk.createOobFlow(
+      did: permanentDid,
+      contactCard: contactCard,
+    );
 
     final completer = Completer<void>();
 
@@ -605,9 +608,12 @@ class MpxClient {
             );
           }
 
-          final vCard = getVCard(client.name);
+          final contactCard = getContactCard(client.name);
 
-          final newOobUrl = await createOobInvite(vCard, client.permanentDid!);
+          final newOobUrl = await createOobInvite(
+            contactCard,
+            client.permanentDid!,
+          );
 
           // Update client with new OOB URL
           client.oobUrl = newOobUrl;
@@ -664,12 +670,12 @@ class MpxClient {
     );
   }
 
-  static VCard getVCard(String name) {
-    final vCard = VCard(
-      values: {
-        "n": {"given": name, "surname": "Verifier"},
-      },
+  static ContactCard getContactCard(String name) {
+    final contactCard = ContactCard(
+      did: 'did:example:$name',
+      type: 'individual',
+      contactInfo: {"firstName": name, "lastName": "Verifier"},
     );
-    return vCard;
+    return contactCard;
   }
 }

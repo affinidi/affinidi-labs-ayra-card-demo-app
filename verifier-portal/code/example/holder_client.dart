@@ -156,9 +156,14 @@ Future<void> subscribeForVDSPRequest(
 Future<Channel> acceptOobFlow(MeetingPlaceCoreSDK sdk, String oobUrl) async {
   final completer = Completer<Channel?>();
   final oobUri = Uri.parse(oobUrl);
-  final acceptVCard = VCard(values: {'fullName': 'Holder Person'});
 
-  final acceptance = await sdk.acceptOobFlow(oobUri, vCard: acceptVCard);
+  final contactCard = ContactCard(
+    did: 'did:example:alice',
+    type: 'individual',
+    contactInfo: {"firstName": 'Alice'},
+  );
+
+  final acceptance = await sdk.acceptOobFlow(oobUri, contactCard: contactCard);
 
   acceptance.streamSubscription.listen((data) {
     print('acceptOobFlow onDone with id: ${data.channel.id}');

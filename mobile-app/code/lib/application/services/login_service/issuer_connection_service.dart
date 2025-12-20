@@ -153,7 +153,11 @@ class IssuerConnectionService {
 
     final acceptance = await sdk.acceptOobFlow(
       oobUri,
-      vCard: VCard(values: {'fullName': 'John Doe'}),
+      contactCard: ContactCard(
+        did: 'did:example:john',
+        type: 'individual',
+        contactInfo: {'firstName': 'John', 'lastName': 'Doe'},
+      ),
     );
 
     acceptance.streamSubscription.listen((data) {
