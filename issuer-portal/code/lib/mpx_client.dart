@@ -51,7 +51,7 @@ class MpxClient {
         await storage.put("issuer_permanent_did", permanentDid);
       } else {
         print('Using existing permanent channel DID for issuer');
-        didManager = await getDidManagerForDid(permanentDid);
+        didManager = await sdk.getDidManager(permanentDid);
       }
       print('Permanent DID: $permanentDid');
 
@@ -115,18 +115,6 @@ class MpxClient {
       controlPlaneDid: serviceDid,
       mediatorDid: mediatorDid,
     );
-  }
-
-  static Future<DidManager> getDidManagerForDid(String did) async {
-    final wallet = sdk.wallet;
-    final keyId = await repositoryConfig.keyRepository.getKeyIdByDid(did: did);
-    if (keyId == null) {
-      throw Exception('KeyPair not found for DID: $did');
-    }
-    await wallet.generateKey(keyId: keyId);
-    final didManager = DidKeyManager(store: InMemoryDidStore(), wallet: wallet);
-    await didManager.addVerificationMethod(keyId);
-    return didManager;
   }
 
   static Future<DidDocument> getMediatorDidDocument() async {

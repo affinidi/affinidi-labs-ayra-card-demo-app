@@ -227,18 +227,6 @@ class MpxClient {
     }
   }
 
-  static Future<DidManager> getDidManagerForDid(String did) async {
-    final wallet = sdk.wallet;
-    final keyId = await repositoryConfig.keyRepository.getKeyIdByDid(did: did);
-    if (keyId == null) {
-      throw Exception('KeyPair not found for DID: $did');
-    }
-    await wallet.generateKey(keyId: keyId);
-    final didManager = DidKeyManager(store: InMemoryDidStore(), wallet: wallet);
-    await didManager.addVerificationMethod(keyId);
-    return didManager;
-  }
-
   static Future<MediatorStreamSubscription> registerForNotifications(
     String permanentDid,
     void Function(PlainTextMessage) onData,
@@ -315,7 +303,7 @@ class MpxClient {
   }
 
   static Future<VdspVerifier> createVDSPClient(VerifierClient client) async {
-    DidManager manager = await getDidManagerForDid(client.permanentDid!);
+    DidManager manager = await sdk.getDidManager(client.permanentDid!);
     final mediatorDidDocument = await getMediatorDidDocument();
     final vdspClient = await VdspVerifier.init(
       mediatorDidDocument: mediatorDidDocument,

@@ -17,7 +17,6 @@ import '../../../infrastructure/providers/app_logger_provider.dart';
 import '../../../infrastructure/providers/mpx_sdk_provider.dart';
 import '../../../infrastructure/utils/debug_logger.dart';
 import '../../../messages/vdsp_trigger_request.dart';
-import '../did_manager_service/did_manager_service.dart';
 import '../login_service/issuer_connection_service.dart';
 import '../settings_service/settings_service.dart';
 import '../vault_service/vault_service.dart';
@@ -177,11 +176,8 @@ class VdspService {
     try {
       _logger.info('Starting VDSP listener', name: _logKey);
 
-      final didManagerService = _ref.read(didManagerServiceProvider);
-      final channelDidManager = await didManagerService.getDidManagerForDid(
-        holderChannelDid,
-      );
-
+      final sdk = await _ref.read(mpxSdkProvider.future);
+      final channelDidManager = await sdk.getDidManager(holderChannelDid);
       final vaultService = _ref.read(vaultServiceProvider.notifier);
       final holderProfileDidManager = await vaultService.getDidManager();
 

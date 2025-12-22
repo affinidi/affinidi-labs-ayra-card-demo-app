@@ -15,7 +15,6 @@ import '../../../infrastructure/providers/mpx_sdk_provider.dart';
 import '../../../infrastructure/providers/shared_preferences_provider.dart';
 import '../../../infrastructure/utils/credential_helper.dart';
 import '../../../infrastructure/utils/debug_logger.dart';
-import '../did_manager_service/did_manager_service.dart';
 import '../login_service/issuer_connection_service.dart';
 import '../settings_service/settings_service.dart';
 import '../vault_service/vault_service.dart';
@@ -94,10 +93,8 @@ class VdipService {
     }
     unawaited(onProgress('Established connection with issuer'));
     //Holder Channel DID Manager
-    final didManagerService = _ref.read(didManagerServiceProvider);
-    final channelDidManager = await didManagerService.getDidManagerForDid(
-      holderChannelDid,
-    );
+    final sdk = await _ref.read(mpxSdkProvider.future);
+    final channelDidManager = await sdk.getDidManager(holderChannelDid);
     unawaited(onProgress('Initializing Credential request...'));
     final mediatorDidDocument = await getMediatorDidDocument();
     final vdipHolderClient = await VdipHolder.init(
