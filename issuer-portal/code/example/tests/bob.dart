@@ -20,7 +20,9 @@ Future<void> main() async {
     contactCard: ContactCard(
       did: 'did:test:bob',
       type: 'individual',
-      contactInfo: {'firstName': 'Bob'},
+      contactInfo: {
+        "n": {"given": "Bob", "surname": "Person"},
+      },
     ),
   );
 

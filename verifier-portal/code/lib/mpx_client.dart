@@ -662,7 +662,9 @@ class MpxClient {
     final contactCard = ContactCard(
       did: 'did:example:$name',
       type: 'individual',
-      contactInfo: {"firstName": name, "lastName": "Verifier"},
+      contactInfo: {
+        'n': {'given': name, 'surname': 'Verifier'},
+      },
     );
     return contactCard;
   }

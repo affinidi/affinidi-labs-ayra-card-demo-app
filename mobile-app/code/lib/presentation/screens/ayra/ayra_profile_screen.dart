@@ -1086,8 +1086,8 @@ class _AyraProfileScreenState extends ConsumerState<AyraProfileScreen> {
   String _getChannelDisplayName(Channel channel) {
     final otherVCard = channel.otherPartyContactCard;
     if (otherVCard != null && otherVCard.contactInfo.isNotEmpty) {
-      final firstName = otherVCard.contactInfo['firstName'] ?? 'Unnamed';
-      final lastName = otherVCard.contactInfo['lastName'] ?? '';
+      final firstName = otherVCard.contactInfo['n']?['given'] ?? 'Unnamed';
+      final lastName = otherVCard.contactInfo['n']?['surname'] ?? '';
       return '$firstName $lastName';
     }
     return 'Unnamed Channel';

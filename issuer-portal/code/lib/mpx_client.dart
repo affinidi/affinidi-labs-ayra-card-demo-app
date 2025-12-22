@@ -526,7 +526,9 @@ class MpxClient {
     final contactCard = ContactCard(
       did: permanentDid,
       type: 'individual',
-      contactInfo: {"firstName": "Sweetlane Bank", "lastName": "Issuer"},
+      contactInfo: {
+        "n": {"given": "Sweetlane Bank", "surname": "Issuer"},
+      },
     );
 
     final result = await mpxSDK.createOobFlow(

@@ -28,7 +28,9 @@ Future<void> main() async {
     contactCard: ContactCard(
       did: 'did:test:alice',
       type: 'individual',
-      contactInfo: {'firstName': 'Alice'},
+      contactInfo: {
+        "n": {"given": "Holder", "Alice": "Person"},
+      },
     ),
     did: didDoc.id,
   );

@@ -156,7 +156,9 @@ class IssuerConnectionService {
       contactCard: ContactCard(
         did: 'did:example:john',
         type: 'individual',
-        contactInfo: {'firstName': 'John', 'lastName': 'Doe'},
+        contactInfo: {
+          'n': {'given': 'John', 'surname': 'Doe'},
+        },
       ),
     );
 

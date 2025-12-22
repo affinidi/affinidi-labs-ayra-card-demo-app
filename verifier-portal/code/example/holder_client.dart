@@ -160,7 +160,9 @@ Future<Channel> acceptOobFlow(MeetingPlaceCoreSDK sdk, String oobUrl) async {
   final contactCard = ContactCard(
     did: 'did:example:alice',
     type: 'individual',
-    contactInfo: {"firstName": 'Alice'},
+    contactInfo: {
+      'n': {'given': 'Alice', 'surname': 'Doe'},
+    },
   );
 
   final acceptance = await sdk.acceptOobFlow(oobUri, contactCard: contactCard);
