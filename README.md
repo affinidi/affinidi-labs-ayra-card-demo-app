@@ -62,7 +62,7 @@ Before starting, ensure you have the following installed and configured:
 
 ### Required Accounts & Credentials
 
-- **ngrok Account** - For public domain tunneling
+- **ngrok Account** - For public domain tunnelling
 
   - [Sign up for ngrok](https://dashboard.ngrok.com/signup)
   - Get your [auth token](https://dashboard.ngrok.com/get-started/your-authtoken)
@@ -279,7 +279,7 @@ The `.env` file contains all configuration settings. Key variables:
 
 ```bash
 # Ngrok Configuration
-USE_NGROK=true                        # Enable/disable ngrok tunneling
+USE_NGROK=true                        # Enable/disable ngrok tunnelling
 NGROK_AUTH_TOKEN=your_token_here      # Your ngrok authentication token
 
 # Trust Registry API Repository (only external dependency cloned during setup)
@@ -312,7 +312,7 @@ APP_VERSION_NAME="Panther"
 
 ### Manual Configuration (Alternative to ngrok)
 
-If you prefer to use your own tunneling solution or have static domains:
+If you prefer to use your own tunnelling solution or have static domains:
 
 1. Set `USE_NGROK=false` in `.env`
 2. Manually configure domain URLs in:
@@ -575,7 +575,9 @@ This project uses open-source implementations from:
 
 - Affinidi Trust Registry (Rust implementation)
 - Affinidi Verifiable Data Protocols
-- ngrok tunneling service
+- ngrok tunnel<img width="468" height="72" alt="image" src="https://github.com/user-attachments/assets/264877e3-d135-42eb-aa92-5f274f18a487" />
+<img width="468" height="72" alt="image" src="https://github.com/user-attachments/assets/2da5f030-8625-4380-b21c-0f62e8bca237" />
+ling service
 - Docker containerization platform
 
 ---
