@@ -6,6 +6,13 @@ This repository provides a practical demonstration of how Ayra Card can be recei
 
 Affinidi is [a strategic member of the Ayra Association](https://ayra.forum/members/), offering Affinidi Trust Infrastructure (ATI), which includes a collection of open-source features that help developers quickly and easily realise complex concepts, such as the Ayra Card.
 
+> [!WARNING]
+> This repository is intended for learning, experimentation, and prototyping only.
+> **Do not use this code as-is in production environments.**
+> Affinidi provides no warranty or guarantee for copy-paste usage.
+> Please review, test, and secure your implementation before deploying to production.
+> &nbsp;
+
 ## 🎯 Overview
 
 This project implements a complete digital credential infrastructure based on W3C Verifiable Credentials standards, featuring:
