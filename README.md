@@ -13,6 +13,25 @@ Affinidi is [a strategic member of the Ayra Association](https://ayra.forum/memb
 > Please review, test, and secure your implementation before deploying to production.
 > &nbsp;
 
+## 📖 Table of Contents
+- [Overview](#-overview)
+- [Affinidi Components](#affinidi-components)
+- [Prerequisites](#-prerequisites)
+- [System Components](#system-components)
+- [Quick Start](#quick-start)
+- [Architecture](#%EF%B8%8F-architecture)
+- [Quick Start Guide](#quick-start-guide)
+- [Configuration](#-configuration)
+- [Usage Guide](#-usage-guide)
+- [Development Workflow](#-development-workflow)
+- [Additional Documentation](#-additional-documentation)
+- [Demo Video](#demo-video)
+- [Security Considerations](#-security-considerations)
+- [Protocol References](#-protocol-references)
+- [Contributing](#-contributing)
+- [Support](#-support)
+
+
 ## 🎯 Overview
 
 This project implements a complete digital credential infrastructure based on W3C Verifiable Credentials standards, featuring:
@@ -582,9 +601,7 @@ This project uses open-source implementations from:
 
 - Affinidi Trust Registry (Rust implementation)
 - Affinidi Verifiable Data Protocols
-- ngrok tunnel<img width="468" height="72" alt="image" src="https://github.com/user-attachments/assets/264877e3-d135-42eb-aa92-5f274f18a487" />
-<img width="468" height="72" alt="image" src="https://github.com/user-attachments/assets/2da5f030-8625-4380-b21c-0f62e8bca237" />
-ling service
+- ngrok tunnelling service
 - Docker containerization platform
 
 ---
