@@ -15,7 +15,7 @@ Affinidi is [a strategic member of the Ayra Association](https://ayra.forum/memb
 
 ## 📖 Table of Contents
 - [Overview](#-overview)
-- [Affinidi OSS Components Used](#affinidi-ss-components-used)
+- [Affinidi OSS Components Used](#affinidi-oss-components-used)
 - [Preview Of Mobile Wallet Experience Application](#preview-of-mobile-wallet-experience-application)
 - [Prerequisites](#-prerequisites)
 - [Core Components](#core-components)
