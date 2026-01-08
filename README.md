@@ -15,9 +15,9 @@ Affinidi is [a strategic member of the Ayra Association](https://ayra.forum/memb
 
 ## 📖 Table of Contents
 - [Overview](#-overview)
-- [Affinidi Components](#affinidi-components)
+- [Affinidi OSS Components used](#affinidi-ss-components-used)
 - [Prerequisites](#-prerequisites)
-- [System Components](#system-components)
+- [Core Components](#core-components)
 - [Quick Start](#quick-start)
 - [Architecture](#%EF%B8%8F-architecture)
 - [Quick Start Guide](#quick-start-guide)
@@ -34,17 +34,17 @@ Affinidi is [a strategic member of the Ayra Association](https://ayra.forum/memb
 
 ## 🎯 Overview
 
-This project implements a complete digital credential infrastructure based on W3C Verifiable Credentials standards, featuring:
+This demonstration showcases the Ayra Card use case. This project implements a complete digital credential infrastructure based on W3C Verifiable Credentials standards, featuring:
 
-- **Decentralized Identity**: DID:web based identifiers for organizations
+- **Decentralized Identity**: did:web based identifiers for organizations
 - **Verifiable Credentials**: Issue and verify employment and business card credentials
 - **Trust Registry**: Implements Trust Registry Query Protocol (TRQP) specification
 - **Mobile Wallet**: Flutter-based mobile app with secure credential storage
 - **Verification Scenarios**: Multiple real-world credential verification use cases
 
-## Affinidi Components
+## Affinidi OSS Components used
 
-This application leverages several Affinidi Open Source components and Open protocols to build a complete verifiable credential ecosystem:
+This application leverages following Affinidi Open Source projects and Open protocol libraries to demonstrate use cases with Ayra Card.
 
 | Component                                    | Resources                                                                                                                                                                                                                                                                                                                |
 | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -105,7 +105,7 @@ Before starting, ensure you have the following installed and configured:
 - **Disk Space**: At least 10GB free space
 - **Network**: Stable internet connection for Docker pulls and ngrok tunnels
 
-## System Components
+## Core Components
 
 ### 1. Domain Setup
 
