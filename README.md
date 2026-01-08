@@ -15,11 +15,12 @@ Affinidi is [a strategic member of the Ayra Association](https://ayra.forum/memb
 
 ## 📖 Table of Contents
 - [Overview](#-overview)
-- [Affinidi OSS Components used](#affinidi-ss-components-used)
+- [Affinidi OSS Components Used](#affinidi-ss-components-used)
+- [Preview Of Mobile Wallet Experience Application](#preview-of-mobile-wallet-experience-application)
 - [Prerequisites](#-prerequisites)
 - [Core Components](#core-components)
-- [Quick Start](#quick-start)
 - [Architecture](#%EF%B8%8F-architecture)
+- [Quick Start](#quick-start)
 - [Quick Start Guide](#quick-start-guide)
 - [Configuration](#-configuration)
 - [Usage Guide](#-usage-guide)
@@ -42,7 +43,7 @@ This demonstration showcases the Ayra Card use case. This project implements a c
 - **Mobile Wallet**: Flutter-based mobile app with secure credential storage
 - **Verification Scenarios**: Multiple real-world credential verification use cases
 
-## Affinidi OSS Components used
+## Affinidi OSS Components Used
 
 This application leverages following Affinidi Open Source projects and Open protocol libraries to demonstrate use cases with Ayra Card.
 
@@ -56,7 +57,7 @@ This application leverages following Affinidi Open Source projects and Open prot
 | **Verifiable Data Sharing Protocol (VDSP)**  | [GitHub Repository](https://github.com/affinidi/affinidi-tdk/tree/main/libs/dart/didcomm/vdsp), [pub.dev](https://pub.dev/packages/affinidi_tdk_vdsp), [Documentation](https://github.com/affinidi/affinidi-vdxp-docs)                                                                                                   |
 | **Affinidi Trust Registry**                  | [GitHub Repository](https://github.com/affinidi/affinidi-trust-registry-rs), [Documentation](https://docs.affinidi.com/open-source-community/affinidi-trust-registry/)                                                                                                                                                   |
 
-### Mobile Wallet Experience
+## Preview Of Mobile Wallet Experience Application
 
 <p align="center">
   <img src="./images/mobile-app/login.png" alt="Login" width="200"/>
@@ -147,16 +148,7 @@ Flutter-based mobile application using Affinidi Meetingplace SDK and TDK for sec
 - **Ayra Card Claiming** - Customize and request business card credentials
 - **Scan & Share** - Scan QR codes and share credentials via VDSP
 
-## Quick Start
 
-### 1. Configure Environment
-
-**Setup Required Services:**
-
-Before running the setup, ensure you have configured:
-
-- **DIDComm Mediator**: Follow [this guide](https://docs.affinidi.com/products/affinidi-messaging/didcomm-mediator/)
-- **Meetingplace Control Plane**: Follow [these steps](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/)
 
 ## 🏗️ Architecture
 
@@ -213,6 +205,17 @@ This project consists of six interconnected components:
 | **Verifier Portal**    | Dart             | 8081 | Verifies credentials (VDSP)             |
 | **Mobile App**         | Flutter/Dart     | N/A  | Mobile wallet for credential management |
 
+## Quick Start
+
+### 1. Configure Environment
+
+**Setup Required Services:**
+
+Before running the setup, ensure you have configured:
+
+- **DIDComm Mediator**: Follow [this guide](https://docs.affinidi.com/products/affinidi-messaging/didcomm-mediator/)
+- **Meetingplace Control Plane**: Follow [these steps](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/)
+  
 ## 🚀 Quick Start Guide
 
 ### Step 1: Get the Repository
