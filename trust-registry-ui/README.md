@@ -2,6 +2,23 @@
 
 The Trust Registry UI is a web-based interface for interacting with and testing the Trust Registry API. Built with TypeScript and modern web frameworks, it provides an intuitive way to query trusted issuers, validate credential schemas, and explore the trust registry data.
 
+## 📖 Table of Contents
+- [Overview](#-overview)
+- [Architecture](#%EF%B8%8F-architecture)
+- [Structure](#-structure)
+- [Setup Process](#-setup-process)
+- [Configuration](#-configuration)
+- [Usage](#-usage)
+- [Key Features](#-key-features)
+- [Development](#-development)
+- [Customization](#-customization)
+- [Monitoring](#-monitoring)
+- [Security Considerations](#-security-considerations)
+- [Integration Points](#-integration-points)
+- [Related Documentation](#-related-documentation)
+- [Advanced Features](#-advanced-features)
+- [Responsive Design](#-responsive-design)
+
 ## 📋 Overview
 
 This component provides a user-friendly interface for:

@@ -2,6 +2,17 @@
 
 The Issuer Portal is a Dart-based server implementing the Verifiable Data Issuance Protocol (VDIP) for issuing employment credentials and Ayra business cards. It provides DID:web identifier generation and credential lifecycle management.
 
+## 📖 Table of Contents
+- [Overview](#-overview)
+- [Architecture](#%EF%B8%8F-architecture)
+- [Structure](#-structure)
+- [Setup Process](#-setup-process)
+- [Configuration](#-configuration)
+- [Usage](#-usage)
+- [Development](#-development)
+- [Monitoring](#-monitoring)
+- [Advanced Configuration](#-advanced-configuration)
+
 ## 📋 Overview
 
 This service acts as the credential issuing authority in the Ayra ecosystem, enabling organizations to:

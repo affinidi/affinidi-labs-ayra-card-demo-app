@@ -16,10 +16,8 @@ Affinidi is [a strategic member of the Ayra Association](https://ayra.forum/memb
 ## 📖 Table of Contents
 - [Overview](#-overview)
 - [Architecture](#%EF%B8%8F-architecture)
-- [Preview Of Mobile Wallet Experience](#preview-of-mobile-wallet-experience)
-- [Affinidi OSS Components Used](#affinidi-oss-components-used)
-- [Prerequisites](#-prerequisites)
 - [Core Components](#-core-components)
+- [Prerequisites](#-prerequisites)
 - [Quick Start](#-quick-start)
 - [Using the Application](#-using-the-application)
 - [Environment Reference](#%EF%B8%8F-environment-reference)
@@ -28,9 +26,12 @@ Affinidi is [a strategic member of the Ayra Association](https://ayra.forum/memb
 - [Additional Documentation](#-additional-documentation)
 - [Demo Video](#-demo-video)
 - [Security Considerations](#-security-considerations)
+- [Affinidi OSS Components Used](#affinidi-oss-components-used)
 - [Protocol References](#-protocol-references)
 - [Contributing](#-contributing)
-- [Support](#-support)
+- [License](#-license)
+- [Support](#support)
+- [Acknowledgments](#-acknowledgments)
 
 
 ## 🎯 Overview
@@ -87,69 +88,6 @@ This project consists of six interconnected components:
   <em>High-level architecture diagram showing the components involved and their interactions/flows</em>
 </p>
 
-## Preview Of Mobile Wallet Experience
-
-<p align="center">
-  <img src="./images/mobile-app/login.png" alt="Login" width="200"/>
-  <img src="./images/mobile-app/dashboard-with-ayra-card.png" alt="Dashboard" width="200"/>
-  <img src="./images/mobile-app/credentials.png" alt="Credentials" width="200"/>
-  <img src="./images/mobile-app/scan-share.png" alt="Scan & Share" width="200"/>
-  <img src="./images/mobile-app/verifier-credentials-request.png" alt="Consent" width="200"/>
-  <img src="./images/mobile-app/shared-success.png" alt="Success" width="200"/>
-</p>
-
-<p align="center">
-  <em>From login to credential sharing - Complete mobile wallet experience</em>
-</p>
-
-## Affinidi OSS Components Used
-
-This application leverages following Affinidi Open Source projects and Open protocol libraries to demonstrate use cases with Ayra Card.
-
-| Component                                    | Resources                                                                                                                                                                                                                                                                                                                |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Affinidi TDK Vault**                       | [GitHub Repository](https://github.com/affinidi/affinidi-tdk), [Documentation](https://docs.affinidi.com/dev-tools/affinidi-tdk/), [pub.dev](https://pub.dev/packages/affinidi_tdk_vault), [Reference Application](https://github.com/affinidi/affinidi-tdk-vault-reference-app)                                         |
-| **Affinidi Meeting Place SDK**               | [GitHub Repository](https://github.com/affinidi/affinidi-meetingplace-sdk-dart), [Documentation](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/), [pub.dev](https://pub.dev/packages/meeting_place_core), [Reference Application](https://github.com/affinidi/affinidi-meetingplace-reference-app) |
-| **Affinidi Meeting Place Control Plane API** | [GitHub Repository](https://github.com/affinidi/affinidi-meetingplace-controlplane-api-dart), [Documentation](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/)                                                                                                                                      |
-| **DIDComm v2.1**                             | [GitHub Repository](https://github.com/affinidi/affinidi-didcomm-dart), [pub.dev](https://pub.dev/packages/didcomm), [Specification](https://identity.foundation/didcomm-messaging/spec/)                                                                                                                                |
-| **Verifiable Data Issuance Protocol (VDIP)** | [GitHub Repository](https://github.com/affinidi/affinidi-tdk/tree/main/libs/dart/didcomm/vdip), [pub.dev](https://pub.dev/packages/affinidi_tdk_vdip), [Documentation](https://github.com/affinidi/affinidi-vdxp-docs)                                                                                                   |
-| **Verifiable Data Sharing Protocol (VDSP)**  | [GitHub Repository](https://github.com/affinidi/affinidi-tdk/tree/main/libs/dart/didcomm/vdsp), [pub.dev](https://pub.dev/packages/affinidi_tdk_vdsp), [Documentation](https://github.com/affinidi/affinidi-vdxp-docs)                                                                                                   |
-| **Affinidi Trust Registry**                  | [GitHub Repository](https://github.com/affinidi/affinidi-trust-registry-rs), [Documentation](https://docs.affinidi.com/open-source-community/affinidi-trust-registry/)                                                                                                                                                   |
-
-## 📋 Prerequisites
-
-Before starting, ensure you have the following installed and configured:
-
-### Required Software
-
-- **Docker Desktop** (v20.10+) - Running with Compose plugin
-  - [Install Docker Desktop](https://www.docker.com/products/docker-desktop/)
-  - Ensure Docker daemon is running
-- **Node.js** (v18+) and npm - For domain setup automation
-  - [Install Node.js](https://nodejs.org/)
-- **Flutter SDK** (v3.0+) - To build and run the mobile app
-  - [Install Flutter](https://docs.flutter.dev/get-started/install)
-- **Git** - For cloning the Trust Registry API repository (GitHub)
-
-### Required Accounts & Credentials
-
-- **ngrok Account** - For public domain tunnelling
-
-  - [Sign up for ngrok](https://dashboard.ngrok.com/signup)
-  - Get your [auth token](https://dashboard.ngrok.com/get-started/your-authtoken)
-  - Free tier is sufficient for development
-
-- **Affinidi Services** - Pre-configured before setup
-  - **DIDComm Mediator**: Follow [this guide](https://docs.affinidi.com/products/affinidi-messaging/didcomm-mediator/)
-  - **Meetingplace Control Plane**: Follow [these steps](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/)
-
-### System Requirements
-
-- **Operating System**: macOS, Linux, or Windows with WSL2
-- **RAM**: Minimum 8GB (16GB recommended for running all services)
-- **Disk Space**: At least 10GB free space
-- **Network**: Stable internet connection for Docker pulls and ngrok tunnels
-
 ## 🔧 Core Components
 
 ### Component Details
@@ -203,6 +141,40 @@ Flutter-based mobile application using Affinidi Meetingplace SDK and TDK for sec
 - **Ayra Card Claiming** - Customize and request business card credentials
 - **Scan & Share** - Scan QR codes and share credentials via VDSP
 
+## 📋 Prerequisites
+
+Before starting, ensure you have the following installed and configured:
+
+### Required Software
+
+- **Docker Desktop** (v20.10+) - Running with Compose plugin
+  - [Install Docker Desktop](https://www.docker.com/products/docker-desktop/)
+  - Ensure Docker daemon is running
+- **Node.js** (v18+) and npm - For domain setup automation
+  - [Install Node.js](https://nodejs.org/)
+- **Flutter SDK** (v3.0+) - To build and run the mobile app
+  - [Install Flutter](https://docs.flutter.dev/get-started/install)
+- **Git** - For cloning the Trust Registry API repository (GitHub)
+
+### Required Accounts & Credentials
+
+- **ngrok Account** - For public domain tunnelling
+
+  - [Sign up for ngrok](https://dashboard.ngrok.com/signup)
+  - Get your [auth token](https://dashboard.ngrok.com/get-started/your-authtoken)
+  - Free tier is sufficient for development
+
+- **Affinidi Services** - Pre-configured before setup
+  - **DIDComm Mediator**: Follow [this guide](https://docs.affinidi.com/products/affinidi-messaging/didcomm-mediator/)
+  - **Meetingplace Control Plane**: Follow [these steps](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/)
+
+### System Requirements
+
+- **Operating System**: macOS, Linux, or Windows with WSL2
+- **RAM**: Minimum 8GB (16GB recommended for running all services)
+- **Disk Space**: At least 10GB free space
+- **Network**: Stable internet connection for Docker pulls and ngrok tunnels
+
 ## 🚀 Quick Start
 
 ### Step 1: Configure Prerequisites
@@ -246,7 +218,7 @@ Please enter MEDIATOR_DID: did:web:example.com:mediator
 Please enter NGROK_AUTH_TOKEN: 2abc...xyz
 ```
 
-### Step 4: Start All Services
+### Step 3: Start All Services
 
 Launch the entire stack using Docker Compose:
 
@@ -549,6 +521,20 @@ This setup is designed for development and demonstration purposes. For productio
 - Follow security best practices for each component
 - Regular security audits and updates
 
+## Affinidi OSS Components Used
+
+This application leverages following Affinidi Open Source projects and Open protocol libraries to demonstrate use cases with Ayra Card.
+
+| Component                                    | Resources                                                                                                                                                                                                                                                                                                                |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Affinidi TDK Vault**                       | [GitHub Repository](https://github.com/affinidi/affinidi-tdk), [Documentation](https://docs.affinidi.com/dev-tools/affinidi-tdk/), [pub.dev](https://pub.dev/packages/affinidi_tdk_vault), [Reference Application](https://github.com/affinidi/affinidi-tdk-vault-reference-app)                                         |
+| **Affinidi Meeting Place SDK**               | [GitHub Repository](https://github.com/affinidi/affinidi-meetingplace-sdk-dart), [Documentation](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/), [pub.dev](https://pub.dev/packages/meeting_place_core), [Reference Application](https://github.com/affinidi/affinidi-meetingplace-reference-app) |
+| **Affinidi Meeting Place Control Plane API** | [GitHub Repository](https://github.com/affinidi/affinidi-meetingplace-controlplane-api-dart), [Documentation](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/)                                                                                                                                      |
+| **DIDComm v2.1**                             | [GitHub Repository](https://github.com/affinidi/affinidi-didcomm-dart), [pub.dev](https://pub.dev/packages/didcomm), [Specification](https://identity.foundation/didcomm-messaging/spec/)                                                                                                                                |
+| **Verifiable Data Issuance Protocol (VDIP)** | [GitHub Repository](https://github.com/affinidi/affinidi-tdk/tree/main/libs/dart/didcomm/vdip), [pub.dev](https://pub.dev/packages/affinidi_tdk_vdip), [Documentation](https://github.com/affinidi/affinidi-vdxp-docs)                                                                                                   |
+| **Verifiable Data Sharing Protocol (VDSP)**  | [GitHub Repository](https://github.com/affinidi/affinidi-tdk/tree/main/libs/dart/didcomm/vdsp), [pub.dev](https://pub.dev/packages/affinidi_tdk_vdsp), [Documentation](https://github.com/affinidi/affinidi-vdxp-docs)                                                                                                   |
+| **Affinidi Trust Registry**                  | [GitHub Repository](https://github.com/affinidi/affinidi-trust-registry-rs), [Documentation](https://docs.affinidi.com/open-source-community/affinidi-trust-registry/)                                                                                                                                                   |
+
 ## 📖 Protocol References
 
 - [VDIP - Verifiable Data Issuance Protocol](https://github.com/affinidi/affinidi-vdxp-docs)
@@ -571,7 +557,7 @@ When contributing to this repository:
 
 See [LICENSE](./LICENSE) file for details.
 
-## � Support
+## 📞 Support
 
 For issues and questions:
 

@@ -2,6 +2,21 @@
 
 The Mobile App is a Flutter-based digital wallet application using Affinidi Meetingplace SDK and TDK (Trust Development Kit) for secure credential storage and management. It provides a complete mobile experience for receiving, storing, and presenting verifiable credentials.
 
+## 📖 Table of Contents
+- [Overview](#-overview)
+- [Architecture](#%EF%B8%8F-architecture)
+- [Preview Of Mobile Wallet Experience](#preview-of-mobile-wallet-experience)
+- [Structure](#-structure)
+- [Setup Process](#-setup-process)
+- [Configuration](#-configuration)
+- [Usage](#-usage)
+- [Key Features](#-key-features)
+- [Development](#-development)
+- [Monitoring](#-monitoring)
+- [Security Best Practices](#-security-best-practices)
+- [Related Documentation](#-related-documentation)
+- [Advanced Features](#-advanced-features)
+
 ## 📋 Overview
 
 The Ayra mobile wallet enables users to:
@@ -41,6 +56,22 @@ The Ayra mobile wallet enables users to:
       │   Mediator)      │
       └──────────────────┘
 ```
+
+## Preview Of Mobile Wallet Experience
+
+<p align="center">
+  <img src="./images/mobile-app/login.png" alt="Login" width="200"/>
+  <img src="./images/mobile-app/dashboard-with-ayra-card.png" alt="Dashboard" width="200"/>
+  <img src="./images/mobile-app/credentials.png" alt="Credentials" width="200"/>
+  <img src="./images/mobile-app/scan-share.png" alt="Scan & Share" width="200"/>
+  <img src="./images/mobile-app/verifier-credentials-request.png" alt="Consent" width="200"/>
+  <img src="./images/mobile-app/shared-success.png" alt="Success" width="200"/>
+</p>
+
+<p align="center">
+  <em>From login to credential sharing - Complete mobile wallet experience</em>
+</p>
+
 
 ## 📁 Structure
 

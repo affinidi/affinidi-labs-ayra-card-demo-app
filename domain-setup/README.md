@@ -2,6 +2,21 @@
 
 This component manages public domain generation using ngrok tunnels for the Ayra ecosystem services. It automatically creates tunnels for the Issuer Portal, Verifier Portal, and Trust Registry UI, making them accessible via public HTTPS URLs.
 
+## 📖 Table of Contents
+- [Overview](#-overview)
+- [Architecture](#%EF%B8%8F-architecture)
+- [Structure](#-structure)
+- [Setup Process](#-setup-process)
+- [Configuration](#-configuration)
+- [Generated Files](#-generated-files)
+- [Usage](#-usage)
+- [Available Scripts](#-available-scripts)
+- [Security Considerations](#-security-considerations)
+- [Dependencies](#-dependencies)
+- [Related Documentation](#-related-documentation)
+- [Tips](#-tips)
+- [Maintenance](#-maintenance)
+
 ## 📋 Overview
 
 The domain setup automates the creation and management of ngrok tunnels, which provide public access to locally-running services. This is essential for:

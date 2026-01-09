@@ -2,6 +2,22 @@
 
 The Trust Registry API is a Rust-based implementation of the Trust Registry Query Protocol (TRQP), providing a standards-compliant trust registry for the Ayra ecosystem. It maintains and serves information about trusted issuers, credential types, and governance frameworks.
 
+## 📖 Table of Contents
+- [Overview](#-overview)
+- [Architecture](#%EF%B8%8F-architecture)
+- [Structure](#-structure)
+- [Setup Process](#-setup-process)
+- [Configuration](#-configuration)
+- [Trust Registry Data](#-trust-registry-data)
+- [Usage](#-usage)
+- [Key Features](#-key-features)
+- [Development](#-development)
+- [Monitoring](#-monitoring)
+- [Security Considerations](#-security-considerations)
+- [Integration Points](#-integration-points)
+- [Related Documentation](#-related-documentation)
+- [Advanced Features](#-advanced-features)
+
 ## 📋 Overview
 
 This service implements the [Trust Over IP (ToIP) Trust Registry Query Protocol](https://trustoverip.github.io/tswg-trust-registry-protocol/) using [Affinidi's open-source Rust implementation](https://github.com/affinidi/affinidi-trust-registry-rs).

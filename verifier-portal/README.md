@@ -2,6 +2,19 @@
 
 The Verifier Portal is a Dart-based server implementing the Verifiable Data Sharing Protocol (VDSP) for credential verification. It provides multiple real-world verification scenarios with QR code generation for mobile wallet interaction.
 
+## 📖 Table of Contents
+- [Overview](#-overview)
+- [Architecture](#%EF%B8%8F-architecture)
+- [Structure](#-structure)
+- [Setup Process](#-setup-process)
+- [Configuration](#-configuration)
+- [Usage](#-usage)
+- [Verification Protocol Flow](#-verification-protocol-flow)
+- [Scenario Configurations](#-scenario-configurations)
+- [Key Features](#-key-features)
+- [Development](#-development)
+- [Related Documentation](#-related-documentation)
+
 ## 📋 Overview
 
 This service acts as the verification endpoint in the Ayra ecosystem, enabling:
@@ -178,7 +191,7 @@ Below are the four verification scenarios with their specific configurations:
 
 #### 1. 🏢 Building Access (Kiosk)
 
-**Scenario ID**: `kiosk`  
+**Scenario ID**: `kiosk`
 **Use Case**: Secure access control for office building entry
 
 **Configuration**:
@@ -205,7 +218,7 @@ _Successful verification result_
 
 #### 2. 🎯 Strategy Session (Round Table)
 
-**Scenario ID**: `roundtable`  
+**Scenario ID**: `roundtable`
 **Use Case**: Secure access control for 6th floor strategy session area
 
 **Configuration**:
@@ -229,7 +242,7 @@ _QR code display for secure area access_
 
 #### 3. 🏨 Hotel Check-in
 
-**Scenario ID**: `check-in-desk`  
+**Scenario ID**: `check-in-desk`
 **Use Case**: Fast and secure hotel check-in with identity verification
 
 **Configuration**:
@@ -256,7 +269,7 @@ _Successful check-in verification_
 
 #### 4. ☕ Coffee Shop Discount
 
-**Scenario ID**: `coffeeshop`  
+**Scenario ID**: `coffeeshop`
 **Use Case**: Exclusive offers and rewards for Ayra Business Card holders
 
 **Configuration**:
