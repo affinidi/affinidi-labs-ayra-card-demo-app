@@ -60,12 +60,12 @@ The Ayra mobile wallet enables users to:
 ## Preview Of Mobile Wallet Experience
 
 <p align="center">
-  <img src="./images/mobile-app/login.png" alt="Login" width="200"/>
-  <img src="./images/mobile-app/dashboard-with-ayra-card.png" alt="Dashboard" width="200"/>
-  <img src="./images/mobile-app/credentials.png" alt="Credentials" width="200"/>
-  <img src="./images/mobile-app/scan-share.png" alt="Scan & Share" width="200"/>
-  <img src="./images/mobile-app/verifier-credentials-request.png" alt="Consent" width="200"/>
-  <img src="./images/mobile-app/shared-success.png" alt="Success" width="200"/>
+  <img src="../images/mobile-app/login.png" alt="Login" width="200"/>
+  <img src="../images/mobile-app/dashboard-with-ayra-card.png" alt="Dashboard" width="200"/>
+  <img src="../images/mobile-app/credentials.png" alt="Credentials" width="200"/>
+  <img src="../images/mobile-app/scan-share.png" alt="Scan & Share" width="200"/>
+  <img src="../images/mobile-app/verifier-credentials-request.png" alt="Consent" width="200"/>
+  <img src="../images/mobile-app/shared-success.png" alt="Success" width="200"/>
 </p>
 
 <p align="center">
