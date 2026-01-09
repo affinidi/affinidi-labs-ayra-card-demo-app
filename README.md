@@ -102,21 +102,6 @@ This project consists of six interconnected components:
   <em>From login to credential sharing - Complete mobile wallet experience</em>
 </p>
 
-## Preview Of Mobile Wallet Experience
-
-<p align="center">
-  <img src="./images/mobile-app/login.png" alt="Login" width="200"/>
-  <img src="./images/mobile-app/dashboard-with-ayra-card.png" alt="Dashboard" width="200"/>
-  <img src="./images/mobile-app/credentials.png" alt="Credentials" width="200"/>
-  <img src="./images/mobile-app/scan-share.png" alt="Scan & Share" width="200"/>
-  <img src="./images/mobile-app/verifier-credentials-request.png" alt="Consent" width="200"/>
-  <img src="./images/mobile-app/shared-success.png" alt="Success" width="200"/>
-</p>
-
-<p align="center">
-  <em>From login to credential sharing - Complete mobile wallet experience</em>
-</p>
-
 ## Affinidi OSS Components Used
 
 This application leverages following Affinidi Open Source projects and Open protocol libraries to demonstrate use cases with Ayra Card.
