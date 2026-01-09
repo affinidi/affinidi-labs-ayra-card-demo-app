@@ -164,9 +164,15 @@ Before starting, ensure you have the following installed and configured:
   - Get your [auth token](https://dashboard.ngrok.com/get-started/your-authtoken)
   - Free tier is sufficient for development
 
-- **Affinidi Services** - Pre-configured before setup
-  - **DIDComm Mediator**: Follow [this guide](https://docs.affinidi.com/products/affinidi-messaging/didcomm-mediator/)
-  - **Meetingplace Control Plane**: Follow [these steps](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/)
+- **Affinidi Services** - Required for mobile app functionality
+  - **Option A: Use Affinidi Portal (Recommended - Quickest)**
+    - Create a DIDComm Mediator via [Affinidi Portal](https://portal.affinidi.com) → Get your `MEDIATOR_DID`
+    - Deploy Meeting Place Control Plane via Portal → Get your `SERVICE_DID`
+    - **You're done!** No additional setup needed for this demo
+  - **Option B: Self-Hosted**
+    - Deploy your own [DIDComm Mediator](https://docs.affinidi.com/products/affinidi-messaging/didcomm-mediator/deployment-options/) → Get your `MEDIATOR_DID`
+    - Deploy your own [Meeting Place Control Plane](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/deployment-options/) → Get your `SERVICE_DID`
+  - See [Step 1](#step-1-configure-prerequisites) below for detailed instructions
 
 ### System Requirements
 
@@ -179,11 +185,34 @@ Before starting, ensure you have the following installed and configured:
 
 ### Step 1: Configure Prerequisites
 
-Before running setup, ensure you have:
+Before running setup, you need two DIDs from Affinidi services. **Choose one option:**
 
-1. **DIDComm Mediator** configured - [Setup Guide](https://docs.affinidi.com/products/affinidi-messaging/didcomm-mediator/)
-2. **Meetingplace Control Plane** configured - [Setup Guide](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/)
-3. **ngrok auth token** - Get from [ngrok dashboard](https://dashboard.ngrok.com/get-started/your-authtoken)
+#### Option A: Affinidi Portal (Recommended - Quickest)
+
+1. Go to [Affinidi Portal](https://portal.affinidi.com)
+2. Create a **DIDComm Mediator** → Copy your `MEDIATOR_DID`
+3. Create a **Meeting Place Control Plane** → Copy your `SERVICE_DID`
+4. Done! You have both DIDs needed for this demo
+
+#### Option B: Self-Hosted Deployment
+
+1. **DIDComm Mediator**
+   - Choose a [deployment option](https://docs.affinidi.com/products/affinidi-messaging/didcomm-mediator/deployment-options/) (AWS Marketplace or Open Source)
+   - Deploy the mediator
+   - Copy your `MEDIATOR_DID` (e.g., `did:web:your-domain.com:mediator`)
+
+2. **Meeting Place Control Plane**
+   - Choose a [deployment option](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/deployment-options/)
+   - Deploy the Control Plane API
+   - Copy your `SERVICE_DID` (the deployed service's DID)
+
+#### What You Need for This Demo
+
+- ✅ `MEDIATOR_DID` - The DID of your mediator instance
+- ✅ `SERVICE_DID` - The DID of your Meeting Place Control Plane
+- ✅ `NGROK_AUTH_TOKEN` - Get from [ngrok dashboard](https://dashboard.ngrok.com/get-started/your-authtoken)
+
+**That's it!** No need to test connections, run reference apps, or explore additional features.
 
 **Note**: The repository includes all component code in their respective `code/` folders (issuer-portal, verifier-portal, trust-registry-ui, mobile-app). Only the Trust Registry API will be cloned from GitHub during setup.
 
