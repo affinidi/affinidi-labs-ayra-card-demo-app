@@ -15,10 +15,10 @@ Affinidi is [a strategic member of the Ayra Association](https://ayra.forum/memb
 
 ## 📖 Table of Contents
 - [Overview](#-overview)
+- [Architecture](#%EF%B8%8F-architecture)
 - [Affinidi OSS Components Used](#affinidi-oss-components-used)
 - [Preview Of Mobile Wallet Experience Application](#preview-of-mobile-wallet-experience-application)
 - [Prerequisites](#-prerequisites)
-- [Architecture](#%EF%B8%8F-architecture)
 - [Core Components](#-core-components)
 - [Quick Start](#-quick-start)
 - [Using the Application](#-using-the-application)
@@ -42,6 +42,50 @@ This demonstration showcases the Ayra Card use case. This project implements a c
 - **Trust Registry**: Implements Trust Registry Query Protocol (TRQP) specification
 - **Mobile Wallet**: Flutter-based mobile app with secure credential storage
 - **Verification Scenarios**: Multiple real-world credential verification use cases
+
+## 🏗️ Architecture
+
+This project consists of six interconnected components:
+
+```
+┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
+│  Mobile Wallet  │────▶│  Issuer Portal   │────▶│ Trust Registry  │
+│   (Flutter)     │     │   (VDIP/DID)     │     │   API (TRQP)    │
+└─────────────────┘     └──────────────────┘     └─────────────────┘
+         │                                                 │
+         │                                                 │
+         ▼                                                 ▼
+┌─────────────────┐                              ┌─────────────────┐
+│ Verifier Portal │◀─────────────────────────────│ Trust Registry  │
+│     (VDSP)      │                              │       UI        │
+└─────────────────┘                              └─────────────────┘
+         ▲
+         │
+   ┌─────────────┐
+   │   ngrok     │
+   │  Tunnels    │
+   └─────────────┘
+```
+
+### Trust Triangle
+
+<p align="center">
+  <img src="./images/arc/trust-triangle.png" alt="Trust Triangle with Issuer, Verifier, Holder and Trust Registries" width="600"/>
+</p>
+
+<p align="center">
+  <em>The trust triangle showing the relationships between Issuer, Verifier, Holder, and Trust Registries</em>
+</p>
+
+### Architecture Overview
+
+<p align="center">
+  <img src="./images/arc/architecture.png" alt="High-level architecture showing components and their interactions" width="700"/>
+</p>
+
+<p align="center">
+  <em>High-level architecture diagram showing the components involved and their interactions/flows</em>
+</p>
 
 ## Affinidi OSS Components Used
 
@@ -106,49 +150,7 @@ Before starting, ensure you have the following installed and configured:
 - **Disk Space**: At least 10GB free space
 - **Network**: Stable internet connection for Docker pulls and ngrok tunnels
 
-## 🏗️ Architecture
-
-This project consists of six interconnected components:
-
-```
-┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
-│  Mobile Wallet  │────▶│  Issuer Portal   │────▶│ Trust Registry  │
-│   (Flutter)     │     │   (VDIP/DID)     │     │   API (TRQP)    │
-└─────────────────┘     └──────────────────┘     └─────────────────┘
-         │                                                 │
-         │                                                 │
-         ▼                                                 ▼
-┌─────────────────┐                              ┌─────────────────┐
-│ Verifier Portal │◀─────────────────────────────│ Trust Registry  │
-│     (VDSP)      │                              │       UI        │
-└─────────────────┘                              └─────────────────┘
-         ▲
-         │
-   ┌─────────────┐
-   │   ngrok     │
-   │  Tunnels    │
-   └─────────────┘
-```
-
-### Trust Triangle
-
-<p align="center">
-  <img src="./images/arc/trust-triangle.png" alt="Trust Triangle with Issuer, Verifier, Holder and Trust Registries" width="600"/>
-</p>
-
-<p align="center">
-  <em>The trust triangle showing the relationships between Issuer, Verifier, Holder, and Trust Registries</em>
-</p>
-
-### Architecture Overview
-
-<p align="center">
-  <img src="./images/arc/architecture.png" alt="High-level architecture showing components and their interactions" width="700"/>
-</p>
-
-<p align="center">
-  <em>High-level architecture diagram showing the components involved and their interactions/flows</em>
-</p>
+## 🔧 Core Components
 
 ### Component Details
 
@@ -160,8 +162,6 @@ This project consists of six interconnected components:
 | **Trust Registry UI**  | TypeScript/React | 3000 | Web interface for trust registry        |
 | **Verifier Portal**    | Dart             | 8081 | Verifies credentials (VDSP)             |
 | **Mobile App**         | Flutter/Dart     | N/A  | Mobile wallet for credential management |
-
-## 🔧 Core Components
 
 ### 1. Domain Setup
 
