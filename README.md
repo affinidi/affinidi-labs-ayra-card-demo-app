@@ -18,15 +18,15 @@ Affinidi is [a strategic member of the Ayra Association](https://ayra.forum/memb
 - [Affinidi OSS Components Used](#affinidi-oss-components-used)
 - [Preview Of Mobile Wallet Experience Application](#preview-of-mobile-wallet-experience-application)
 - [Prerequisites](#-prerequisites)
-- [Core Components](#core-components)
 - [Architecture](#%EF%B8%8F-architecture)
-- [Quick Start](#quick-start)
-- [Quick Start Guide](#quick-start-guide)
-- [Configuration](#-configuration)
-- [Usage Guide](#-usage-guide)
+- [Core Components](#-core-components)
+- [Quick Start](#-quick-start)
+- [Using the Application](#-using-the-application)
+- [Environment Reference](#%EF%B8%8F-environment-reference)
 - [Development Workflow](#-development-workflow)
+- [Cleanup & Reset](#-cleanup--reset)
 - [Additional Documentation](#-additional-documentation)
-- [Demo Video](#demo-video)
+- [Demo Video](#-demo-video)
 - [Security Considerations](#-security-considerations)
 - [Protocol References](#-protocol-references)
 - [Contributing](#-contributing)
@@ -106,50 +106,6 @@ Before starting, ensure you have the following installed and configured:
 - **Disk Space**: At least 10GB free space
 - **Network**: Stable internet connection for Docker pulls and ngrok tunnels
 
-## Core Components
-
-### 1. Domain Setup
-
-Automatically generates public domains using ngrok tunnels for the Issuer, Verifier, and Trust Registry services. Updates all configuration files with the generated URLs.
-
-### 2. Issuer Portal
-
-A Dart-based server that:
-
-- Generates DID:web identifiers for organizations
-- Issues employment credentials
-- Issues Ayra business card credentials using [VDIP protocol](https://github.com/affinidi/affinidi-vdxp-docs) built on the DIDComm v2.1 protocol
-
-### 3. Trust Registry API
-
-Implements the [Trust Registry Query Protocol (TRQP)](https://trustoverip.github.io/tswg-trust-registry-protocol/#introduction) specification using [Affinidi's open-source implementation](https://github.com/affinidi/affinidi-trust-registry-rs). Maintains trusted issuer and credential type registrations.
-
-### 4. Trust Registry UI
-
-Web-based interface for testing and interacting with Trust Registry APIs.
-
-### 5. Verifier Portal
-
-A Dart server implementing the [VDSP protocol](https://github.com/affinidi/affinidi-vdxp-docs) built on the DIDComm v2.1 protocol with multiple verification scenarios:
-
-- **Building Access** - Verify credentials for building entry
-- **6th Floor Session** - Secure area access for roundtable sessions
-- **Hotel Check-in** - Fast check-in with identity credentials
-- **Coffee Shop** - Exclusive discounts with Ayra card
-
-Each scenario generates a QR code that employees scan with the mobile app to share their credentials.
-
-### 6. Mobile App
-
-Flutter-based mobile application using Affinidi Meetingplace SDK and TDK for secure credential storage. Features:
-
-- **Login** - Organization selection with email + OTP authentication
-- **Credential Issuance** - Receive employment credentials via VDIP
-- **Ayra Card Claiming** - Customize and request business card credentials
-- **Scan & Share** - Scan QR codes and share credentials via VDSP
-
-
-
 ## 🏗️ Architecture
 
 This project consists of six interconnected components:
@@ -205,28 +161,51 @@ This project consists of six interconnected components:
 | **Verifier Portal**    | Dart             | 8081 | Verifies credentials (VDSP)             |
 | **Mobile App**         | Flutter/Dart     | N/A  | Mobile wallet for credential management |
 
-## Quick Start
+## 🔧 Core Components
 
-### 1. Configure Environment
+### 1. Domain Setup
 
-**Setup Required Services:**
+Automatically generates public domains using ngrok tunnels for the Issuer, Verifier, and Trust Registry services. Updates all configuration files with the generated URLs.
 
-Before running the setup, ensure you have configured:
+### 2. Issuer Portal
 
-- **DIDComm Mediator**: Follow [this guide](https://docs.affinidi.com/products/affinidi-messaging/didcomm-mediator/)
-- **Meetingplace Control Plane**: Follow [these steps](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/)
-  
-## 🚀 Quick Start Guide
+A Dart-based server that:
 
-### Step 1: Get the Repository
+- Generates DID:web identifiers for organizations
+- Issues employment credentials
+- Issues Ayra business card credentials using [VDIP protocol](https://github.com/affinidi/affinidi-vdxp-docs) built on the DIDComm v2.1 protocol
 
-```bash
-cd affinidi-labs-ayra-card-demo-app
-```
+### 3. Trust Registry API
 
-**Note**: The repository includes all component code in their respective `code/` folders (issuer-portal, verifier-portal, trust-registry-ui, mobile-app). Only the Trust Registry API will be cloned from GitHub during setup.
+Implements the [Trust Registry Query Protocol (TRQP)](https://trustoverip.github.io/tswg-trust-registry-protocol/#introduction) specification using [Affinidi's open-source implementation](https://github.com/affinidi/affinidi-trust-registry-rs). Maintains trusted issuer and credential type registrations.
 
-### Step 2: Configure Prerequisites
+### 4. Trust Registry UI
+
+Web-based interface for testing and interacting with Trust Registry APIs.
+
+### 5. Verifier Portal
+
+A Dart server implementing the [VDSP protocol](https://github.com/affinidi/affinidi-vdxp-docs) built on the DIDComm v2.1 protocol with multiple verification scenarios:
+
+- **Building Access** - Verify credentials for building entry
+- **6th Floor Session** - Secure area access for roundtable sessions
+- **Hotel Check-in** - Fast check-in with identity credentials
+- **Coffee Shop** - Exclusive discounts with Ayra card
+
+Each scenario generates a QR code that employees scan with the mobile app to share their credentials.
+
+### 6. Mobile App
+
+Flutter-based mobile application using Affinidi Meetingplace SDK and TDK for secure credential storage. Features:
+
+- **Login** - Organization selection with email + OTP authentication
+- **Credential Issuance** - Receive employment credentials via VDIP
+- **Ayra Card Claiming** - Customize and request business card credentials
+- **Scan & Share** - Scan QR codes and share credentials via VDSP
+
+## 🚀 Quick Start
+
+### Step 1: Configure Prerequisites
 
 Before running setup, ensure you have:
 
@@ -234,7 +213,9 @@ Before running setup, ensure you have:
 2. **Meetingplace Control Plane** configured - [Setup Guide](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/)
 3. **ngrok auth token** - Get from [ngrok dashboard](https://dashboard.ngrok.com/get-started/your-authtoken)
 
-### Step 3: Run the Setup Script
+**Note**: The repository includes all component code in their respective `code/` folders (issuer-portal, verifier-portal, trust-registry-ui, mobile-app). Only the Trust Registry API will be cloned from GitHub during setup.
+
+### Step 2: Run the Setup Script
 
 The setup script automates the entire configuration process:
 
@@ -286,7 +267,7 @@ You should see all services in "Up" state:
 - `trust-registry-api`
 - `trust-registry-ui`
 
-### Step 5: Configure and Run Mobile App
+### Step 4: Configure and Run Mobile App
 
 ```bash
 cd mobile-app/code
@@ -300,57 +281,7 @@ flutter run --dart-define-from-file=configurations/.env
 
 **Note:** Ensure you have an Android/iOS device connected or emulator running.
 
-## 📝 Configuration
-
-### Environment Variables
-
-The `.env` file contains all configuration settings. Key variables:
-
-```bash
-# Ngrok Configuration
-USE_NGROK=true                        # Enable/disable ngrok tunnelling
-NGROK_AUTH_TOKEN=your_token_here      # Your ngrok authentication token
-
-# Trust Registry API Repository (only external dependency cloned during setup)
-TRUST_REGISTRY_API_REPO_URL="https://github.com/affinidi/affinidi-trust-registry-rs"
-
-# Component code is included in the repository under respective 'code/' folders:
-# - issuer-portal/code/
-# - verifier-portal/code/
-# - trust-registry-ui/code/
-# - mobile-app/code/
-
-# Affinidi Services
-SERVICE_DID=                          # Meetingplace control plane DID
-MEDIATOR_DID=                         # DIDComm Mediator DID
-
-# Issuer Configuration
-ALLOWED_EMAIL_DOMAIN=sweetlane-bank,affinidi
-ISSUER_DIDWEB_DOMAIN=                 # Auto-configured by setup
-ECOSYSTEM_DIDWEB_DOMAIN=              # Auto-configured by setup
-AYRA_DIDWEB_DOMAIN=                   # Auto-configured by setup
-
-# Trust Registry
-TR_API_ENDPOINT=                      # Auto-configured by setup
-TR_STORAGE_BACKEND=csv
-TR_FILE_STORAGE_PATH=/data/tr-data.csv
-
-# Mobile App
-APP_VERSION_NAME="Panther"
-```
-
-### Manual Configuration (Alternative to ngrok)
-
-If you prefer to use your own tunnelling solution or have static domains:
-
-1. Set `USE_NGROK=false` in `.env`
-2. Manually configure domain URLs in:
-   - `issuer-portal/code/.env`
-   - `verifier-portal/code/.env`
-   - `trust-registry-ui/code/src/data/registries.ts`
-   - `mobile-app/code/configurations/.env`
-
-## 🎮 Usage Guide
+## 📖 Using the Application
 
 ### Issuer Portal Workflows
 
@@ -470,6 +401,56 @@ The Verifier Portal implements four verification scenarios:
 - Query issuer trustworthiness
 - Implement TRQP protocol endpoints
 
+## ⚙️ Environment Reference
+
+### Environment Variables
+
+The `.env` file contains all configuration settings. Key variables:
+
+```bash
+# Ngrok Configuration
+USE_NGROK=true                        # Enable/disable ngrok tunnelling
+NGROK_AUTH_TOKEN=your_token_here      # Your ngrok authentication token
+
+# Trust Registry API Repository (only external dependency cloned during setup)
+TRUST_REGISTRY_API_REPO_URL="https://github.com/affinidi/affinidi-trust-registry-rs"
+
+# Component code is included in the repository under respective 'code/' folders:
+# - issuer-portal/code/
+# - verifier-portal/code/
+# - trust-registry-ui/code/
+# - mobile-app/code/
+
+# Affinidi Services
+SERVICE_DID=                          # Meetingplace control plane DID
+MEDIATOR_DID=                         # DIDComm Mediator DID
+
+# Issuer Configuration
+ALLOWED_EMAIL_DOMAIN=sweetlane-bank,affinidi
+ISSUER_DIDWEB_DOMAIN=                 # Auto-configured by setup
+ECOSYSTEM_DIDWEB_DOMAIN=              # Auto-configured by setup
+AYRA_DIDWEB_DOMAIN=                   # Auto-configured by setup
+
+# Trust Registry
+TR_API_ENDPOINT=                      # Auto-configured by setup
+TR_STORAGE_BACKEND=csv
+TR_FILE_STORAGE_PATH=/data/tr-data.csv
+
+# Mobile App
+APP_VERSION_NAME="Panther"
+```
+
+### Manual Configuration (Alternative to ngrok)
+
+If you prefer to use your own tunnelling solution or have static domains:
+
+1. Set `USE_NGROK=false` in `.env`
+2. Manually configure domain URLs in:
+   - `issuer-portal/code/.env`
+   - `verifier-portal/code/.env`
+   - `trust-registry-ui/code/src/data/registries.ts`
+   - `mobile-app/code/configurations/.env`
+
 ## 🔧 Development Workflow
 
 ### Component Setup Details
@@ -517,7 +498,7 @@ docker compose down
 docker compose down -v
 ```
 
-## 🧹 Cleanup
+## 🧹 Cleanup & Reset
 
 To remove cloned repositories and generated data:
 
@@ -545,7 +526,7 @@ Detailed documentation for each component:
 - [Verifier Portal](./verifier-portal/README.md) - Verification scenarios
 - [Mobile App](./mobile-app/README.md) - Flutter app configuration
 
-## Demo Video
+## 🎥 Demo Video
 
 Watch the complete Ayra demo in action:
 
@@ -590,7 +571,7 @@ When contributing to this repository:
 
 See [LICENSE](./LICENSE) file for details.
 
-## 📞 Support
+## � Support
 
 For issues and questions:
 
