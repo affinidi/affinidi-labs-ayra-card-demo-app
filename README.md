@@ -16,8 +16,8 @@ Affinidi is [a strategic member of the Ayra Association](https://ayra.forum/memb
 ## 📖 Table of Contents
 - [Overview](#-overview)
 - [Architecture](#%EF%B8%8F-architecture)
+- [Preview Of Mobile Wallet Experience](#preview-of-mobile-wallet-experience)
 - [Affinidi OSS Components Used](#affinidi-oss-components-used)
-- [Preview Of Mobile Wallet Experience Application](#preview-of-mobile-wallet-experience-application)
 - [Prerequisites](#-prerequisites)
 - [Core Components](#-core-components)
 - [Quick Start](#-quick-start)
@@ -87,21 +87,7 @@ This project consists of six interconnected components:
   <em>High-level architecture diagram showing the components involved and their interactions/flows</em>
 </p>
 
-## Affinidi OSS Components Used
-
-This application leverages following Affinidi Open Source projects and Open protocol libraries to demonstrate use cases with Ayra Card.
-
-| Component                                    | Resources                                                                                                                                                                                                                                                                                                                |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Affinidi TDK Vault**                       | [GitHub Repository](https://github.com/affinidi/affinidi-tdk), [Documentation](https://docs.affinidi.com/dev-tools/affinidi-tdk/), [pub.dev](https://pub.dev/packages/affinidi_tdk_vault), [Reference Application](https://github.com/affinidi/affinidi-tdk-vault-reference-app)                                         |
-| **Affinidi Meeting Place SDK**               | [GitHub Repository](https://github.com/affinidi/affinidi-meetingplace-sdk-dart), [Documentation](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/), [pub.dev](https://pub.dev/packages/meeting_place_core), [Reference Application](https://github.com/affinidi/affinidi-meetingplace-reference-app) |
-| **Affinidi Meeting Place Control Plane API** | [GitHub Repository](https://github.com/affinidi/affinidi-meetingplace-controlplane-api-dart), [Documentation](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/)                                                                                                                                      |
-| **DIDComm v2.1**                             | [GitHub Repository](https://github.com/affinidi/affinidi-didcomm-dart), [pub.dev](https://pub.dev/packages/didcomm), [Specification](https://identity.foundation/didcomm-messaging/spec/)                                                                                                                                |
-| **Verifiable Data Issuance Protocol (VDIP)** | [GitHub Repository](https://github.com/affinidi/affinidi-tdk/tree/main/libs/dart/didcomm/vdip), [pub.dev](https://pub.dev/packages/affinidi_tdk_vdip), [Documentation](https://github.com/affinidi/affinidi-vdxp-docs)                                                                                                   |
-| **Verifiable Data Sharing Protocol (VDSP)**  | [GitHub Repository](https://github.com/affinidi/affinidi-tdk/tree/main/libs/dart/didcomm/vdsp), [pub.dev](https://pub.dev/packages/affinidi_tdk_vdsp), [Documentation](https://github.com/affinidi/affinidi-vdxp-docs)                                                                                                   |
-| **Affinidi Trust Registry**                  | [GitHub Repository](https://github.com/affinidi/affinidi-trust-registry-rs), [Documentation](https://docs.affinidi.com/open-source-community/affinidi-trust-registry/)                                                                                                                                                   |
-
-## Preview Of Mobile Wallet Experience Application
+## Preview Of Mobile Wallet Experience
 
 <p align="center">
   <img src="./images/mobile-app/login.png" alt="Login" width="200"/>
@@ -115,6 +101,35 @@ This application leverages following Affinidi Open Source projects and Open prot
 <p align="center">
   <em>From login to credential sharing - Complete mobile wallet experience</em>
 </p>
+
+## Preview Of Mobile Wallet Experience
+
+<p align="center">
+  <img src="./images/mobile-app/login.png" alt="Login" width="200"/>
+  <img src="./images/mobile-app/dashboard-with-ayra-card.png" alt="Dashboard" width="200"/>
+  <img src="./images/mobile-app/credentials.png" alt="Credentials" width="200"/>
+  <img src="./images/mobile-app/scan-share.png" alt="Scan & Share" width="200"/>
+  <img src="./images/mobile-app/verifier-credentials-request.png" alt="Consent" width="200"/>
+  <img src="./images/mobile-app/shared-success.png" alt="Success" width="200"/>
+</p>
+
+<p align="center">
+  <em>From login to credential sharing - Complete mobile wallet experience</em>
+</p>
+
+## Affinidi OSS Components Used
+
+This application leverages following Affinidi Open Source projects and Open protocol libraries to demonstrate use cases with Ayra Card.
+
+| Component                                    | Resources                                                                                                                                                                                                                                                                                                                |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Affinidi TDK Vault**                       | [GitHub Repository](https://github.com/affinidi/affinidi-tdk), [Documentation](https://docs.affinidi.com/dev-tools/affinidi-tdk/), [pub.dev](https://pub.dev/packages/affinidi_tdk_vault), [Reference Application](https://github.com/affinidi/affinidi-tdk-vault-reference-app)                                         |
+| **Affinidi Meeting Place SDK**               | [GitHub Repository](https://github.com/affinidi/affinidi-meetingplace-sdk-dart), [Documentation](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/), [pub.dev](https://pub.dev/packages/meeting_place_core), [Reference Application](https://github.com/affinidi/affinidi-meetingplace-reference-app) |
+| **Affinidi Meeting Place Control Plane API** | [GitHub Repository](https://github.com/affinidi/affinidi-meetingplace-controlplane-api-dart), [Documentation](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/)                                                                                                                                      |
+| **DIDComm v2.1**                             | [GitHub Repository](https://github.com/affinidi/affinidi-didcomm-dart), [pub.dev](https://pub.dev/packages/didcomm), [Specification](https://identity.foundation/didcomm-messaging/spec/)                                                                                                                                |
+| **Verifiable Data Issuance Protocol (VDIP)** | [GitHub Repository](https://github.com/affinidi/affinidi-tdk/tree/main/libs/dart/didcomm/vdip), [pub.dev](https://pub.dev/packages/affinidi_tdk_vdip), [Documentation](https://github.com/affinidi/affinidi-vdxp-docs)                                                                                                   |
+| **Verifiable Data Sharing Protocol (VDSP)**  | [GitHub Repository](https://github.com/affinidi/affinidi-tdk/tree/main/libs/dart/didcomm/vdsp), [pub.dev](https://pub.dev/packages/affinidi_tdk_vdsp), [Documentation](https://github.com/affinidi/affinidi-vdxp-docs)                                                                                                   |
+| **Affinidi Trust Registry**                  | [GitHub Repository](https://github.com/affinidi/affinidi-trust-registry-rs), [Documentation](https://docs.affinidi.com/open-source-community/affinidi-trust-registry/)                                                                                                                                                   |
 
 ## 📋 Prerequisites
 
