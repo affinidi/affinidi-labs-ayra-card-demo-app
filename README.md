@@ -1,17 +1,12 @@
-# Ayra Card Demonstration, Powered by Affinidi Trust Infrastructure
+# Ayra Card Demonstration, Built With Affinidi OSS toolkits
 
-This repository showcases [the Ayra Card](https://docs.ayra.forum/ayra-cards), a digital credential idea developed and overseen by [the Ayra Association](https://ayra.forum/about/). The Ayra Association is a Swiss non-profit, multi-stakeholder foundation that acts as the governing body for the Ayra Trust Network dedicated to growth of safe, secure, interoperable, and sustainable digital trust ecosystems that connect and enrich our world.
+The [Ayra Card concept](https://docs.ayra.forum/ayra-cards) standardizes how we interact to share trusted information across ecosystems. **This repository showcases this concept in action** specifically demonstrating how it brings together two key aspects:
+- **Technical trust**: cryptographic validation
+- **Human trust**: governance frameworks
 
-This repository provides a practical demonstration of how Ayra Card can be received, stored, and presented across various systems. The applications are made up of composable components—modular building blocks that developers can expand or adapt. This repository provides automated setup and orchestration of all required services using Docker containers, enabling a complete end-to-end experience in a few minutes. With Affinidi Trust Infrastructure, complexity is minimised and innovation speeds up: you can create new trust networks in just days, not months.
+This concept is developed and supported by [the Ayra Association](https://ayra.forum/about/) - a Swiss neutral, non‑profit, multi‑stakeholder foundation dedicated to building digital trust ecosystems and operationalising [Trust Over IP](https://trustoverip.org/). Affinidi is proud to be [a strategic member of the Ayra Association](https://ayra.forum/members/), offering Affinidi Trust Infrastructure (ATI), which includes a collection of open-source toolkits that help developers quickly and easily realise complex concepts, such as the Ayra Card.
 
-Affinidi is [a strategic member of the Ayra Association](https://ayra.forum/members/), offering Affinidi Trust Infrastructure (ATI), which includes a collection of open-source features that help developers quickly and easily realise complex concepts, such as the Ayra Card.
 
-> [!WARNING]
-> This repository is intended for learning, experimentation, and prototyping only.
-> **Do not use this code as-is in production environments.**
-> Affinidi provides no warranty or guarantee for copy-paste usage.
-> Please review, test, and secure your implementation before deploying to production.
-> &nbsp;
 
 ## 📖 Table of Contents
 - [Overview](#-overview)
@@ -34,15 +29,43 @@ Affinidi is [a strategic member of the Ayra Association](https://ayra.forum/memb
 - [Acknowledgments](#-acknowledgments)
 
 
+
 ## 🎯 Overview
 
-This demonstration showcases the Ayra Card use case. This project implements a complete digital credential infrastructure based on W3C Verifiable Credentials standards, featuring:
+Innovations over the years have automated **data processing, business logic, and workflows**, but the **first mile of trust** (backing / authority recognition) still depends on manual, paper‑style checks or bespoke implementations. Current systems often require re-verification or re-authentication along with bilateral agreements when data moves between different organizations, as trust is often localized within specific systems or relying party relationships, rather than being universally portable. Today, that recognition is not **machine‑queryable** or portable at internet scale. Trust in data needs to be re-established every time it moves across systems, border and ecosystems as yet **trust does not travel with the data**. 
 
-- **Decentralized Identity**: did:web based identifiers for organizations
-- **Verifiable Credentials**: Issue and verify employment and business card credentials
-- **Trust Registry**: Implements Trust Registry Query Protocol (TRQP) specification
-- **Mobile Wallet**: Flutter-based mobile app with secure credential storage
-- **Verification Scenarios**: Multiple real-world credential verification use cases
+What's needed is a way to articulate **trusted relationships** so machines can interpret **authority and assurance** across contexts **without bilateral agreements** making confidence portable and decisions repeatable wherever the data goes.
+- TRQP calls this *“DNS for trust”*: programmatic queries that answer *who is authorized to do what, under which framework*. 
+- W3C VC 2.0 turns *attestations* into **verifiable, tamper‑evident** evidence that can be checked anywhere.
+
+This demonstration showcases how Ayra Card enables this trust recognition in a standardised way to create digital trust across ecosystems. 
+
+#### What This Repository Offers
+- A practical demonstration of how Ayra Card can be received, stored, and presented across various systems.
+- Applications built from composable components—modular building blocks that developers can expand or adapt.
+- Automated setup and orchestration of all required services using Docker containers for a complete end-to-end experience in minutes.
+- Use of developer experience focused Affinidi OSS toolkits, reducing complexity and accelerating innovation to create new trust networks in days, not months.
+  
+#### Why It Matters
+This demo addresses four fundamental challenges in cross-border, cross-system trust:
+1. **Discover** digital endpoints:
+Find and connect across ecosystems in a private, safe way using secure discovery protocols.
+1. **Exchange data** safely and securely:
+Establish an end-to-end encrypted channel to share different types of data only with intended parties.
+1. **Check authorization**:
+Confirm if the attestation issuing party is authorized to issue the authority statements in their local ecosystem.
+1. **Check recognition**:
+Check if the attestation issuing party is recognized under governance policies and trust frameworks of the relying party ecosystem.
+
+
+## What You’ll Build - Trust That Travels
+
+- **Digital identity for Organisations (`did:web`)** published over HTTPS with keys and service endpoints.
+- **W3C Verifiable Credentials (VC 2.0)** for employment and business cards, and **Verifiable Presentations** for sharing. 
+- **Connection offers** and secure messaging for introductions and interactions (Affinidi Meeting Place + DIDComm v2.1).
+- **TRQP compliant Trust registry** to confirm issuer/verifier authorizations under governance frameworks.
+- **Mobile Application** to manage the consumer's identity and credentials 
+
 
 ## 🏗️ Architecture
 
@@ -604,5 +627,13 @@ This project uses open-source implementations from:
 - Docker containerization platform
 
 ---
+---
 
+> [!WARNING]
+> This repository is intended for learning, experimentation, and prototyping only.
+> **Do not use this code as-is in production environments.**
+> Affinidi provides no warranty or guarantee for copy-paste usage.
+> Please review, test, and secure your implementation before deploying to production.
+> &nbsp;
+---
 **Note:** Remember to keep your ngrok terminal running while using the services. The public URLs generated by ngrok will become unavailable if you close that terminal.
