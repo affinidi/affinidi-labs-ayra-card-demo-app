@@ -11,7 +11,7 @@ This concept is developed and supported by [the Ayra Association](https://ayra.f
 ## 📖 Table of Contents
 - [Overview](#-overview)
 - [Architecture](#%EF%B8%8F-architecture)
-- [Core Components](#-core-components)
+- [Core Application Components](#-core-application-components)
 - [Prerequisites](#-prerequisites)
 - [Quick Start](#-quick-start)
 - [Using the Application](#-using-the-application)
@@ -111,53 +111,57 @@ This project consists of six interconnected components:
   <em>High-level architecture diagram showing the components involved and their interactions/flows</em>
 </p>
 
-## 🔧 Core Components
+## 🔧 Core Application Components
 
-### Component Details
+### Key Application Components At a Glance
 
-| Component              | Technology       | Port | Purpose                                 |
-| ---------------------- | ---------------- | ---- | --------------------------------------- |
-| **Domain Setup**       | Node.js, ngrok   | N/A  | Generates public domains via tunnels    |
-| **Issuer Portal**      | Dart             | 8080 | Issues verifiable credentials (VDIP)    |
-| **Trust Registry API** | Rust             | 3232 | TRQP-compliant trust registry           |
-| **Trust Registry UI**  | TypeScript/React | 3000 | Web interface for trust registry        |
-| **Verifier Portal**    | Dart             | 8081 | Verifies credentials (VDSP)             |
-| **Mobile App**         | Flutter/Dart     | N/A  | Mobile wallet for credential management |
+| Component              | Technology       | Port | Purpose                                 | Required | Outcomes / Alternatives |
+| ---------------------- | ---------------- | ---- | --------------------------------------- |----------|-------------------------|
+| **Endpoint Manager** <br>(Domain Setup)       | Node.js, ngrok   | - | Automate creation of public-facing endpoints for local services via tunells and update configuration    | No (but recommended) | Provides secure, auto-generated URLs for all backend components and updates config files for seamless integration. <br>**Alternatives**: Manually configure URLs, use another tunneling tool, or deploy services with public cloud/infrastructure and update all service configurations. 
+| **Issuer Service**<br> Portal     | Dart             | 8080 | Issues verifiable credentials (VDIP)    | Yes | Issues credentials and Ayra cards; must be publicly accessible for mobile and client interaction.|
+| **Verifier Service Portal**    | Dart             | 8081 | Verify credentials for access and workflow scenarios (using VDSP)| Yes | Validates credentials for specified scenarios; endpoint must be public for QR-based mobile workflows.
+| **Trust Registry API** | Rust             | 3232 | Provide trust registry functionality and TRQP endpoints          | Yes |  Trust fabric for issuer recognition, authorization checks, and trust queries.
+| **Trust Registry UI**  | TypeScript/React | 3000 | Web interface for trust registry administration |Yes | Enables registry management via browser; should be accessible from developer/local environments.
+| **Mobile App**         | Flutter/Dart     | -  | Mobile application for credential collection, storage, and presentation |Yes | Allows users to receive, store, and share credentials; requires all backend endpoints to be accessible for full functionality.
 
-### 1. Domain Setup
+### Key Application Components Details
 
-Automatically generates public domains using ngrok tunnels for the Issuer, Verifier, and Trust Registry services. Updates all configuration files with the generated URLs.
+#### 1. Endpoint Manager (Domain Setup folder)
 
-### 2. Issuer Portal
+Generates secure, public URLs for local services (Issuer, Verifier, Trust Registry) using ngrok tunnels, specifically for development and testing purposes. Automatically updates all related configuration files to ensure components communicate using the correct endpoints. Optional—developers may configure public domains manually or use alternative tunneling solutions.
 
-A Dart-based server that:
+#### 2. Issuer Service 
 
-- Generates DID:web identifiers for organizations
-- Issues employment credentials
-- Issues Ayra business card credentials using [VDIP protocol](https://github.com/affinidi/affinidi-vdxp-docs) built on the DIDComm v2.1 protocol
+Server application (Dart) for issuing employment credentials and Ayra business card credentials to users.
 
-### 3. Trust Registry API
+- Generates organization did:web identifiers 
+- Securely issues Employee and Ayra Business Card credentials to mobile wallets via [the Verifiable Data Issuance Protocol (VDIP)](https://github.com/affinidi/affinidi-vdxp-docs) (based on DIDComm v2.1)
 
-Implements the [Trust Registry Query Protocol (TRQP)](https://trustoverip.github.io/tswg-trust-registry-protocol/#introduction) specification using [Affinidi's open-source implementation](https://github.com/affinidi/affinidi-trust-registry-rs). Maintains trusted issuer and credential type registrations.
 
-### 4. Trust Registry UI
+#### 3. Verifier Service Portal
 
-Web-based interface for testing and interacting with Trust Registry APIs.
-
-### 5. Verifier Portal
-
-A Dart server implementing the [VDSP protocol](https://github.com/affinidi/affinidi-vdxp-docs) built on the DIDComm v2.1 protocol with multiple verification scenarios:
+Server application (Dart) for requesting and verifying credentials in multiple real-world scenarios (building access, session entry, hotel check-in, coffee shop discounts) using [the Verifiable Data Sharing Protocol (VDSP)](https://github.com/affinidi/affinidi-vdxp-docs) (built on DIDComm v2.1). 
 
 - **Building Access** - Verify credentials for building entry
 - **6th Floor Session** - Secure area access for roundtable sessions
 - **Hotel Check-in** - Fast check-in with identity credentials
 - **Coffee Shop** - Exclusive discounts with Ayra card
 
-Each scenario generates a QR code that employees scan with the mobile app to share their credentials.
+Generates scenario-specific QR codes that employees scan with the mobile app to share relevant verifiable credentials. 
 
-### 6. Mobile App
+#### 4. Trust Registry API
 
-Flutter-based mobile application using Affinidi Meetingplace SDK and TDK for secure credential storage. Features:
+Rust-based API service implementing the [Trust Registry Query Protocol (TRQP)](https://trustoverip.github.io/tswg-trust-registry-protocol/#introduction) specification using [Affinidi's open-source implementation](https://github.com/affinidi/affinidi-trust-registry-rs). This is used for querying trusted issuer registrations and supported credential types. Serves as a domain specific governance mechanism enabling authorization and trust checks for an ecosystem. 
+
+#### 5. Trust Registry UI
+
+React-based web interface for interacting with the Trust Registry API. Allows administrators and developers to register trusted issuers, manage credential schemas, and test registry queries during development.
+
+#### 6. Mobile App
+
+Flutter mobile wallet application for end users. Leverages Affinidi Meetingplace SDK and TDK for secure storage, receipt, and sharing of credentials. Supports organization login, receiving credentials via VDIP, personalized Ayra card claiming, and presenting credentials by scanning QR codes from verifier portals (via VDSP).
+
+Features:
 
 - **Login** - Organization selection with email + OTP authentication
 - **Credential Issuance** - Receive employment credentials via VDIP
