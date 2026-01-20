@@ -1,8 +1,8 @@
 # Ayra Card Demonstration, built with Affinidi OSS toolkits
 
 The [Ayra Card concept](https://docs.ayra.forum/ayra-cards) standardizes how we interact to share trusted information across ecosystems. **This repository showcases this concept in action** specifically demonstrating how it brings together two key aspects:
-- **Technical trust**: cryptographic validation
-- **Human trust**: governance frameworks
+- **Technical trust**: Cryptographic validation
+- **Human trust**: Governance frameworks
 
 This concept is developed and supported by [the Ayra Association](https://ayra.forum/about/) - a Swiss neutral, non‑profit, multi‑stakeholder foundation dedicated to building digital trust ecosystems and operationalising [Trust Over IP](https://trustoverip.org/). Affinidi is proud to be [a strategic member of the Ayra Association](https://ayra.forum/members/), offering Affinidi Trust Infrastructure (ATI), which includes a collection of open-source toolkits that help developers quickly and easily realise complex concepts, such as the Ayra Card.
 
@@ -10,6 +10,7 @@ This concept is developed and supported by [the Ayra Association](https://ayra.f
 
 ## 📖 Table of Contents
 - [Overview](#-overview)
+- [Scenario](#scenario-sweetlane-group)
 - [Architecture](#%EF%B8%8F-architecture)
 - [Core Application Components](#-core-application-components)
 - [Prerequisites](#-prerequisites)
@@ -37,9 +38,26 @@ This repository demonstrates how **Ayra Card** bootstraps trusted digital intera
 Ayra Card acts as a **container of containers** packaging identity, cryptographic keys, service endpoints, governance context, and shared information into a single artifact that any relying party can use to
 **start an interaction now** and decide what to trust and how to proceed. This makes Ayra Card a practical starting point for digital interaction, rather than a closed credential or platform‑specific format.
 
-It is intentionally **payload‑independent** enabling mixed-trust model by design: a Card can carry high‑assurance Verifiable Credentials (VC 2.0) from any ecosystem, simple self‑declared details (like an email or phone number), **URLs or pointers** into existing systems, and even **just queries** that request what’s needed next (means to the end). The Card doesn’t dictate *what* must be trusted; it standardizes *how trust begins and grows*.
+It is intentionally **payload‑independent** enabling **mixed-trust model **by design: a Card can carry high‑assurance Verifiable Credentials (VC 2.0) from any ecosystem, simple self‑declared details (like an email or phone number), **URLs or pointers** into existing systems, and even **just queries** that request what’s needed next (means to the end). The Card doesn’t dictate *what* must be trusted; it standardizes *how trust begins and grows*.
 
 Use this demo to run an end‑to‑end flow locally, see how recognition and authorization can be checked at runtime, and explore how Ayra Card makes trust **portable, progressive, and repeatable** without bespoke integrations.
+
+## Scenario: Sweetlane Group 
+
+Sweetlane Group is a fictional, global, multi‑national organization used to demonstrate how Ayra Card enables trusted digital interactions without pre‑existing integrations or bilateral agreements.
+
+**Goal**: Show how a Sweetlane employee can prove employment to:
+- Access Sweetlane offices globally
+- Receive local promotions (e.g., coffee shops)
+- Obtain employee rates at hotels
+
+all without APIs, publicly shared discount codes, or direct integrations.
+
+Relying parties verify authorisation and recognition at runtime via TRQP to make trust decisions in the context of the usecase.
+
+### Key idea
+> One card, many contexts.
+The Ayra Card packages the first step of trust—identity, endpoints, governance context, and shared information. From there, TRQP and VC 2.0 enable progressive assurance, raising confidence only when required without bespoke integrations or shared secrets.
 
 ### The Model
 
