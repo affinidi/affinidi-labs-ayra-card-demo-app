@@ -1,4 +1,4 @@
-# Ayra Card Demonstration, Built With Affinidi OSS toolkits
+# Ayra Card Demonstration, built with Affinidi OSS toolkits
 
 The [Ayra Card concept](https://docs.ayra.forum/ayra-cards) standardizes how we interact to share trusted information across ecosystems. **This repository showcases this concept in action** specifically demonstrating how it brings together two key aspects:
 - **Technical trust**: cryptographic validation
@@ -32,39 +32,20 @@ This concept is developed and supported by [the Ayra Association](https://ayra.f
 
 ## 🎯 Overview
 
-Innovations over the years have automated **data processing, business logic, and workflows**, but the **first mile of trust** (backing / authority recognition) still depends on manual, paper‑style checks or bespoke implementations. Current systems often require re-verification or re-authentication along with bilateral agreements when data moves between different organizations, as trust is often localized within specific systems or relying party relationships, rather than being universally portable. Today, that recognition is not **machine‑queryable** or portable at internet scale. Trust in data needs to be re-established every time it moves across systems, border and ecosystems as yet **trust does not travel with the data**. 
+This repository demonstrates how **Ayra Card** bootstraps trusted digital interactions across systems using interoperable building blocks.
 
-What's needed is a way to articulate **trusted relationships** so machines can interpret **authority and assurance** across contexts **without bilateral agreements** making confidence portable and decisions repeatable wherever the data goes.
-- TRQP calls this *“DNS for trust”*: programmatic queries that answer *who is authorized to do what, under which framework*. 
-- W3C VC 2.0 turns *attestations* into **verifiable, tamper‑evident** evidence that can be checked anywhere.
+Ayra Card acts as a **container of containers** packaging identity, cryptographic keys, service endpoints, governance context, and shared information into a single artifact that any relying party can use to
+**start an interaction now** and decide what to trust and how to proceed. This makes Ayra Card a practical starting point for digital interaction, rather than a closed credential or platform‑specific format.
 
-This demonstration showcases how Ayra Card enables this trust recognition in a standardised way to create digital trust across ecosystems. 
+It is intentionally **payload‑independent** enabling mixed-trust model by design: a Card can carry high‑assurance Verifiable Credentials (VC 2.0) from any ecosystem, simple self‑declared details (like an email or phone number), **URLs or pointers** into existing systems, and even **just queries** that request what’s needed next (means to the end). The Card doesn’t dictate *what* must be trusted; it standardizes *how trust begins and grows*.
 
-#### What This Repository Offers
-- A practical demonstration of how Ayra Card can be received, stored, and presented across various systems.
-- Applications built from composable components—modular building blocks that developers can expand or adapt.
-- Automated setup and orchestration of all required services using Docker containers for a complete end-to-end experience in minutes.
-- Use of developer experience focused Affinidi OSS toolkits, reducing complexity and accelerating innovation to create new trust networks in days, not months.
-  
-#### Why It Matters
-This demo addresses four fundamental challenges in cross-border, cross-system trust:
-1. **Discover** digital endpoints:
-Find and connect across ecosystems in a private, safe way using secure discovery protocols.
-1. **Exchange data** safely and securely:
-Establish an end-to-end encrypted channel to share different types of data only with intended parties.
-1. **Check authorization**:
-Confirm if the attestation issuing party is authorized to issue the authority statements in their local ecosystem.
-1. **Check recognition**:
-Check if the attestation issuing party is recognized under governance policies and trust frameworks of the relying party ecosystem.
+Use this demo to run an end‑to‑end flow locally, see how recognition and authorization can be checked at runtime, and explore how Ayra Card makes trust **portable, progressive, and repeatable** without bespoke integrations.
 
+### The Model
 
-## What You’ll Build - Trust That Travels
-
-- **Digital identity for Organisations (`did:web`)** published over HTTPS with keys and service endpoints.
-- **W3C Verifiable Credentials (VC 2.0)** for employment and business cards, and **Verifiable Presentations** for sharing. 
-- **Connection offers** and secure messaging for introductions and interactions (Affinidi Meeting Place + DIDComm v2.1).
-- **TRQP compliant Trust registry** to confirm issuer/verifier authorizations under governance frameworks.
-- **Mobile Application** to manage the consumer's identity and credentials 
+1. [TRQP](https://trustoverip.github.io/tswg-trust-registry-protocol/) — DNS for trust: structured queries that resolve authority and recognition across contexts.
+1. [W3C VC 2.0](https://www.w3.org/TR/vc-data-model-2.0/) — attestations as tamper‑evident, verifiable evidence that can be checked anywhere.
+1. [Ayra Business Card](https://docs.ayra.forum/ayra-cards/concepts/ayracard-credentialtypes/ayra-businesscard) — a standardized way to carry recognition so trust travels with the data.
 
 
 ## 🏗️ Architecture
@@ -113,7 +94,7 @@ This project consists of six interconnected components:
 
 ## 🔧 Core Application Components
 
-### Key Application Components At a Glance
+### Key application components snapshot
 
 | Component              | Technology       | Port | Purpose                                 | Required | Outcomes / Alternatives |
 | ---------------------- | ---------------- | ---- | --------------------------------------- |----------|-------------------------|
@@ -124,7 +105,7 @@ This project consists of six interconnected components:
 | **Trust Registry UI**  | TypeScript/React | 3000 | Web interface for trust registry administration |Yes | Enables registry management via browser; should be accessible from developer/local environments.
 | **Mobile App**         | Flutter/Dart     | -  | Mobile application for credential collection, storage, and presentation |Yes | Allows users to receive, store, and share credentials; requires all backend endpoints to be accessible for full functionality.
 
-### Key Application Components Details
+### Key application components summary
 
 #### 1. Endpoint Manager (Domain Setup folder)
 
@@ -170,18 +151,17 @@ Features:
 
 ## 📋 Prerequisites
 
-Before starting, ensure you have the following installed and configured:
-
 ### Required Software
 
-- **Docker Desktop** (v20.10+) - Running with Compose plugin
-  - [Install Docker Desktop](https://www.docker.com/products/docker-desktop/)
-  - Ensure Docker daemon is running
-- **Node.js** (v18+) and npm - For domain setup automation
-  - [Install Node.js](https://nodejs.org/)
-- **Flutter SDK** (v3.0+) - To build and run the mobile app
-  - [Install Flutter](https://docs.flutter.dev/get-started/install)
-- **Git** - For cloning the Trust Registry API repository (GitHub)
+Before you begin, ensure you have the following installed:
+
+- Docker (version 20.10 or later) [Install Docker Desktop & ensure Docker daemon is running](https://www.docker.com/products/docker-desktop/)
+- Docker Compose (optional, for advanced setups)
+- Rust (version 1.91 or later) 
+- Node.js (version 18 or later) & npm [Install Node.js](https://nodejs.org/)
+- Flutter SDK (version 3.0 or later) [Install Flutter](https://docs.flutter.dev/get-started/install)
+- Bash shell (macOS/Linux) or compatible shell environment
+- Git (for cloning repositories)
 
 ### Required Accounts & Credentials
 
