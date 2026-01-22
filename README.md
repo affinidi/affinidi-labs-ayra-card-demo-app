@@ -12,12 +12,14 @@ This concept is developed and supported by [the Ayra Association](https://ayra.f
 - [Overview](#-overview)
 - [Scenario](#scenario-sweetlane-group)
 - [Architecture](#%EF%B8%8F-architecture)
+  - [Conceptual Architecture](#conceptual-architecture)
+  - [Deployment Architecture](#deployment-architecture)
 - [Core Application Components](#-core-application-components)
 - [Prerequisites](#-prerequisites)
 - [Quick Start](#-quick-start)
 - [Using the Application](#-using-the-application)
 - [Environment Reference](#%EF%B8%8F-environment-reference)
-- [Development Workflow](#-development-workflow)
+- [Maintenance & Troubleshooting](#-maintenance--troubleshooting)
 - [Cleanup & Reset](#-cleanup--reset)
 - [Additional Documentation](#-additional-documentation)
 - [Demo Video](#-demo-video)
@@ -42,7 +44,7 @@ It is intentionally **payload‑independent** enabling **mixed-trust model **by 
 
 Use this demo to run an end‑to‑end flow locally, see how recognition and authorization can be checked at runtime, and explore how Ayra Card makes trust **portable, progressive, and repeatable** without bespoke integrations.
 
-## Scenario: Sweetlane Group 
+## Scenario: Sweetlane Group
 
 Sweetlane Group is a fictional, global, multi‑national organization used to demonstrate how Ayra Card enables trusted digital interactions without pre‑existing integrations or bilateral agreements.
 
@@ -90,17 +92,21 @@ This project consists of six interconnected components:
    └─────────────┘
 ```
 
-### Trust Triangle
+### Conceptual Architecture
 
 <p align="center">
   <img src="./images/arc/trust-triangle.png" alt="Trust Triangle with Issuer, Verifier, Holder and Trust Registries" width="600"/>
 </p>
 
-<p align="center">
-  <em>The trust triangle showing the relationships between Issuer, Verifier, Holder, and Trust Registries</em>
-</p>
+Ayra Card ecosystem follows the **Trust Triangle** model where three primary roles interact to establish and verify trust:
 
-### Architecture Overview
+1. **Issuer**: Trusted entity (e.g., Sweetlane Group) that issues verifiable credentials to Holders *via the **Issuer Portal***.
+2. **Holder**: User (e.g., Employee) who holds credentials and presents them to Verifiers *using the **Mobile Wallet app***.
+3. **Verifier**: Relying party (e.g., Building Security) that requests and verifies credentials from Holders *using the **Verifier Portal***.
+
+All three parties rely on the **Trust Registry** to anchor trust, ensuring that Issuers are authorized and governance rules are followed without needing direct integrations.
+
+### Deployment Architecture
 
 <p align="center">
   <img src="./images/arc/architecture.png" alt="High-level architecture showing components and their interactions" width="700"/>
@@ -116,7 +122,7 @@ This project consists of six interconnected components:
 
 | Component              | Technology       | Port | Purpose                                 | Required | Outcomes / Alternatives |
 | ---------------------- | ---------------- | ---- | --------------------------------------- |----------|-------------------------|
-| **Endpoint Manager** <br>(Domain Setup)       | Node.js, ngrok   | - | Automate creation of public-facing endpoints for local services via tunells and update configuration    | No (but recommended) | Provides secure, auto-generated URLs for all backend components and updates config files for seamless integration. <br>**Alternatives**: Manually configure URLs, use another tunneling tool, or deploy services with public cloud/infrastructure and update all service configurations. 
+| **Endpoint Manager** <br>(Domain Setup)       | Node.js, ngrok   | - | Automate creation of public-facing endpoints for local services via tunells and update configuration    | No (but recommended) | Provides secure, auto-generated URLs for all backend components and updates config files for seamless integration. <br>**Alternatives**: Manually configure URLs, use another tunneling tool, or deploy services with public cloud/infrastructure and update all service configurations.
 | **Issuer Service**<br> Portal     | Dart             | 8080 | Issues verifiable credentials (VDIP)    | Yes | Issues credentials and Ayra cards; must be publicly accessible for mobile and client interaction.|
 | **Verifier Service Portal**    | Dart             | 8081 | Verify credentials for access and workflow scenarios (using VDSP)| Yes | Validates credentials for specified scenarios; endpoint must be public for QR-based mobile workflows.
 | **Trust Registry API** | Rust             | 3232 | Provide trust registry functionality and TRQP endpoints          | Yes |  Trust fabric for issuer recognition, authorization checks, and trust queries.
@@ -129,28 +135,28 @@ This project consists of six interconnected components:
 
 Generates secure, public URLs for local services (Issuer, Verifier, Trust Registry) using ngrok tunnels, specifically for development and testing purposes. Automatically updates all related configuration files to ensure components communicate using the correct endpoints. Optional—developers may configure public domains manually or use alternative tunneling solutions.
 
-#### 2. Issuer Service 
+#### 2. Issuer Service
 
 Server application (Dart) for issuing employment credentials and Ayra business card credentials to users.
 
-- Generates organization did:web identifiers 
+- Generates organization did:web identifiers
 - Securely issues Employee and Ayra Business Card credentials to mobile wallets via [the Verifiable Data Issuance Protocol (VDIP)](https://github.com/affinidi/affinidi-vdxp-docs) (based on DIDComm v2.1)
 
 
 #### 3. Verifier Service Portal
 
-Server application (Dart) for requesting and verifying credentials in multiple real-world scenarios (building access, session entry, hotel check-in, coffee shop discounts) using [the Verifiable Data Sharing Protocol (VDSP)](https://github.com/affinidi/affinidi-vdxp-docs) (built on DIDComm v2.1). 
+Server application (Dart) for requesting and verifying credentials in multiple real-world scenarios (building access, session entry, hotel check-in, coffee shop discounts) using [the Verifiable Data Sharing Protocol (VDSP)](https://github.com/affinidi/affinidi-vdxp-docs) (built on DIDComm v2.1).
 
 - **Building Access** - Verify credentials for building entry
 - **6th Floor Session** - Secure area access for roundtable sessions
 - **Hotel Check-in** - Fast check-in with identity credentials
 - **Coffee Shop** - Exclusive discounts with Ayra card
 
-Generates scenario-specific QR codes that employees scan with the mobile app to share relevant verifiable credentials. 
+Generates scenario-specific QR codes that employees scan with the mobile app to share relevant verifiable credentials.
 
 #### 4. Trust Registry API
 
-Rust-based API service implementing the [Trust Registry Query Protocol (TRQP)](https://trustoverip.github.io/tswg-trust-registry-protocol/#introduction) specification using [Affinidi's open-source implementation](https://github.com/affinidi/affinidi-trust-registry-rs). This is used for querying trusted issuer registrations and supported credential types. Serves as a domain specific governance mechanism enabling authorization and trust checks for an ecosystem. 
+Rust-based API service implementing the [Trust Registry Query Protocol (TRQP)](https://trustoverip.github.io/tswg-trust-registry-protocol/#introduction) specification using [Affinidi's open-source implementation](https://github.com/affinidi/affinidi-trust-registry-rs). This is used for querying trusted issuer registrations and supported credential types. Serves as a domain specific governance mechanism enabling authorization and trust checks for an ecosystem.
 
 #### 5. Trust Registry UI
 
@@ -175,7 +181,7 @@ Before you begin, ensure you have the following installed:
 
 - Docker (version 20.10 or later) [Install Docker Desktop & ensure Docker daemon is running](https://www.docker.com/products/docker-desktop/)
 - Docker Compose (optional, for advanced setups)
-- Rust (version 1.91 or later) 
+- Rust (version 1.91 or later)
 - Node.js (version 18 or later) & npm [Install Node.js](https://nodejs.org/)
 - Flutter SDK (version 3.0 or later) [Install Flutter](https://docs.flutter.dev/get-started/install)
 - Bash shell (macOS/Linux) or compatible shell environment
@@ -190,13 +196,8 @@ Before you begin, ensure you have the following installed:
   - Free tier is sufficient for development
 
 - **Affinidi Services** - Required for mobile app functionality
-  - **Option A: Use Affinidi Portal (Recommended - Quickest)**
-    - Create a DIDComm Mediator via [Affinidi Portal](https://portal.affinidi.com) → Get your `MEDIATOR_DID`
-    - Deploy Meeting Place Control Plane via Portal → Get your `SERVICE_DID`
-    - **You're done!** No additional setup needed for this demo
-  - **Option B: Self-Hosted**
-    - Deploy your own [DIDComm Mediator](https://docs.affinidi.com/products/affinidi-messaging/didcomm-mediator/deployment-options/) → Get your `MEDIATOR_DID`
-    - Deploy your own [Meeting Place Control Plane](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/deployment-options/) → Get your `SERVICE_DID`
+  - Deploy a [DIDComm Mediator](https://docs.affinidi.com/products/affinidi-messaging/didcomm-mediator/deployment-options/) → Get your `MEDIATOR_DID`
+  - Deploy a [Meeting Place Control Plane](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/deployment-options/) → Get your `SERVICE_DID`
   - See [Step 1](#step-1-configure-prerequisites) below for detailed instructions
 
 ### System Requirements
@@ -208,36 +209,28 @@ Before you begin, ensure you have the following installed:
 
 ## 🚀 Quick Start
 
-### Step 1: Configure Prerequisites
+### Step 1: Set up Foundational Trust Infrastructure
 
-Before running setup, you need two DIDs from Affinidi services. **Choose one option:**
+Ayra Card relies on secure messaging middleware to enable trust. Before running the demo, you need to set up this **Foundational Trust Infrastructure** using open source components.
 
-#### Option A: Affinidi Portal (Recommended - Quickest)
+#### 1. DIDComm Mediator (The Postman)
+This component routes secure messages between parties.
+- Follow the guide: [Deploy DIDComm Mediator](https://docs.affinidi.com/products/affinidi-messaging/didcomm-mediator/deployment-options/)
+- **Outcome**: You will get a `MEDIATOR_DID`
 
-1. Go to [Affinidi Portal](https://portal.affinidi.com)
-2. Create a **DIDComm Mediator** → Copy your `MEDIATOR_DID`
-3. Create a **Meeting Place Control Plane** → Copy your `SERVICE_DID`
-4. Done! You have both DIDs needed for this demo
+#### 2. Meeting Place Control Plane (The Address Book)
+This component manages secure connections.
+- Follow the guide: [Deploy Meeting Place Control Plane](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/deployment-options/)
+- **Outcome**: You will get a `SERVICE_DID`
 
-#### Option B: Self-Hosted Deployment
+#### Example Output
+Before proceeding to Step 2, ensure you have these three values ready:
 
-1. **DIDComm Mediator**
-   - Choose a [deployment option](https://docs.affinidi.com/products/affinidi-messaging/didcomm-mediator/deployment-options/) (AWS Marketplace or Open Source)
-   - Deploy the mediator
-   - Copy your `MEDIATOR_DID` (e.g., `did:web:your-domain.com:mediator`)
-
-2. **Meeting Place Control Plane**
-   - Choose a [deployment option](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/deployment-options/)
-   - Deploy the Control Plane API
-   - Copy your `SERVICE_DID` (the deployed service's DID)
-
-#### What You Need for This Demo
-
-- ✅ `MEDIATOR_DID` - The DID of your mediator instance
-- ✅ `SERVICE_DID` - The DID of your Meeting Place Control Plane
-- ✅ `NGROK_AUTH_TOKEN` - Get from [ngrok dashboard](https://dashboard.ngrok.com/get-started/your-authtoken)
-
-**That's it!** No need to test connections, run reference apps, or explore additional features.
+> [!TIP]
+> **What you should have:**
+> - `MEDIATOR_DID`: `did:web:your-domain.com:mediator`
+> - `SERVICE_DID`: `did:web:your-domain.com:service`
+> - `NGROK_AUTH_TOKEN`: `2abc...xyz` (from [ngrok dashboard](https://dashboard.ngrok.com/get-started/your-authtoken))
 
 **Note**: The repository includes all component code in their respective `code/` folders (issuer-portal, verifier-portal, trust-registry-ui, mobile-app). Only the Trust Registry API will be cloned from GitHub during setup.
 
@@ -271,6 +264,11 @@ Please enter MEDIATOR_DID: did:web:example.com:mediator
 ⚠️  NGROK_AUTH_TOKEN is not set in .env file
 Please enter NGROK_AUTH_TOKEN: 2abc...xyz
 ```
+
+> [!TIP]
+> **Verification**:
+> - Check `domain-setup/code/domains.json` to verify tunnel URLs were generated correctly. See [Domain Setup Generated Files](./domain-setup/README.md#generated-files).
+> - Check `issuer-portal/code/.env` to confirm organization DIDs are populated. See [Issuer Configuration](./issuer-portal/README.md#configuration).
 
 ### Step 3: Start All Services
 
@@ -477,7 +475,7 @@ If you prefer to use your own tunnelling solution or have static domains:
    - `trust-registry-ui/code/src/data/registries.ts`
    - `mobile-app/code/configurations/.env`
 
-## 🔧 Development Workflow
+## 🔧 Maintenance & Troubleshooting
 
 ### Component Setup Details
 
