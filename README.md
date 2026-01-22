@@ -184,10 +184,10 @@ Generates secure, public URLs for local services (Issuer, Verifier, Trust Regist
 
 #### 2. Issuer Service
 
-Server application (Dart) for issuing employment credentials and Ayra business card credentials to users.
+  Server application (Dart) for issuing employment credentials and Ayra business card credentials to users.
 
-- Generates organization did:web identifiers
-- Securely issues Employee and Ayra Business Card credentials to mobile wallets via [the Verifiable Data Issuance Protocol (VDIP)](https://github.com/affinidi/affinidi-vdxp-docs) (based on DIDComm v2.1)
+  - Generates organization did:web identifiers
+  - Securely issues Employee and Ayra Business Card credentials to mobile wallets via [the Verifiable Data Issuance Protocol (VDIP)](https://github.com/affinidi/affinidi-vdxp-docs) (based on DIDComm v2.1)
 
 
 #### 3. Verifier Service Portal
@@ -222,66 +222,52 @@ Features:
 
 ## 📋 Prerequisites
 
-### Required Software
+Before you begin, ensure you have the following:
 
-Before you begin, ensure you have the following installed:
-
-- Docker (version 20.10 or later) [Install Docker Desktop & ensure Docker daemon is running](https://www.docker.com/products/docker-desktop/)
+- Docker (version 20.10 or later): [Install Docker Desktop & ensure Docker daemon is running](https://www.docker.com/products/docker-desktop/)
 - Docker Compose (optional, for advanced setups)
 - Rust (version 1.91 or later)
-- Node.js (version 18 or later) & npm [Install Node.js](https://nodejs.org/)
-- Flutter SDK (version 3.0 or later) [Install Flutter](https://docs.flutter.dev/get-started/install)
+- Node.js (version 18 or later) & npm: [Install Node.js](https://nodejs.org/)
+- Flutter SDK (version 3.0 or later): [Install Flutter](https://docs.flutter.dev/get-started/install)
 - Bash shell (macOS/Linux) or compatible shell environment
 - Git (for cloning repositories)
+- ngrok Account (for public domain tunnelling): [Sign up for ngrok](https://dashboard.ngrok.com/signup) & Get your [auth token](https://dashboard.ngrok.com/get-started/your-authtoken); Free tier is sufficient for development
 
-### Required Accounts & Credentials
-
-- **ngrok Account** - For public domain tunnelling
-
-  - [Sign up for ngrok](https://dashboard.ngrok.com/signup)
-  - Get your [auth token](https://dashboard.ngrok.com/get-started/your-authtoken)
-  - Free tier is sufficient for development
-
-- **Affinidi Services** - Required for mobile app functionality
-  - Deploy a [DIDComm Mediator](https://docs.affinidi.com/products/affinidi-messaging/didcomm-mediator/deployment-options/) → Get your `MEDIATOR_DID`
-  - Deploy a [Meeting Place Control Plane](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/deployment-options/) → Get your `SERVICE_DID`
-  - See [Step 1](#step-1-configure-prerequisites) below for detailed instructions
-
-### System Requirements
-
-- **Operating System**: macOS, Linux, or Windows with WSL2
-- **RAM**: Minimum 8GB (16GB recommended for running all services)
-- **Disk Space**: At least 10GB free space
-- **Network**: Stable internet connection for Docker pulls and ngrok tunnels
 
 ## 🚀 Quick Start
 
-### Step 1: Set up Foundational Trust Infrastructure
+### Part 1: Set up Foundational Trust Infrastructure
 
 Ayra Card relies on secure messaging middleware to enable trust. Before running the demo, you need to set up this **Foundational Trust Infrastructure** using open source components.
 
-#### 1. DIDComm Mediator (The Postman)
+#### Step 1: Deploy DIDComm Mediator (The Postman)
+
 This component routes secure messages between parties.
 - Follow the guide: [Deploy DIDComm Mediator](https://docs.affinidi.com/products/affinidi-messaging/didcomm-mediator/deployment-options/)
 - **Outcome**: You will get a `MEDIATOR_DID`
 
-#### 2. Meeting Place Control Plane (The Address Book)
+#### Step 2: Deploy Meeting Place Control Plane (The Address Book)
 This component manages secure connections.
 - Follow the guide: [Deploy Meeting Place Control Plane](https://docs.affinidi.com/products/affinidi-messaging/meeting-place/deployment-options/)
 - **Outcome**: You will get a `SERVICE_DID`
 
-#### Example Output
-Before proceeding to Step 2, ensure you have these three values ready:
+
+<br>
 
 > [!TIP]
-> **What you should have:**
+> **What you should have:** Before proceeding to Part 2, ensure you have these three values ready:
 > - `MEDIATOR_DID`: `did:web:your-domain.com:mediator`
 > - `SERVICE_DID`: `did:web:your-domain.com:service`
 > - `NGROK_AUTH_TOKEN`: `2abc...xyz` (from [ngrok dashboard](https://dashboard.ngrok.com/get-started/your-authtoken))
 
-**Note**: The repository includes all component code in their respective `code/` folders (issuer-portal, verifier-portal, trust-registry-ui, mobile-app). Only the Trust Registry API will be cloned from GitHub during setup.
 
-### Step 2: Run the Setup Script
+----
+
+### Part 2: Set up Application
+
+The repository includes all component code in their respective `code/` folders (issuer-portal, verifier-portal, trust-registry-ui, mobile-app). Only the Trust Registry API will be cloned from GitHub during setup.
+
+### Step 1: Run the Setup Script
 
 The setup script automates the entire configuration process:
 
@@ -317,7 +303,7 @@ Please enter NGROK_AUTH_TOKEN: 2abc...xyz
 > - Check `domain-setup/code/domains.json` to verify tunnel URLs were generated correctly. See [Domain Setup Generated Files](./domain-setup/README.md#generated-files).
 > - Check `issuer-portal/code/.env` to confirm organization DIDs are populated. See [Issuer Configuration](./issuer-portal/README.md#configuration).
 
-### Step 3: Start All Services
+### Step 2: Start All Services
 
 Launch the entire stack using Docker Compose:
 
@@ -338,7 +324,7 @@ You should see all services in "Up" state:
 - `trust-registry-api`
 - `trust-registry-ui`
 
-### Step 4: Configure and Run Mobile App
+### Step 3: Configure and Run Mobile App
 
 ```bash
 cd mobile-app/code
