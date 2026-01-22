@@ -11,6 +11,7 @@ Affinidi is proud to be [a strategic member of the Ayra Association](https://ayr
 ## 📖 Table of Contents
 - [Overview](#-overview)
 - [Scenario](#bulb-scenario-sweetlane-group)
+- [Connecting trust across ecosystems](#link-connecting-trust-across-ecosystems)
 - [Architecture](#%EF%B8%8F-architecture)
 - [Core Application Components](#-core-application-components)
 - [Prerequisites](#-prerequisites)
@@ -18,8 +19,7 @@ Affinidi is proud to be [a strategic member of the Ayra Association](https://ayr
 - [Security Considerations](#-security-considerations)
 - [Additional Documentation](#-additional-documentation)
 - [Demo Video](#-demo-video)
-- [Maintenance, Troubleshooting, Contributing & Support](#-maintenance-troubleshooting-contributing--support)
-- [License](#-license)
+- [Maintenance, Troubleshooting, Contributing, License & Support](#-maintenance-troubleshooting-contributing-license--support)
 - [Acknowledgments](#-acknowledgments)
 - [Using the Application](#-using-the-application)
 
@@ -46,15 +46,15 @@ Sweetlane Group is a fictional, global, multi‑national organization used to de
 
 In this example, The Ayra Card carries a simple but powerful signal: this person is backed by Sweetlane Group. That association can be recognized wherever it matters. All without APIs, public discount codes, or direct system integrations. Relying parties verify authorisation and recognition at runtime via TRQP to make trust decisions in the context of the usecase.
 
-#### The Model
+The Model:
 
 1. [TRQP compliant Trust Lists](https://trustoverip.github.io/tswg-trust-registry-protocol/) — DNS for trust: structured queries that resolve authority and recognition across contexts.
 1. [W3C VC 2.0](https://www.w3.org/TR/vc-data-model-2.0/) — attestations as tamper‑evident, verifiable evidence that can be checked anywhere.
 1. [Ayra Business Card](https://docs.ayra.forum/ayra-cards/concepts/ayracard-credentialtypes/ayra-businesscard) — a standardized way to carry recognition so trust travels with the data.
 
-<br>
 
-## Connecting trust across ecosystems 
+
+## :link: Connecting trust across ecosystems 
 
 #### A simple story: “Two lists, one card, no headaches”
 
@@ -71,7 +71,7 @@ When someone shows an Ayra Card, the office system just asks: _“Is this person
 
 That’s it.
 
-<br>
+
 
 **List #2: Ayra’s list (the outside world)**
 
@@ -100,13 +100,13 @@ So the employee gets:
 
 <br> 
 
-> ### Key idea
+> #### Key idea
 > One card, many contexts.
 The Ayra Card packages the first step of trust—identity, endpoints, governance context, and shared information. From there, TRQP and VC 2.0 enable progressive assurance, raising confidence only when required without bespoke integrations or shared secrets.
 >
 > This is not connecting systems. This is connecting trust.
 
-<br> 
+
 
 ## 🏗️ Architecture
 
@@ -141,20 +141,17 @@ All three parties rely on the relevant **Trust Registry** to anchor trust, ensur
 
 ## 🔧 Core Application Components
 
-#### 1. Endpoint Manager (Domain Setup folder)
-
+### 1. Endpoint Manager (Domain Setup folder)
 Generates secure, public URLs for local services (Issuer, Verifier, Trust Registry) using ngrok tunnels, specifically for development and testing purposes. Automatically updates all related configuration files to ensure components communicate using the correct endpoints. Optional—developers may configure public domains manually or use alternative tunneling solutions.
 
-#### 2. Issuer Service
-
-  Server application (Dart) for issuing employment credentials and Ayra business card credentials to users.
+### 2. Issuer Service
+Server application (Dart) for issuing employment credentials and Ayra business card credentials to users.
 
   - Generates organization did:web identifiers
   - Securely issues Employee and Ayra Business Card credentials to mobile wallets via [the Verifiable Data Issuance Protocol (VDIP)](https://github.com/affinidi/affinidi-vdxp-docs) (based on DIDComm v2.1)
 
 
-#### 3. Verifier Service Portal
-
+### 3. Verifier Service Portal
 Server application (Dart) for requesting and verifying credentials in multiple real-world scenarios (building access, session entry, hotel check-in, coffee shop discounts) using [the Verifiable Data Sharing Protocol (VDSP)](https://github.com/affinidi/affinidi-vdxp-docs) (built on DIDComm v2.1).
 
 - **Building Access** - Verify credentials for building entry
@@ -164,22 +161,15 @@ Server application (Dart) for requesting and verifying credentials in multiple r
 
 Generates scenario-specific QR codes that employees scan with the mobile app to share relevant verifiable credentials.
 
-#### 4. Trust Registry API
-
+### 4. Trust Registry API
 Rust-based API service implementing the [Trust Registry Query Protocol (TRQP)](https://trustoverip.github.io/tswg-trust-registry-protocol/#introduction) specification using [Affinidi's open-source implementation](https://github.com/affinidi/affinidi-trust-registry-rs). This is used for querying trusted issuer registrations and supported credential types. Serves as a domain specific governance mechanism enabling authorization and trust checks for an ecosystem.
 
-#### 5. Trust Registry UI
-
+### 5. Trust Registry UI
 React-based web interface for interacting with the Trust Registry API. Allows administrators and developers to register trusted issuers, manage credential schemas, and test registry queries during development.
 
-#### 6. Mobile App
-
+### 6. Mobile App
 Flutter mobile wallet application for end users. Leverages Affinidi Meetingplace SDK and TDK for secure storage, receipt, and sharing of credentials. Supports organization bootstrapping, receiving credentials via VDIP, personalized Ayra card claiming, and presenting credentials by scanning QR codes from verifier portals (via VDSP). Features:
 
-- **Login** - Organization selection with email + OTP authentication
-- **Credential Issuance** - Receive employment credentials via VDIP
-- **Ayra Card Claiming** - Customize and request business card credentials
-- **Scan & Share** - Scan QR codes and share credentials via VDSP
 
 ## 📋 Prerequisites
 
@@ -354,7 +344,7 @@ Watch the complete Ayra demo in action:
 
 
 
-## 🔧 Maintenance, Troubleshooting, Contributing & Support 
+## 🔧 Maintenance, Troubleshooting, Contributing, License & Support 
 
 
 
@@ -520,6 +510,11 @@ When contributing to this repository:
 4. Test thoroughly with the full stack
 5. Submit a pull request with clear description
 
+
+### 📄 License
+---
+See [LICENSE](./LICENSE) file for details.
+
 ### Support
 ---
 For issues and questions:
@@ -529,11 +524,6 @@ For issues and questions:
 - Review individual component repositories
 
 
-
-
-## 📄 License
-
-See [LICENSE](./LICENSE) file for details.
 
 
 
