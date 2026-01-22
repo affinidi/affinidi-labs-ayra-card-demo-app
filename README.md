@@ -72,7 +72,6 @@ When someone shows an Ayra Card, the office system just asks: _“Is this person
 That’s it.
 
 
-
 **List #2: Ayra’s list (the outside world)**
 
 Now picture a coffee shop and a hotel.
@@ -84,7 +83,6 @@ They simply trust Ayra’s rules and process, and ask: _“Do we trust the netwo
 
 If Ayra says, _“Yes, Sweetlane is a recognized network,”_ then the coffee shop and hotel can safely treat the employee as eligible without calling Sweetlane, without shared codes, without integrations.
 
-<br> 
 
 **This is what changes the game:**
 - Sweetlane can issue once (under its own rules).
@@ -98,7 +96,6 @@ So the employee gets:
 
 …with the same card, because everyone is relying on trusted lists, not custom connections.
 
-<br> 
 
 > #### Key idea
 > One card, many contexts.
