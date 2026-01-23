@@ -1,5 +1,7 @@
 # Ayra Card Demonstration, built with Affinidi OSS toolkits
 
+Digital trust is often fragmented and difficult to manage at scale due to a lack of shared infrastructure and governance. Typically today, making systems work together is often an afterthought, and trust has to be rebuilt every time they connect. The Ayra Card demonstrates a new approach, building trust as shared infrastructure with governance prioritised, enabling systems to work together seamlessly. This is crucial as digital services increasingly cross organisational and international boundaries.
+
 The [Ayra Card concept](https://docs.ayra.forum/ayra-cards) standardizes how we interact to share trusted information across ecosystems. This concept is developed and supported by [the Ayra Association](https://ayra.forum/about/) - a Swiss neutral, non‑profit, multi‑stakeholder foundation dedicated to building digital trust ecosystems and operationalising [Trust Over IP](https://trustoverip.org/). 
 
 **This repository showcases this concept in action** specifically demonstrating how it brings together two key aspects:
@@ -109,13 +111,12 @@ The Ayra Card packages the first step of trust—identity, endpoints, governance
 
 ### Conceptual Architecture
 
-Ayra Card ecosystem follows the **Trust Triangle** with governance model where three primary roles interact to establish and verify trust:
+Ayra Card ecosystem fixes the **Trust Triangle** with governance where three primary roles interact to establish and verify trust with a registry of registry architecture:
 
 1. **Issuer**: Trusted entity (e.g., Sweetlane Group) that issues verifiable credentials to Holders *via the **Issuer Portal***.
 2. **Holder**: User (e.g., Employee) who holds credentials and presents them to Verifiers *using the **Mobile Wallet app***.
 3. **Verifier**: Relying party (e.g., Building Security) that requests and verifies credentials from Holders *using the **Verifier Portal***.
-
-All three parties rely on the relevant **Trust Registry** to anchor trust, ensuring that Issuers are authorized and governance rules are followed without needing direct integrations.
+4. All three parties rely on the relevant **Trust Registry** to anchor trust, ensuring that Issuers are authorized and governance rules are followed without needing direct integrations.
 
 <p align="center">
   <img src="./images/arc/trust-triangle.png" alt="Trust Triangle with Issuer, Verifier, Holder and Trust Registries" width="600"/>
