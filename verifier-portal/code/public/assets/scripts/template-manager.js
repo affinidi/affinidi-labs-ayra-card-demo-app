@@ -18,7 +18,7 @@ class SimpleTemplateManager {
                 this.templates.set(templateId, window.KioskTemplates[templateId].trim());
             });
         }
-        
+
         // Then, load any remaining templates from DOM (for backward compatibility)
         const templateScripts = document.querySelectorAll('script[type="text/template"], script[id*="kiosk-"], script[id*="template-"]');
         templateScripts.forEach(script => {
@@ -44,22 +44,22 @@ class SimpleTemplateManager {
      */
     render(templateId, target, data = {}) {
         let template = this.templates.get(templateId);
-        
+
         // If template not found, try to reload templates (DOM might have changed)
         if (!template) {
             this.loadTemplates();
             template = this.templates.get(templateId);
         }
-        
+
         if (!template) {
             console.error(`Template '${templateId}' not found. Available templates:`, Array.from(this.templates.keys()));
             return false;
         }
 
-        const targetElement = typeof target === 'string' 
-            ? document.querySelector(target) 
+        const targetElement = typeof target === 'string'
+            ? document.querySelector(target)
             : target;
-        
+
         if (!targetElement) {
             console.error(`Target element '${target}' not found`);
             return false;
@@ -69,8 +69,13 @@ class SimpleTemplateManager {
         let html = template;
         Object.keys(data).forEach(key => {
             const placeholder = new RegExp(`{{${key}}}`, 'g');
-            html = html.replace(placeholder, data[key]);
+            // Handle undefined, null, or empty values properly
+            const value = data[key] !== undefined && data[key] !== null ? data[key] : '';
+            html = html.replace(placeholder, value);
         });
+
+        // Replace any remaining unreplaced placeholders with empty string
+        html = html.replace(/{{[^}]+}}/g, '');
 
         targetElement.innerHTML = html;
         return true;
@@ -78,7 +83,7 @@ class SimpleTemplateManager {
 
     /**
      * Get template HTML without rendering
-     * @param {string} templateId 
+     * @param {string} templateId
      * @returns {string}
      */
     getTemplate(templateId) {
@@ -87,8 +92,8 @@ class SimpleTemplateManager {
 
     /**
      * Register a new template programmatically
-     * @param {string} id 
-     * @param {string} html 
+     * @param {string} id
+     * @param {string} html
      */
     register(id, html) {
         this.templates.set(id, html);
@@ -96,14 +101,14 @@ class SimpleTemplateManager {
 
     /**
      * Show/hide elements with smooth transitions
-     * @param {string|HTMLElement} element 
-     * @param {boolean} show 
+     * @param {string|HTMLElement} element
+     * @param {boolean} show
      */
     toggle(element, show = true) {
-        const el = typeof element === 'string' 
-            ? document.querySelector(element) 
+        const el = typeof element === 'string'
+            ? document.querySelector(element)
             : element;
-        
+
         if (!el) return;
 
         if (show) {
@@ -124,10 +129,10 @@ class SimpleTemplateManager {
 
     /**
      * Animate between two templates
-     * @param {string} targetSelector 
-     * @param {string} newTemplateId 
-     * @param {Object} data 
-     * @param {number} duration 
+     * @param {string} targetSelector
+     * @param {string} newTemplateId
+     * @param {Object} data
+     * @param {number} duration
      */
     async animateTransition(targetSelector, newTemplateId, data = {}, duration = 300) {
         const target = document.querySelector(targetSelector);
