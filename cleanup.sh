@@ -87,6 +87,16 @@ else
     echo "  ⏭️  No images to remove"
 fi
 
+# Clean Docker build cache
+echo "  🧹 Cleaning Docker build cache..."
+docker builder prune -f 2>/dev/null || echo "    ⚠️  Could not prune build cache"
+echo "  ✅ Build cache cleaned"
+
+# Clean dangling images
+echo "  🧹 Cleaning dangling images..."
+docker image prune -f 2>/dev/null || echo "    ⚠️  Could not prune dangling images"
+echo "  ✅ Dangling images cleaned"
+
 echo ""
 echo "✅ Cleanup completed!"
 echo ""

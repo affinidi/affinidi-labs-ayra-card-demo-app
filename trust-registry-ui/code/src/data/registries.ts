@@ -4,7 +4,7 @@ export const registries = {
     'sweetlane-group': {
         id: "sweetlane-group",
         name: "Sweetlane Group Inc",
-        did: "did:web:2e6f-2402-e280-21ca-9183-4d7c-6d5c-8fe4-f30a.ngrok-free.app:sweetlane-group",
+        did: "did:web:9a1a-2402-e280-21ca-9183-4d7c-6d5c-8fe4-f30a.ngrok-free.app:sweetlane-group",
         theme: {
             headerBg: "bg-blue-700",
             headerText: "text-white",
@@ -13,9 +13,9 @@ export const registries = {
             linkHover: "hover:text-blue-300"
         },
         entites: [
-            "did:web:2e6f-2402-e280-21ca-9183-4d7c-6d5c-8fe4-f30a.ngrok-free.app:sweetlane-bank",
-            "did:web:2e6f-2402-e280-21ca-9183-4d7c-6d5c-8fe4-f30a.ngrok-free.app:sweetlane-retail",
-            "did:web:2e6f-2402-e280-21ca-9183-4d7c-6d5c-8fe4-f30a.ngrok-free.app:sweetlane-green",
+            "did:web:9a1a-2402-e280-21ca-9183-4d7c-6d5c-8fe4-f30a.ngrok-free.app:sweetlane-bank",
+            "did:web:9a1a-2402-e280-21ca-9183-4d7c-6d5c-8fe4-f30a.ngrok-free.app:sweetlane-retail",
+            "did:web:9a1a-2402-e280-21ca-9183-4d7c-6d5c-8fe4-f30a.ngrok-free.app:sweetlane-green",
             "did:key:zDnaejk34idcWVvzuAmm68PwZByZsmwtJtxH8Ka8yeUqXMA8b",
         ],
         recognition: {
@@ -30,7 +30,7 @@ export const registries = {
     'ayra-forum': {
         id: "ayra-forum",
         name: "Ayra Trust Network",
-        did: "did:web:2e6f-2402-e280-21ca-9183-4d7c-6d5c-8fe4-f30a.ngrok-free.app:ayra-forum",
+        did: "did:web:9a1a-2402-e280-21ca-9183-4d7c-6d5c-8fe4-f30a.ngrok-free.app:ayra-forum",
         theme: {
             headerBg: "bg-emerald-700",
             headerText: "text-white",
@@ -39,9 +39,9 @@ export const registries = {
             linkHover: "hover:text-emerald-200"
         },
         entites: [
-            "did:web:2e6f-2402-e280-21ca-9183-4d7c-6d5c-8fe4-f30a.ngrok-free.app:sweetlane-group",
-            "did:web:2e6f-2402-e280-21ca-9183-4d7c-6d5c-8fe4-f30a.ngrok-free.app:xyz-group",
-            "did:web:2e6f-2402-e280-21ca-9183-4d7c-6d5c-8fe4-f30a.ngrok-free.app:abc-corp"
+            "did:web:9a1a-2402-e280-21ca-9183-4d7c-6d5c-8fe4-f30a.ngrok-free.app:sweetlane-group",
+            "did:web:9a1a-2402-e280-21ca-9183-4d7c-6d5c-8fe4-f30a.ngrok-free.app:xyz-group",
+            "did:web:9a1a-2402-e280-21ca-9183-4d7c-6d5c-8fe4-f30a.ngrok-free.app:abc-corp"
         ],
         recognition: {
             actions: ["recognize"],
