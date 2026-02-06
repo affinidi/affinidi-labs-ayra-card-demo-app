@@ -1,17 +1,17 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const qrcode = require("qrcode");
-const rateLimit = require("express-rate-limit");
+const qrcode = require('qrcode');
+const rateLimit = require('express-rate-limit');
 const {
   signIDToken,
   getPublicJWK,
   generateAuthCode,
   generateSubjectIdentifier,
   generateSessionId,
-} = require("../utils/crypto");
-const SessionStore = require("../utils/session-store");
-const verifierClient = require("../utils/verifier-client");
-const { json } = require("body-parser");
+} = require('../utils/crypto');
+const SessionStore = require('../utils/session-store');
+const verifierClient = require('../utils/verifier-client');
+const { json } = require('body-parser');
 
 const sessionStore = new SessionStore();
 
@@ -20,8 +20,8 @@ const authorizeRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 10, // Limit each IP to 10 requests per windowMs
   message: {
-    error: "too_many_requests",
-    error_description: "Too many authorization requests, please try again later."
+    error: 'too_many_requests',
+    error_description: 'Too many authorization requests, please try again later.'
   },
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
@@ -30,14 +30,14 @@ const authorizeRateLimiter = rateLimit({
 /**
  * Root endpoint - Welcome page
  */
-router.get("/", (req, res) => {
+router.get('/', (req, res) => {
   const issuer =
     process.env.ISSUER_URL || `http://localhost:${process.env.PORT || 5001}`;
   res.json({
-    service: "VC-AuthN OIDC Bridge",
+    service: 'VC-AuthN OIDC Bridge',
     description:
-      "OpenID Connect Provider for Verifiable Credential Authentication",
-    version: "1.0.0",
+      'OpenID Connect Provider for Verifiable Credential Authentication',
+    version: '1.0.0',
     endpoints: {
       discovery: `${issuer}/.well-known/openid-configuration`,
       authorization: `${issuer}/authorize`,
@@ -46,7 +46,7 @@ router.get("/", (req, res) => {
       health: `${issuer}/health`,
       documentation: `${issuer}/admin/docs`,
     },
-    status: "ready",
+    status: 'ready',
   });
 });
 
@@ -54,7 +54,7 @@ router.get("/", (req, res) => {
  * OIDC Discovery Endpoint
  * Keycloak uses this to discover our capabilities
  */
-router.get("/.well-known/openid-configuration", async (req, res) => {
+router.get('/.well-known/openid-configuration', async (req, res) => {
   const issuer =
     process.env.ISSUER_URL || `http://localhost:${process.env.PORT || 5000}`;
 
@@ -63,23 +63,23 @@ router.get("/.well-known/openid-configuration", async (req, res) => {
     authorization_endpoint: `${issuer}/authorize`,
     token_endpoint: `${issuer}/token`,
     jwks_uri: `${issuer}/.well-known/jwks`,
-    response_types_supported: ["code"],
-    subject_types_supported: ["public"],
-    id_token_signing_alg_values_supported: ["RS256"],
+    response_types_supported: ['code'],
+    subject_types_supported: ['public'],
+    id_token_signing_alg_values_supported: ['RS256'],
     token_endpoint_auth_methods_supported: [
-      "client_secret_post",
-      "client_secret_basic",
+      'client_secret_post',
+      'client_secret_basic',
     ],
     claims_supported: [
-      "sub",
-      "email",
-      "name",
-      "given_name",
-      "family_name",
-      "employeeId",
-      "company",
+      'sub',
+      'email',
+      'name',
+      'given_name',
+      'family_name',
+      'employeeId',
+      'company',
     ],
-    scopes_supported: ["openid", "profile", "email"],
+    scopes_supported: ['openid', 'profile', 'email'],
   });
 });
 
@@ -87,7 +87,7 @@ router.get("/.well-known/openid-configuration", async (req, res) => {
  * JWKS Endpoint
  * Keycloak uses this to verify our ID tokens
  */
-router.get("/.well-known/jwks", async (req, res) => {
+router.get('/.well-known/jwks', async (req, res) => {
   const jwk = await getPublicJWK();
   res.json({ keys: [jwk] });
 });
@@ -96,7 +96,7 @@ router.get("/.well-known/jwks", async (req, res) => {
  * Authorization Endpoint
  * This is where Keycloak redirects users when they choose "Login with VC"
  */
-router.get("/authorize", authorizeRateLimiter, async (req, res) => {
+router.get('/authorize', authorizeRateLimiter, async (req, res) => {
   try {
     const { client_id, redirect_uri, state, response_type, scope, nonce } = req.query;
 
@@ -105,20 +105,20 @@ router.get("/authorize", authorizeRateLimiter, async (req, res) => {
       return res
         .status(400)
         .json({
-          error: "invalid_request",
-          error_description: "Missing required parameters",
+          error: 'invalid_request',
+          error_description: 'Missing required parameters',
         });
     }
 
-    if (response_type !== "code") {
-      return res.status(400).json({ error: "unsupported_response_type" });
+    if (response_type !== 'code') {
+      return res.status(400).json({ error: 'unsupported_response_type' });
     }
 
     // Get verifier client ID from query or use default
     const verifierClientId =
       req.query.pres_req_conf_id ||
       process.env.VERIFIER_CLIENT_ID ||
-      "federatedlogin";
+      'federatedlogin';
 
     // Generate auth code and session
     const authCode = generateAuthCode();
@@ -129,7 +129,7 @@ router.get("/authorize", authorizeRateLimiter, async (req, res) => {
 
     const verifierData = await verifierClient.getOobUrl(verifierClientId);
 
-    console.log("verifierData:", verifierData);
+    console.log('verifierData:', verifierData);
     let oobUrl = verifierData.oob_url;
 
     // Create session - store original Keycloak state and nonce
@@ -149,7 +149,7 @@ router.get("/authorize", authorizeRateLimiter, async (req, res) => {
     // Generate QR code from verifierData object
     const qrCodeDataUrl = await qrcode.toDataURL(JSON.stringify(verifierData));
 
-    console.log("QR Code Data URL:", qrCodeDataUrl);
+    console.log('QR Code Data URL:', qrCodeDataUrl);
     // Subscribe to verification updates from Dart server
     const ws = verifierClient.subscribeToVerificationUpdates(
       verifierClientId,
@@ -165,23 +165,23 @@ router.get("/authorize", authorizeRateLimiter, async (req, res) => {
     session.ws = ws;
 
     // Render QR code page
-    res.render("scan-credential", {
+    res.render('scan-credential', {
       sessionId,
       qrCodeDataUrl,
       oobUrl,
       callbackUrl: `${
         process.env.CONTROLLER_URL || process.env.ISSUER_URL
       }/callback?session=${sessionId}`,
-      clientName: "Employment Verification",
-      title: "Scan with Your Digital Wallet",
+      clientName: 'Employment Verification',
+      title: 'Scan with Your Digital Wallet',
       instructions:
-        "Open your digital wallet app and scan this QR code to share your verifiable credentials.",
+        'Open your digital wallet app and scan this QR code to share your verifiable credentials.',
     });
   } catch (error) {
-    console.error("Error in authorize endpoint:", error);
+    console.error('Error in authorize endpoint:', error);
     res
       .status(500)
-      .json({ error: "server_error", error_description: error.message });
+      .json({ error: 'server_error', error_description: error.message });
   }
 });
 
@@ -193,35 +193,35 @@ function handleVerificationUpdate(sessionId, message) {
 
   const { completed, status, verifiablePresentation } = message;
 
-  if (completed && status === "success" && verifiablePresentation) {
+  if (completed && status === 'success' && verifiablePresentation) {
     console.log(`[handleVerificationUpdate] Verification successful for session ${sessionId}`);
 
     // Extract claims from VP
     const claims = extractClaimsFromVP(verifiablePresentation);
-    console.log(`[handleVerificationUpdate] Extracted claims:`, claims);
+    console.log('[handleVerificationUpdate] Extracted claims:', claims);
 
     // Update session
-    sessionStore.updateState(sessionId, "VERIFIED", claims);
-    console.log(`[handleVerificationUpdate] Session state updated to VERIFIED`);
+    sessionStore.updateState(sessionId, 'VERIFIED', claims);
+    console.log('[handleVerificationUpdate] Session state updated to VERIFIED');
 
     // Notify frontend via WebSocket
     if (global.io) {
-      global.io.to(sessionId).emit("verified", {
+      global.io.to(sessionId).emit('verified', {
         success: true,
-        message: "Credentials verified successfully!",
+        message: 'Credentials verified successfully!',
       });
       console.log(`[handleVerificationUpdate] Emitted 'verified' event to room ${sessionId}`);
     } else {
-      console.error(`[handleVerificationUpdate] global.io is not available!`);
+      console.error('[handleVerificationUpdate] global.io is not available!');
     }
-  } else if (completed && status === "failure") {
+  } else if (completed && status === 'failure') {
     console.log(`[handleVerificationUpdate] Verification failed for session ${sessionId}`);
-    sessionStore.updateState(sessionId, "FAILED");
+    sessionStore.updateState(sessionId, 'FAILED');
 
     if (global.io) {
-      global.io.to(sessionId).emit("verified", {
+      global.io.to(sessionId).emit('verified', {
         success: false,
-        message: "Credential verification failed",
+        message: 'Credential verification failed',
       });
       console.log(`[handleVerificationUpdate] Emitted 'verified' failure event to room ${sessionId}`);
     }
@@ -264,26 +264,26 @@ function extractClaimsFromVP(vp) {
       };
     }
   } catch (error) {
-    console.error("Error extracting claims from VP:", error);
+    console.error('Error extracting claims from VP:', error);
   }
 
-  return { email: "verified_user@example.com" };
+  return { email: 'verified_user@example.com' };
 }
 
 /**
  * Callback Endpoint
  * Frontend redirects here after verification completes
  */
-router.get("/callback", (req, res) => {
+router.get('/callback', (req, res) => {
   const sessionId = req.query.session;
   const session = sessionStore.findById(sessionId);
 
   if (!session) {
-    return res.status(404).send("Session not found");
+    return res.status(404).send('Session not found');
   }
 
-  if (session.verificationState !== "VERIFIED") {
-    return res.status(400).send("Verification not complete");
+  if (session.verificationState !== 'VERIFIED') {
+    return res.status(400).send('Verification not complete');
   }
 
   // Close WebSocket
@@ -303,12 +303,12 @@ router.get("/callback", (req, res) => {
  * Token Endpoint
  * Keycloak exchanges the auth code for an ID token here
  */
-router.post("/token", async (req, res) => {
+router.post('/token', async (req, res) => {
   try {
     const { code, client_id, client_secret, grant_type, redirect_uri } =
       req.body;
 
-    console.log(`[token] Received request:`, {
+    console.log('[token] Received request:', {
       code: code?.substring(0, 20) + '...',
       client_id,
       client_secret: client_secret ? '***' + client_secret.substring(client_secret.length - 4) : 'none',
@@ -317,15 +317,15 @@ router.post("/token", async (req, res) => {
     });
 
     // Validate grant type
-    if (grant_type !== "authorization_code") {
-      return res.status(400).json({ error: "unsupported_grant_type" });
+    if (grant_type !== 'authorization_code') {
+      return res.status(400).json({ error: 'unsupported_grant_type' });
     }
 
     // Validate client credentials - allow any client for now
     const expectedClientId = process.env.KEYCLOAK_CLIENT_ID || client_id;
     const expectedClientSecret = process.env.KEYCLOAK_CLIENT_SECRET;
 
-    console.log(`[token] Expected credentials:`, {
+    console.log('[token] Expected credentials:', {
       expectedClientId,
       expectedClientSecret: expectedClientSecret ? '***' + expectedClientSecret.substring(expectedClientSecret.length - 4) : 'none (allowing any)'
     });
@@ -333,12 +333,12 @@ router.post("/token", async (req, res) => {
     // Skip client secret validation if not configured
     if (expectedClientSecret && client_id !== expectedClientId) {
       console.log(`[token] Client ID mismatch: ${client_id} !== ${expectedClientId}`);
-      return res.status(401).json({ error: "invalid_client" });
+      return res.status(401).json({ error: 'invalid_client' });
     }
 
     if (expectedClientSecret && client_secret !== expectedClientSecret) {
-      console.log(`[token] Client secret mismatch`);
-      return res.status(401).json({ error: "invalid_client" });
+      console.log('[token] Client secret mismatch');
+      return res.status(401).json({ error: 'invalid_client' });
     }
 
     // Find session by auth code
@@ -349,24 +349,24 @@ router.post("/token", async (req, res) => {
       return res
         .status(400)
         .json({
-          error: "invalid_grant",
-          error_description: "Authorization code not found",
+          error: 'invalid_grant',
+          error_description: 'Authorization code not found',
         });
     }
 
-    console.log(`[token] Found session:`, {
+    console.log('[token] Found session:', {
       id: session.id,
       verificationState: session.verificationState,
       hasClaims: !!session.claims
     });
 
-    if (session.verificationState !== "VERIFIED") {
+    if (session.verificationState !== 'VERIFIED') {
       console.log(`[token] Session not verified: ${session.verificationState}`);
       return res
         .status(400)
         .json({
-          error: "invalid_grant",
-          error_description: "Authorization not verified",
+          error: 'invalid_grant',
+          error_description: 'Authorization not verified',
         });
     }
 
@@ -391,7 +391,7 @@ router.post("/token", async (req, res) => {
     // Return tokens
     res.json({
       access_token: code, // Simple access token (same as code for now)
-      token_type: "Bearer",
+      token_type: 'Bearer',
       expires_in: 3600,
       id_token: idToken,
     });
@@ -399,10 +399,10 @@ router.post("/token", async (req, res) => {
     // Clean up session
     sessionStore.delete(session.id);
   } catch (error) {
-    console.error("Error in token endpoint:", error);
+    console.error('Error in token endpoint:', error);
     res
       .status(500)
-      .json({ error: "server_error", error_description: error.message });
+      .json({ error: 'server_error', error_description: error.message });
   }
 });
 

@@ -118,6 +118,31 @@ jobs:
         working-directory: ${{ matrix.project }}/code
         run: npm run build || echo "No build script found"
 
+  # Node.js projects in keycloak-verifier
+  keycloak-node-lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: [demo-app, vc-authn-oidc-bridge]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+          cache-dependency-path: keycloak-verifier/code/${{ matrix.project }}/package-lock.json
+
+      - name: Install dependencies
+        working-directory: keycloak-verifier/code/${{ matrix.project }}
+        run: npm ci
+
+      - name: Lint code
+        working-directory: keycloak-verifier/code/${{ matrix.project }}
+        run: npm run lint
+
   # Shell script validation
   shellcheck:
     runs-on: ubuntu-latest

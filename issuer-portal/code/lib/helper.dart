@@ -6,8 +6,6 @@ import 'package:ssi/ssi.dart';
 // ignore: implementation_imports
 import 'package:ssi/src/json_ld/context.dart';
 // import 'package:ssi/src/credentials/models/field_types/context.dart';
-// ignore: implementation_imports
-import 'package:ssi/src/did/public_key_utils.dart';
 import 'package:vdip_issuer_server/storage/storage_interface.dart';
 
 import 'ssi/did_web_manager.dart';

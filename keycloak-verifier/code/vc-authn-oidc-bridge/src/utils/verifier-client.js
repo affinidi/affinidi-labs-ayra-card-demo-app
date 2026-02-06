@@ -44,7 +44,7 @@ class VerifierClient {
     ws.on('message', (data) => {
       try {
         const message = JSON.parse(data.toString());
-        console.log(`Received from verifier server:`, message);
+        console.log('Received from verifier server:', message);
         onMessage(message);
       } catch (error) {
         console.error('Error parsing WebSocket message:', error);
