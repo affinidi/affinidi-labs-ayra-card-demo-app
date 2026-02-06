@@ -135,9 +135,9 @@ echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "Setting up Keycloak Verifier..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-cd keycloak-verifier
+cd keycloak-verifier || exit 1
 ./setup.sh
-cd ..
+cd .. || exit 1
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

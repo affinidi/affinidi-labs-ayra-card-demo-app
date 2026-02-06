@@ -8,7 +8,8 @@ echo "📦 Using code from included repository (keycloak-verifier/code/)"
 # Load main .env file
 MAIN_ENV_FILE="../.env"
 if [ -f "$MAIN_ENV_FILE" ]; then
-    source "$MAIN_ENV_FILE"
+    # shellcheck source=/dev/null
+    . "$MAIN_ENV_FILE"
 fi
 
 # Verify code directories exist
@@ -28,23 +29,23 @@ echo "✓ Code directories verified"
 
 # Install Node.js dependencies for OIDC bridge
 echo "📦 Installing OIDC Bridge dependencies..."
-cd code/vc-authn-oidc-bridge
+cd code/vc-authn-oidc-bridge || exit 1
 if npm install; then
     echo "✅ OIDC Bridge dependencies installed successfully"
 else
     echo "⚠️  Failed to install dependencies, but continuing..."
 fi
-cd ../..
+cd ../.. || exit 1
 
 # Install Node.js dependencies for Demo App
 echo "📦 Installing Demo App dependencies..."
-cd code/demo-app
+cd code/demo-app || exit 1
 if npm install; then
     echo "✅ Demo App dependencies installed successfully"
 else
     echo "⚠️  Failed to install dependencies, but continuing..."
 fi
-cd ../..
+cd ../.. || exit 1
 
 # Create keys directory if not exists
 mkdir -p code/vc-authn-oidc-bridge/keys
