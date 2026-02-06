@@ -2,7 +2,7 @@
 
 Digital trust is often fragmented and difficult to manage at scale due to a lack of shared infrastructure and governance. Typically today, making systems work together is often an afterthought, and trust has to be rebuilt every time they connect. The Ayra Card demonstrates a new approach, building trust as shared infrastructure with governance prioritised, enabling systems to work together seamlessly. This is crucial as digital services increasingly cross organisational and international boundaries.
 
-The [Ayra Card concept](https://docs.ayra.forum/ayra-cards) standardizes how we interact to share trusted information across ecosystems. This concept is developed and supported by [the Ayra Association](https://ayra.forum/about/) - a Swiss neutral, non‑profit, multi‑stakeholder foundation dedicated to building digital trust ecosystems and operationalising [Trust Over IP](https://trustoverip.org/). 
+The [Ayra Card concept](https://docs.ayra.forum/ayra-cards) standardizes how we interact to share trusted information across ecosystems. This concept is developed and supported by [the Ayra Association](https://ayra.forum/about/) - a Swiss neutral, non‑profit, multi‑stakeholder foundation dedicated to building digital trust ecosystems and operationalising [Trust Over IP](https://trustoverip.org/).
 
 **This repository showcases this concept in action** specifically demonstrating how it brings together two key aspects:
 - **Technical trust**: Cryptographic validation
@@ -16,6 +16,7 @@ Affinidi is proud to be [a strategic member of the Ayra Association](https://ayr
 - [Connecting trust across ecosystems](#link-connecting-trust-across-ecosystems)
 - [Architecture](#%EF%B8%8F-architecture)
 - [Core Application Components](#-core-application-components)
+- [Keycloak VC Authentication (New!)](#-keycloak-vc-authentication-new)
 - [Prerequisites](#-prerequisites)
 - [Quick Start](#-quick-start)
 - [Security Considerations](#-security-considerations)
@@ -41,9 +42,9 @@ Use this demo to run an end‑to‑end flow locally, see how recognition and aut
 
 Sweetlane Group is a fictional, global, multi‑national organization used to demonstrate how Ayra Card enables trusted digital interactions without pre‑existing integrations or bilateral agreements.
 
-**Goal**: Show how a Sweetlane employee can use one digital Ayra Card to participate in multiple trusted relationships across office access, benefits, and commerce without relying on point integrations. 
+**Goal**: Show how a Sweetlane employee can use one digital Ayra Card to participate in multiple trusted relationships across office access, benefits, and commerce without relying on point integrations.
 - Access Sweetlane Offices globally
-- Receive local promotions at Coffee shop 
+- Receive local promotions at Coffee shop
 - Obtain employee rates at hotels
 
 In this example, The Ayra Card carries a simple but powerful signal: this person is backed by Sweetlane Group. That association can be recognized wherever it matters. All without APIs, public discount codes, or direct system integrations. Relying parties verify authorisation and recognition at runtime via TRQP to make trust decisions in the context of the usecase.
@@ -56,7 +57,7 @@ The Model:
 
 
 
-## :link: Connecting trust across ecosystems 
+## :link: Connecting trust across ecosystems
 
 #### A simple story: “Two lists, one card, no headaches”
 
@@ -156,8 +157,9 @@ Server application (Dart) for requesting and verifying credentials in multiple r
 - **6th Floor Session** - Secure area access for roundtable sessions
 - **Hotel Check-in** - Fast check-in with identity credentials
 - **Coffee Shop** - Exclusive discounts with Ayra card
+- **Federated Login** - Passwordless authentication endpoint for Keycloak VC integration
 
-Generates scenario-specific QR codes that employees scan with the mobile app to share relevant verifiable credentials.
+Generates scenario-specific QR codes that employees scan with the mobile app to share relevant verifiable credentials. Also serves as the verification backend for the Keycloak VC Authentication flow.
 
 ### 4. Trust Registry API
 Rust-based API service implementing the [Trust Registry Query Protocol (TRQP)](https://trustoverip.github.io/tswg-trust-registry-protocol/#introduction) specification using [Affinidi's open-source implementation](https://github.com/affinidi/affinidi-trust-registry-rs). This is used for querying trusted issuer registrations and supported credential types. Serves as a domain specific governance mechanism enabling authorization and trust checks for an ecosystem.
@@ -167,6 +169,79 @@ React-based web interface for interacting with the Trust Registry API. Allows ad
 
 ### 6. Mobile App
 Flutter mobile wallet application for end users. Leverages Affinidi Meetingplace SDK and TDK for secure storage, receipt, and sharing of credentials. Supports organization bootstrapping, receiving credentials via VDIP, personalized Ayra card claiming, and presenting credentials by scanning QR codes from verifier portals (via VDSP). Features:
+
+### 7. Keycloak Identity Provider (Optional)
+Open-source Identity and Access Management solution configured with a custom external identity provider for Verifiable Credentials authentication. Enables traditional web applications to accept VC-based passwordless login through standard OIDC/OAuth2 flows.
+
+### 8. VC-AuthN OIDC Bridge (Optional)
+Node.js service that bridges OpenID Connect authentication flows with Verifiable Credential verification. Translates OIDC authorization requests into VDSP verification requests and issues OIDC tokens upon successful credential validation.
+
+### 9. Keycloak Demo App (Optional)
+Sample Node.js web application demonstrating how to integrate VC-based authentication with Keycloak. Provides a reference implementation for developers looking to add passwordless VC login to their applications.
+
+
+## 🔐 Keycloak VC Authentication (New!)
+
+This repository now includes a **Keycloak-based Verifiable Credentials Authentication** feature that demonstrates how traditional identity providers can integrate passwordless login using verifiable credentials.
+
+### What is it?
+
+A complete integration that allows users to **login to web applications using their Ayra Card credentials** instead of passwords. This bridges the gap between traditional enterprise identity management (Keycloak/OIDC) and decentralized identity (Verifiable Credentials).
+
+### How it works
+
+```
+┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│   Demo App      │────▶│    Keycloak      │────▶│  VC-AuthN OIDC  │────▶│ Verifier Portal │
+│   (Browser)     │     │ (Identity Provider)│    │     Bridge      │     │    (VDSP)       │
+└─────────────────┘     └──────────────────┘     └─────────────────┘     └─────────────────┘
+                                                          │
+                                                          ▼
+                                                 ┌─────────────────┐
+                                                 │  Mobile Wallet  │
+                                                 │  (Scan QR Code) │
+                                                 └─────────────────┘
+```
+
+1. **User clicks "Login with Verifiable Credentials"** on the demo app
+2. **Keycloak delegates authentication** to the VC-AuthN OIDC Bridge
+3. **Bridge displays a QR code** for the user to scan
+4. **Mobile wallet presents credentials** via VDSP protocol
+5. **Verifier Portal validates** the credentials against Trust Registry
+6. **Bridge issues OIDC tokens** back to Keycloak
+7. **User is logged in** - no password required!
+
+### Key Components
+
+| Component | Port | Description |
+|-----------|------|-------------|
+| **Keycloak** | 8880 | Open-source Identity Provider with VC-AuthN configured as external IdP |
+| **VC-AuthN OIDC Bridge** | 5001 | Translates OIDC flows to Verifiable Credential verification |
+| **Demo App** | 9000 | Sample web application demonstrating the login flow |
+
+### Why it matters
+
+This feature demonstrates how organizations can:
+- **Adopt passwordless authentication** without replacing existing identity infrastructure
+- **Leverage existing Verifiable Credentials** for enterprise SSO
+- **Bridge traditional OIDC/SAML** with decentralized identity standards
+- **Enable progressive trust** - start with basic auth, upgrade to VC-based when ready
+
+### Quick Setup
+
+The Keycloak stack is included in the main docker-compose setup:
+
+```bash
+# Start all services including Keycloak stack
+docker compose up -d
+
+# Access the demo app
+open http://localhost:9000
+
+# Click "Login with Verifiable Credentials" and scan with your mobile wallet
+```
+
+See [Keycloak Verifier README](./keycloak-verifier/README.md) for detailed configuration options.
 
 
 ## 📋 Prerequisites
@@ -321,6 +396,7 @@ This setup is designed for development and demonstration purposes. For productio
 - [Trust Registry UI](./trust-registry-ui/README.md) - Web interface setup
 - [Verifier Portal](./verifier-portal/README.md) - Verification scenarios
 - [Mobile App](./mobile-app/README.md) - Flutter app configuration
+- [Keycloak Verifier](./keycloak-verifier/README.md) - Keycloak VC Authentication setup
 
 ### Protocol References
 
@@ -329,6 +405,7 @@ This setup is designed for development and demonstration purposes. For productio
 - [TRQP - Trust Registry Query Protocol](https://trustoverip.github.io/tswg-trust-registry-protocol/)
 - [W3C Verifiable Credentials](https://www.w3.org/TR/vc-data-model/)
 - [DID:web Method Specification](https://w3c-ccg.github.io/did-method-web/)
+- [OpenID Connect Core](https://openid.net/specs/openid-connect-core-1_0.html) - Used for Keycloak VC Authentication integration
 
 
 ## 🎥 Demo Video
@@ -342,7 +419,7 @@ Watch the complete Ayra demo in action:
 
 
 
-## 🔧 Maintenance, Troubleshooting, Contributing, License & Support 
+## 🔧 Maintenance, Troubleshooting, Contributing, License & Support
 
 
 
@@ -356,6 +433,9 @@ Watch the complete Ayra demo in action:
 | **Trust Registry API** | Rust             | 3232 | Provide trust registry functionality and TRQP endpoints          | Yes |  Trust fabric for issuer recognition, authorization checks, and trust queries.
 | **Trust Registry UI**  | TypeScript/React | 3000 | Web interface for trust registry administration |Yes | Enables registry management via browser; should be accessible from developer/local environments.
 | **Mobile App**         | Flutter/Dart     | -  | Mobile application for credential collection, storage, and presentation |Yes | Allows users to receive, store, and share credentials; requires all backend endpoints to be accessible for full functionality.
+| **Keycloak**           | Java             | 8880 | Identity Provider with VC-AuthN external IdP | No (Optional) | Enables passwordless login using Verifiable Credentials via standard OIDC flows.
+| **VC-AuthN OIDC Bridge** | Node.js        | 5001 | OIDC to Verifiable Credentials bridge | No (Optional) | Translates OIDC authentication requests to VC verification flows.
+| **Keycloak Demo App**  | Node.js          | 9000 | Sample app demonstrating VC-based login | No (Optional) | Showcases how web applications can integrate passwordless VC authentication.
 
 
 ### Component Setup Details
@@ -370,9 +450,10 @@ Each component has its own setup script that:
 | **trust-registry-api** | Clones repository, generates `tr-data.csv` with issuer domains                                |
 | **trust-registry-ui**  | Clones repository, updates `registries.ts` with API endpoints                                 |
 | **mobile-app**         | Clones repository, configures `.env`, updates organization endpoints, copies Firebase configs |
+| **keycloak-verifier**  | Configures Keycloak realm, VC-AuthN bridge, and demo app for passwordless authentication      |
 
 
-This project consists of six interconnected components:
+This project consists of interconnected components:
 
 ```
 ┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
@@ -392,6 +473,21 @@ This project consists of six interconnected components:
    │   ngrok     │
    │  Tunnels    │
    └─────────────┘
+
+                    ════════════════════════════════════════
+                         Keycloak VC Authentication Stack
+                    ════════════════════════════════════════
+
+┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
+│  Demo App       │────▶│    Keycloak      │────▶│  VC-AuthN OIDC  │
+│  (Browser)      │     │ (Identity Provider)│    │     Bridge      │
+└─────────────────┘     └──────────────────┘     └─────────────────┘
+                                                          │
+                                          ┌───────────────┘
+                                          ▼
+                              ┌─────────────────┐
+                              │ Verifier Portal │ (Shared with above)
+                              └─────────────────┘
 ```
 
 ### Environment Variables
@@ -429,6 +525,14 @@ TR_FILE_STORAGE_PATH=/data/tr-data.csv
 
 # Mobile App
 APP_VERSION_NAME="Panther"
+
+# Keycloak VC Authentication (Optional)
+OIDC_BRIDGE_SESSION_SECRET=           # Session secret for VC-AuthN bridge
+OIDC_BRIDGE_ISSUER_URL=http://localhost:5001  # Bridge OIDC issuer URL
+OIDC_BRIDGE_KEYCLOAK_CLIENT_ID=vc-authn       # Client ID for Keycloak IdP
+OIDC_BRIDGE_KEYCLOAK_CLIENT_SECRET=           # Client secret for Keycloak IdP
+VERIFIER_CLIENT_ID=federatedlogin             # Verifier client for federated login
+AUTH_TOKEN=                           # Auth token for verifier portal API
 ```
 
 ### Manual Configuration (Alternative to ngrok)
@@ -446,7 +550,6 @@ If you prefer to use your own tunnelling solution or have static domains:
 
 
 ### Troubleshooting
----
 
 ### Viewing Service Logs
 
@@ -499,7 +602,7 @@ chmod +x cleanup.sh
 
 
 ### Contributing
----
+
 When contributing to this repository:
 
 1. Fork the repository
@@ -510,11 +613,11 @@ When contributing to this repository:
 
 
 ### 📄 License
----
+
 See [LICENSE](./LICENSE) file for details.
 
 ### Support
----
+
 For issues and questions:
 
 - Open an issue in this repository

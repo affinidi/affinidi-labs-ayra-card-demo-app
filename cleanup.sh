@@ -39,6 +39,9 @@ cp "trust-registry-ui/registries.ts" "trust-registry-ui/code/src/data/registries
 
 cleanup_directory "verifier-portal/data" "Verifier Portal data"
 cleanup_directory "issuer-portal/data" "Issuer Portal data"
+cleanup_directory "keycloak-verifier/code/vc-authn-oidc-bridge/keys" "OIDC Bridge RSA keys"
+cleanup_directory "keycloak-verifier/code/vc-authn-oidc-bridge/node_modules" "OIDC Bridge node_modules"
+cleanup_directory "keycloak-verifier/code/demo-app/node_modules" "Demo App node_modules"
 
 
 cp "mobile-app/configs/organizations.dart" "mobile-app/code/lib/infrastructure/repositories/organizations_repository/organizations.dart"

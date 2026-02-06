@@ -1,0 +1,131 @@
+version: "3.8"
+
+services:
+  # PostgreSQL database for Keycloak
+  keycloak-postgres:
+    image: postgres:15-alpine
+    container_name: ayra-keycloak-postgres
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: ${KEYCLOAK_DB_PASSWORD:-keycloak}
+    volumes:
+      - keycloak-postgres-data:/var/lib/postgresql/data
+    networks:
+      - ayra-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U keycloak"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # Keycloak Identity Provider
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0
+    container_name: ayra-keycloak
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:-admin}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
+      KC_HTTP_PORT: 8080
+      KC_HOSTNAME_STRICT: false
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_HTTP_ENABLED: true
+      KC_HEALTH_ENABLED: true
+      KC_METRICS_ENABLED: true
+      KC_PROXY: edge
+      KC_HOSTNAME_URL: ${KEYCLOAK_URL:-http://localhost:8880}
+      KC_HOSTNAME_ADMIN_URL: ${KEYCLOAK_URL:-http://localhost:8880}
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-postgres:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: ${KEYCLOAK_DB_PASSWORD:-keycloak}
+    ports:
+      - "8880:8080"
+    volumes:
+      - keycloak-data:/opt/keycloak/data
+      - ./code/keycloak-config:/opt/keycloak/data/import
+    command:
+      - start-dev
+      - --import-realm
+    depends_on:
+      keycloak-postgres:
+        condition: service_healthy
+    networks:
+      - ayra-network
+    restart: unless-stopped
+
+  # VC-AuthN OIDC Bridge - Connects Keycloak to Verifiable Credentials
+  vc-authn-oidc-bridge:
+    build:
+      context: ./code/vc-authn-oidc-bridge
+      dockerfile: Dockerfile
+    container_name: ayra-vc-authn-oidc-bridge
+    environment:
+      PORT: 5001
+      SESSION_SECRET: ${OIDC_BRIDGE_SESSION_SECRET:-vc-authn-session-secret-change-me}
+      ISSUER_URL: ${OIDC_BRIDGE_ISSUER_URL:-http://localhost:5001}
+      CONTROLLER_URL: ${OIDC_BRIDGE_ISSUER_URL:-http://localhost:5001}
+      KEYCLOAK_CLIENT_ID: ${OIDC_BRIDGE_KEYCLOAK_CLIENT_ID:-vc-authn}
+      KEYCLOAK_CLIENT_SECRET: ${OIDC_BRIDGE_KEYCLOAK_CLIENT_SECRET:-vc-authn-secret-change-me}
+      KEYCLOAK_REDIRECT_URI: ${OIDC_BRIDGE_KEYCLOAK_REDIRECT_URI:-http://localhost:8880/realms/ayra-demo/broker/vc-authn/endpoint}
+      VERIFIER_SERVER_URL: http://verifier-portal:8081
+      VERIFIER_CLIENT_ID: ${VERIFIER_CLIENT_ID:-federatedlogin}
+      VERIFIER_AUTH_TOKEN: ${AUTH_TOKEN:-my_secure_token}
+      JWT_ALGORITHM: RS256
+      SUBJECT_ID_HASH_SALT: ${OIDC_BRIDGE_HASH_SALT:-random-hash-salt-change-me}
+    volumes:
+      - vc-authn-keys:/app/keys
+    ports:
+      - "5001:5001"
+    networks:
+      - ayra-network
+    depends_on:
+      - keycloak
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:5001/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # Demo App - Frontend for Keycloak VC Authentication
+  keycloak-demo-app:
+    build:
+      context: ./code/demo-app
+      dockerfile: Dockerfile
+    container_name: ayra-keycloak-demo-app
+    environment:
+      PORT: 9000
+      NODE_ENV: ${NODE_ENV:-development}
+      SESSION_SECRET: ${DEMO_APP_SESSION_SECRET:-demo-app-session-secret-change-me}
+      KEYCLOAK_URL: http://localhost:8880
+      KEYCLOAK_REALM: ayra-demo
+      KEYCLOAK_CLIENT_ID: ayra-demo-app
+      KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_DEMO_CLIENT_SECRET:-demo-secret-change-in-production}
+      USE_DOCKER_ROUTING: "true"
+    ports:
+      - "9000:9000"
+    networks:
+      - ayra-network
+    depends_on:
+      - keycloak
+      - vc-authn-oidc-bridge
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:9000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+volumes:
+  keycloak-data:
+    driver: local
+  keycloak-postgres-data:
+    driver: local
+  vc-authn-keys:
+    driver: local
+
+networks:
+  ayra-network:
+    driver: bridge

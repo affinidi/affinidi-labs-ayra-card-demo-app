@@ -19,7 +19,8 @@ services:
       - MEDIATOR_DID=${MEDIATOR_DID}
     volumes:
       - ./data:/app/data
-
+    networks:
+      - ayra-network
     restart: unless-stopped
 
 networks:

@@ -20,21 +20,66 @@ services:
     extends:
       file: ./trust-registry-api/docker-compose.yml
       service: trust-registry-api
+    networks:
+      - ayra-network
 
   trust-registry-ui:
     extends:
       file: ./trust-registry-ui/docker-compose.yml
       service: trust-registry-ui
+    networks:
+      - ayra-network
 
   verifier-portal:
     extends:
       file: ./verifier-portal/docker-compose.yml
       service: verifier-portal
+    networks:
+      - ayra-network
 
   issuer-portal:
     extends:
       file: ./issuer-portal/docker-compose.yml
       service: issuer-portal
+    networks:
+      - ayra-network
+
+  # Keycloak Verifier - Federated VC Login
+  keycloak-postgres:
+    extends:
+      file: ./keycloak-verifier/docker-compose.yml
+      service: keycloak-postgres
+    networks:
+      - ayra-network
+
+  keycloak:
+    extends:
+      file: ./keycloak-verifier/docker-compose.yml
+      service: keycloak
+    networks:
+      - ayra-network
+
+  vc-authn-oidc-bridge:
+    extends:
+      file: ./keycloak-verifier/docker-compose.yml
+      service: vc-authn-oidc-bridge
+    networks:
+      - ayra-network
+
+  keycloak-demo-app:
+    extends:
+      file: ./keycloak-verifier/docker-compose.yml
+      service: keycloak-demo-app
+    networks:
+      - ayra-network
+
+volumes:
+  keycloak-data:
+    driver: local
+  keycloak-postgres-data:
+    driver: local
+  vc-authn-keys:
+    driver: local
 
 networks:
   ayra-network:

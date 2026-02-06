@@ -186,6 +186,30 @@
                 </div>
             </div>
         </a>
+
+        <a href="federated-login.html" class="service-card">
+            <div class="service-card-logo">
+                <img src="/assets/images/ayra/ayra-logo.png" alt="Federated Login Logo">
+            </div>
+            <div class="service-card-image">
+                <img class="service-card-fallback" src="https://images.unsplash.com/photo-1633265486064-086b219458ec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaWdpdGFsJTIwaWRlbnRpdHklMjBzZWN1cml0eXxlbnwxfHx8fDE3NjM5NDg3OTF8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Digital Identity">
+                <div class="service-card-overlay"></div>
+            </div>
+            <div class="service-card-content">
+                <div class="service-card-text">
+                    <h3>Federated Login</h3>
+                    <p>Password-Free Authentication with Verifiable Credentials via Keycloak</p>
+                </div>
+                <div class="service-card-link">
+                    Access Portal
+                    <svg class="icon-external-link" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" x2="21" y1="14" y2="3"></line>
+                    </svg>
+                </div>
+            </div>
+        </a>
     </section>
 
     <!-- Footer -->
@@ -202,32 +226,32 @@
         // Handle video loading and fallback to images
         document.addEventListener('DOMContentLoaded', function() {
             const serviceCards = document.querySelectorAll('.service-card');
-            
+
             serviceCards.forEach(card => {
                 const video = card.querySelector('.service-card-video');
                 const fallbackImg = card.querySelector('.service-card-fallback');
-                
+
                 if (video && fallbackImg) {
                     // Set video playback rate to 0.6 for slow motion effect
                     video.playbackRate = 0.6;
-                    
+
                     // Hide fallback image initially
                     fallbackImg.style.display = 'none';
-                    
+
                     // Handle video load errors
                     video.addEventListener('error', function() {
                         console.log('Video failed to load, showing fallback image');
                         video.style.display = 'none';
                         fallbackImg.style.display = 'block';
                     });
-                    
+
                     // Handle video load success
                     video.addEventListener('loadeddata', function() {
                         console.log('Video loaded successfully');
                         fallbackImg.style.display = 'none';
                         video.style.display = 'block';
                     });
-                    
+
                     // Ensure video plays when it comes into view (for better performance)
                     const observer = new IntersectionObserver((entries) => {
                         entries.forEach(entry => {
@@ -239,7 +263,7 @@
                             }
                         });
                     }, { threshold: 0.1 });
-                    
+
                     observer.observe(card);
                 }
             });

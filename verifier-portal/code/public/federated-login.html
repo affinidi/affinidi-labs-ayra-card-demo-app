@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Federated Login - Ayra Secure Authentication</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+    <script src="/assets/scripts/template-manager.js" defer></script>
+    <script src="kiosk.js?v=1.0.1" defer></script>
+    <script src="shared.js?v=1.0.1" defer></script>
+    <link rel="stylesheet" href="/assets/styles/ayra.css" />
+    <link rel="stylesheet" href="/assets/styles/federated-login.css" />
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col items-center">
+    <!-- HEADER -->
+    <header class="federated-header">
+        <div class="federated-header-wrapper">
+            <a href="index.html" title="Home">
+                <img src="/assets/images/ayra/ayra-logo.png" alt="Ayra Logo" class="federated-logo" />
+            </a>
+            <div class="federated-title">
+                <h1>🔐 Federated Login</h1>
+                <p>Password-Free Authentication</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner -->
+    <div class="federated-banner">
+        <div class="federated-banner-content">
+            <h2>Login with Verifiable Credentials</h2>
+            <p>Secure, decentralized authentication powered by W3C standards. No passwords, no phishing, just your digital identity.</p>
+        </div>
+    </div>
+
+    <!-- Kiosk -->
+    <div class="kiosk">
+        <div class="kiosk-screen">
+            <div id="kiosk">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+        <img class="kiosk-body" src="/assets/images/building/kiosk-body.png" alt="Federated Login Kiosk" />
+    </div>
+
+    <!-- Features Section -->
+    <div class="federated-features">
+        <div class="federated-features-grid">
+            <div class="federated-feature-card">
+                <div class="federated-feature-icon">🔒</div>
+                <h3>No Passwords</h3>
+                <p>Eliminate password fatigue and security risks. Your credentials are cryptographically secured.</p>
+            </div>
+            <div class="federated-feature-card">
+                <div class="federated-feature-icon">⚡</div>
+                <h3>Instant Access</h3>
+                <p>One scan, instant authentication. No forms to fill, no codes to remember.</p>
+            </div>
+            <div class="federated-feature-card">
+                <div class="federated-feature-icon">🛡️</div>
+                <h3>Privacy First</h3>
+                <p>Share only what's necessary. You control your data with selective disclosure.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security Badges -->
+    <div class="federated-footer">
+        <div class="federated-security-badges">
+            <span class="federated-badge">✅ W3C Standards Compliant</span>
+            <span class="federated-badge info">🔗 Decentralized Identity</span>
+            <span class="federated-badge warning">🔐 End-to-End Encrypted</span>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        let templateManager;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            Kiosk.initializeKioskPage('FederatedLogin', {
+                modalIds: ['identityModal', 'payloadDetailsModal'],
+                onTogglePressed: function (mode, isChecked) {
+                    console.log('🔄 Toggle pressed! Mode:', mode, 'Checked:', isChecked);
+                },
+                onDemoStart: function () {
+                    console.log('🔐 Federated Login demo started');
+                    if (typeof window.init === 'function') {
+                        window.init();
+                    }
+                }
+            });
+
+            window.testModalOpen = function () {
+                console.log('🧪 Testing modal open...');
+                try {
+                    Kiosk.renderBusinessCardModal();
+                } catch (error) {
+                    console.error('❌ Error opening modal:', error);
+                }
+            };
+        });
+
+        function displayResponseStatus(msg) {
+            Kiosk.displayResponseStatus(msg);
+        }
+    </script>
+
+    <script id="mock">
+        var pageInstance;
+
+        function copyQRContentGlobal(clientId) {
+            copyQRContent(clientId, pageInstance);
+        }
+
+        async function init() {
+            pageInstance = createPageInstance();
+            pageInstance.initializeDOMElements();
+            const clients = await fetchClients();
+            clients.forEach((client) => {
+                if (client.id != 'federatedlogin') return;
+                pageInstance.clientsData[client.id] = client;
+                createQRCode(`main-qrcode`, client);
+                setupWebSocket(client.id, pageInstance);
+            });
+        }
+    </script>
+
+</body>
+
+</html>

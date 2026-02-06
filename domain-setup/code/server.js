@@ -22,11 +22,20 @@ if (!NGROK_AUTH_TOKEN) {
 
 console.log('Starting ngrok domain generation...\n');
 
+// Check if Keycloak tunnels are enabled
+const ENABLE_KEYCLOAK_TUNNELS = process.env.ENABLE_KEYCLOAK_TUNNELS === 'true';
+
 // List of services to create tunnels for
 const SERVICES = [
     { name: 'Issuer Portal', port: 8080 },
     { name: 'Verifier Portal', port: 8081 },
     { name: 'Trust Registry API', port: 3232 },
+    // Keycloak services (optional)
+    ...(ENABLE_KEYCLOAK_TUNNELS ? [
+        { name: 'Keycloak Demo App', port: 3000 },
+        { name: 'Keycloak', port: 8880 },
+        { name: 'OIDC Bridge', port: 5001 },
+    ] : []),
 ];
 
 // Function to generate a single tunnel
@@ -83,7 +92,24 @@ async function generateDomains() {
             trustRegistry: {
                 domain: results.find(r => r.name === 'Trust Registry API')?.domain || '',
                 url: results.find(r => r.name === 'Trust Registry API')?.url || ''
-            }
+            },
+            // Keycloak services (if enabled)
+            ...(ENABLE_KEYCLOAK_TUNNELS ? {
+                keycloak: {
+                    demoApp: {
+                        domain: results.find(r => r.name === 'Keycloak Demo App')?.domain || '',
+                        url: results.find(r => r.name === 'Keycloak Demo App')?.url || ''
+                    },
+                    server: {
+                        domain: results.find(r => r.name === 'Keycloak')?.domain || '',
+                        url: results.find(r => r.name === 'Keycloak')?.url || ''
+                    },
+                    oidcBridge: {
+                        domain: results.find(r => r.name === 'OIDC Bridge')?.domain || '',
+                        url: results.find(r => r.name === 'OIDC Bridge')?.url || ''
+                    }
+                }
+            } : {})
         };
 
         const domainsFile = join(__dirname, 'domains.json');

@@ -2,6 +2,7 @@ services:
   trust-registry-api:
     platform: linux/arm64
     image: trust-registry-api:local
+    pull_policy: never
     build:
       context: ./code
       dockerfile: trust-registry/Dockerfile

@@ -5,6 +5,7 @@ class ClientsList {
   static VerifierClient roundtableClient = clientsAvailable[1];
   static VerifierClient checkinDeskClient = clientsAvailable[2];
   static VerifierClient coffeeshopClient = clientsAvailable[3];
+  static VerifierClient federatedLoginClient = clientsAvailable[4];
 }
 
 final clientsAvailable = [
@@ -35,5 +36,12 @@ final clientsAvailable = [
     type: 'external',
     description: 'Exclusive offers and rewards',
     purpose: 'Share your credentials to get exclusive offers/rewards',
+  ),
+  VerifierClient(
+    id: "federatedlogin",
+    name: 'Federated Login',
+    type: 'external',
+    description: 'Login with Employment Credential',
+    purpose: 'Share your credentials to authenticate via Keycloak',
   ),
 ];

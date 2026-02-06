@@ -7,16 +7,16 @@
 window.KioskTemplates = {
     'kiosk-start': `
         <div class="kiosk-content flex flex-col items-center justify-center h-full space-y-8 p-8">
-            
+
             <div class="text-center space-y-4">
                 <h1 class="text-4xl font-bold">{{title}}</h1>
                 <p class="text-lg text-gray-600">{{subtitle}}</p>
             </div>
-            
+
             <!-- Demo Mode Selection -->
             <div class="demo-mode-selection bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
                 <h3 class="text-xl font-semibold text-gray-800 mb-6 text-center">Demo Mode</h3>
-                
+
                 <div class="flex items-center justify-center space-x-6 mb-6">
                     <label class="demo-mode-option cursor-pointer">
                         <input type="radio" name="demoMode" value="manual" checked class="sr-only">
@@ -26,7 +26,7 @@ window.KioskTemplates = {
                             <div class="text-xs text-blue-600 mt-1">Click to advance</div>
                         </div>
                     </label>
-                    
+
                     <label class="demo-mode-option cursor-pointer">
                         <input type="radio" name="demoMode" value="automatic" class="sr-only">
                         <div class="demo-option-card bg-gray-50 border-2 border-gray-200 rounded-xl p-4 w-40 text-center transition-all hover:bg-gray-100">
@@ -36,29 +36,29 @@ window.KioskTemplates = {
                         </div>
                     </label>
                 </div>
-                
+
                 <button id="start-demo-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-xl transition-colors duration-200 text-lg">
                     Start Simulation
                 </button>
             </div>
-            
+
         </div>
     `,
 
     'kiosk-starting': `
         <div class="kiosk-content flex flex-col items-center justify-center h-full space-y-8 p-8">
-            
+
             <div class="text-center space-y-6">
                 <div class="text-6xl mb-4">🚀</div>
                 <h1 class="text-4xl font-bold">Demo Starting...</h1>
                 <p class="text-lg text-gray-600">Initializing {{demoMode}} mode</p>
             </div>
-            
+
             <div class="spinner-container">
-                <span class="spinner-icon loading" data-spinner-chars="⣾⣽⣻⢿⡿⣟⣯⣾">⣾</span> 
+                <span class="spinner-icon loading" data-spinner-chars="⣾⣽⣻⢿⡿⣟⣯⣾">⣾</span>
                 <span class="text-gray-600">Setting up demo environment...</span>
             </div>
-            
+
         </div>
     `,
     'kiosk-welcome': `
@@ -71,11 +71,11 @@ window.KioskTemplates = {
                     <span class="demo-toggle-label-welcome">Mode</span>
                 </label>
             </div>
-            
+
             <div class="text-center space-y-4">
                 <h1 class="text-4xl font-bold">{{title}}</h1>
             </div>
-            
+
             <div class="scan-area rounded-2xl p-12 text-center justify-items-center">
                 <div class="scan-icon text-6xl text-blue-500 mb-4">
                     <img src="/assets/images/ayra/ayra-logo.png" alt="Scan Icon" class="w-16 h-16 mx-auto" />
@@ -83,7 +83,7 @@ window.KioskTemplates = {
                 <div id="main-qrcode" class="bg-white p-5 rounded-lg"></div>
                 <p class="text-gray-900 font-medium mt-4">{{subtitle}}</p>
             </div>
-            
+
             <div class="scan-animation">
                 <div class="scan-line"></div>
             </div>
@@ -95,13 +95,13 @@ window.KioskTemplates = {
             <div class="text-center space-y-4">
                 <h1 class="text-3xl font-bold text-gray-800">{{title}}</h1>
             </div>
-            
+
             <div class="space-y-4 w-full">
                 <div class="processing-steps"></div>
             </div>
 
             <div class="spinner-container">
-                <span class="spinner-icon loading" data-spinner-chars="⣾⣽⣻⢿⡿⣟⣯⣾">⣾</span> 
+                <span class="spinner-icon loading" data-spinner-chars="⣾⣽⣻⢿⡿⣟⣯⣾">⣾</span>
                 Waiting for Ayra Business Card credential sharing...
             </div>
         </div>
@@ -109,24 +109,24 @@ window.KioskTemplates = {
 
     'kiosk-error': `
         <div class="kiosk-content flex flex-col items-center justify-center h-full space-y-8 p-8">
-            
+
             <div class="text-center space-y-4">
                 <div class="error-icon text-6xl text-red-500 mb-4">⚠️</div>
                 <h1 class="text-4xl font-bold text-red-600">{{title}}</h1>
                 <p class="text-lg text-gray-200">{{message}}</p>
             </div>
-            
+
         </div>
     `,
 
     'kiosk-success': `
         <div class="kiosk-content flex flex-col items-center justify-center h-full space-y-8 p-8">
-            
+
             <div class="text-center space-y-4">
                 <h1 class="text-4xl font-bold">{{title}}</h1>
                 <p class="text-lg">{{subtitle}}</p>
             </div>
-            
+
             <div class="card-container">
                 <!-- Person Identity Card -->
                 <div class="card identity-card ayra-card credit-card-format" onclick="Kiosk.renderBusinessCardModal()">
@@ -138,7 +138,7 @@ window.KioskTemplates = {
                             <img src="/assets/images/ayra/ayra-logo.png" alt="Ayra Logo" />
                         </div>
                     </div>
-                    
+
                     <div class="credit-card-info">
                         <div class="credit-card-name">{{guestName}}</div>
                         <div class="credit-card-details">
@@ -146,7 +146,7 @@ window.KioskTemplates = {
                             <div class="credit-card-designation">{{guestDesignation}}</div>
                         </div>
                     </div>
-                    
+
                     <div class="credit-card-footer">
                         <div class="credit-card-status">
                             <span class="status-indicator verified"></span>
@@ -163,19 +163,19 @@ window.KioskTemplates = {
         <div id="identityModal" class="modal-overlay">
             <div class="modal-content business-card-modal-container">
                 <button class="modal-close" onclick="Kiosk.closeModal('identityModal')">✕</button>
-                
+
                 <div class="business-card-modal">
                     <div class="business-card-header">
                         <div class="business-card-avatar-section">
                             <img id="business-card-avatar" src="/assets/images/ayra/default-avatar.png" alt="Avatar" class="business-card-avatar">
                         </div>
-                        
+
                         <div class="business-card-contact-details">
                             <div class="business-card-name-section">
                                 <h4 id="business-card-name" class="business-card-name">Guest</h4>
                                 <p id="business-card-title" class="business-card-designation">{{defaultTitle}}</p>
                             </div>
-                            
+
                             <div class="business-card-contact-info">
                                 <div class="business-card-contact-item">
                                     <span class="business-card-contact-icon">🏢</span>
@@ -238,7 +238,7 @@ window.KioskTemplates = {
         <div id="payloadDetailsModal" class="modal-overlay">
             <div class="modal-content payload-modal-container">
                 <button class="modal-close" onclick="Kiosk.closeModal('payloadDetailsModal')">✕</button>
-                
+
                 <div class="payload-modal">
                     <div class="payload-modal-header">
                         <h2 id="payload-details-title" class="payload-modal-title">Payload Details</h2>
@@ -251,7 +251,7 @@ window.KioskTemplates = {
                             <button class="payload-tab active" onclick="Kiosk.switchPayloadTab('formatted')" style="flex: 1; padding: 0.875rem 1.5rem; margin-right: 0.5rem; border: none; background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%); color: white; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(100, 116, 139, 0.2); font-size: 0.875rem; letter-spacing: 0.025em;">Formatted View</button>
                             <button class="payload-tab" onclick="Kiosk.switchPayloadTab('raw')" style="flex: 1; padding: 0.875rem 1.5rem; margin-left: 0.5rem; border: 1px solid #cbd5e1; background: white; color: #64748b; font-weight: 500; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; font-size: 0.875rem; letter-spacing: 0.025em;">Raw JSON</button>
                         </div>
-                        
+
                         <div id="payload-details-content" class="payload-details-container">
                             <!-- Payload content will be displayed here -->
                         </div>
@@ -456,6 +456,30 @@ window.Kiosk = {
                     defaultWebsite: "www.ayracoffee.com",
                     defaultAuthorizer: "Coffee Shop Management",
                     defaultValidity: "Current Visit"
+                };
+                break;
+
+            case 'federatedlogin':
+                this.templateData.welcome.title = "Federated Login";
+                this.templateData.welcome.subtitle = "Authenticate with your Verifiable Credential";
+                this.templateData.processing.title = "Authenticating...";
+                this.templateData.processing.steps = [
+                    { text: "Receiving credential", delay: 2000 },
+                    { text: "Verifying signature", delay: 2000 },
+                    { text: "Checking trust registry", delay: 2000 },
+                    { text: "Creating session", delay: 2000 }
+                ];
+                this.templateData.success.title = "Welcome, {{guestName}}!";
+                this.templateData.success.subtitle = "Authentication successful. You are now logged in.";
+                this.templateData.success.guestName = "Authenticated User";
+                // Identity modal defaults
+                this.templateData.identityModal = {
+                    defaultTitle: "Verified User",
+                    defaultCompany: "Ayra Identity",
+                    defaultEmail: "user@ayra.com",
+                    defaultWebsite: "www.ayra.com",
+                    defaultAuthorizer: "Keycloak Identity Provider",
+                    defaultValidity: "Session Active"
                 };
                 break;
 
@@ -990,6 +1014,8 @@ window.Kiosk = {
             return 'Session Management';
         } else if (pageTitle.includes('Coffee') || currentUrl.includes('coffee')) {
             return 'Coffee Shop Management';
+        } else if (pageTitle.includes('Federated') || currentUrl.includes('federated')) {
+            return 'Keycloak Identity Provider';
         }
         return 'Ayra Management';
     },
@@ -1632,14 +1658,14 @@ window.Kiosk = {
                     <h3 style="margin: 0 0 0.25rem 0; font-size: 1.1rem; font-weight: 700; color: #334155; letter-spacing: 0.025em;">EMPLOYEE ID CARD</h3>
                     <p style="margin: 0; font-size: 0.75rem; color: #64748b; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em;">${companyName}</p>
                 </div>
-        
+
                 <!-- Employee Photo Placeholder -->
                 <div style="text-align: center; margin-bottom: 1.5rem;">
                     <div style="display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%); border-radius: 12px; border: 3px solid white; box-shadow: 0 4px 12px rgba(100, 116, 139, 0.2);">
                         <span style="font-size: 2rem; color: white; font-weight: bold;">${name.charAt(0).toUpperCase()}</span>
                     </div>
                 </div>
-        
+
                 <!-- Employee Details -->
                 <div style="margin-bottom: 1.5rem;">
                     <div style="text-align: center; margin-bottom: 1.5rem;">
@@ -1647,7 +1673,7 @@ window.Kiosk = {
                         <p style="margin: 0 0 0.125rem 0; font-size: 0.875rem; color: #64748b; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px; margin-left: auto; margin-right: auto;" title="${position}">${position}</p>
                         ${department ? `<p style="margin: 0; font-size: 0.75rem; color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 280px; margin-left: auto; margin-right: auto;" title="${department}">${department}</p>` : ''}
                     </div>
-        
+
                     <!-- ID and Status Row -->
                     <div style="display: flex; justify-content: space-between; align-items: center; background: white; padding: 1rem; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 1rem;">
                         <div style="flex: 1;">
@@ -1658,7 +1684,7 @@ window.Kiosk = {
                             <span style="display: inline-block; padding: 0.25rem 0.75rem; background: ${status.toLowerCase() === 'active' ? 'linear-gradient(135deg, #10b981 0%, #059669 100%)' : 'linear-gradient(135deg, #94a3b8 0%, #64748b 100%)'}; color: white; border-radius: 12px; font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">${status}</span>
                         </div>
                     </div>
-        
+
                     ${startDate ? `
                         <!-- Employment Date -->
                         <div style="background: white; padding: 0.875rem; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 1rem;">
@@ -1666,7 +1692,7 @@ window.Kiosk = {
                             <p style="margin: 0; font-size: 0.875rem; color: #334155; font-weight: 600;">${this.formatDateString(startDate)}</p>
                         </div>
                     ` : ''}
-        
+
                     ${companyAddress ? `
                         <!-- Company Address -->
                         <div style="background: white; padding: 0.875rem; border-radius: 8px; border: 1px solid #e2e8f0;">
@@ -1675,7 +1701,7 @@ window.Kiosk = {
                         </div>
                     ` : ''}
                 </div>
-        
+
                 <!-- Card Footer -->
                 <div style="text-align: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #cbd5e1;">
                     <div style="display: inline-flex; align-items: center; gap: 0.5rem; color: #10b981; font-size: 0.75rem; font-weight: 600;">
@@ -1735,21 +1761,21 @@ window.Kiosk = {
                     <h3 style="margin: 0 0 0.25rem 0; font-size: 1.1rem; font-weight: 700; color: #334155; letter-spacing: 0.025em;">CREDENTIAL CARD</h3>
                     ${companyName ? `<p style="margin: 0; font-size: 0.75rem; color: #64748b; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em;">${companyName}</p>` : ''}
                 </div>
-        
+
                 <!-- Credential Photo Placeholder -->
                 <div style="text-align: center; margin-bottom: 1.5rem;">
                     <div style="display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%); border-radius: 12px; border: 3px solid white; box-shadow: 0 4px 12px rgba(100, 116, 139, 0.2);">
                         <span style="font-size: 2rem; color: white; font-weight: bold;">${name.charAt(0).toUpperCase()}</span>
                     </div>
                 </div>
-        
+
                 <!-- Credential Details -->
                 <div style="margin-bottom: 1.5rem;">
                     <div style="text-align: center; margin-bottom: 1.5rem;">
                         <h4 style="margin: 0 0 0.25rem 0; font-size: 1.125rem; font-weight: 700; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 320px; margin-left: auto; margin-right: auto;" title="${name}">${name}</h4>
                         ${title ? `<p style="margin: 0 0 0.125rem 0; font-size: 0.875rem; color: #64748b; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px; margin-left: auto; margin-right: auto;" title="${title}">${title}</p>` : ''}
                     </div>
-        
+
                     <!-- ID Row -->
                     <div style="display: flex; justify-content: center; align-items: center; background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); padding: 1rem; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 1rem;">
                         <div style="text-align: center;">
@@ -1800,7 +1826,7 @@ window.Kiosk = {
         // Card Footer
         html += `
                 </div>
-        
+
                 <!-- Card Footer -->
                 <div style="text-align: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #cbd5e1;">
                     <div style="display: inline-flex; align-items: center; gap: 0.5rem; color: #10b981; font-size: 0.75rem; font-weight: 600;">
@@ -2377,18 +2403,18 @@ window.Kiosk = {
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
                 border: 1px solid rgba(255, 255, 255, 0.2);
             }
-            
+
             .demo-toggle-switch-welcome {
                 display: flex;
                 align-items: center;
                 cursor: pointer;
                 gap: 8px;
             }
-            
+
             .demo-toggle-switch-welcome input[type="checkbox"] {
                 display: none;
             }
-            
+
             .demo-toggle-slider-welcome {
                 position: relative;
                 width: 44px;
@@ -2397,7 +2423,7 @@ window.Kiosk = {
                 border-radius: 12px;
                 transition: background-color 0.3s;
             }
-            
+
             .demo-toggle-slider-welcome:before {
                 content: '';
                 position: absolute;
@@ -2410,15 +2436,15 @@ window.Kiosk = {
                 transition: transform 0.3s;
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
             }
-            
+
             input:checked + .demo-toggle-slider-welcome {
                 background-color: #3b82f6;
             }
-            
+
             input:checked + .demo-toggle-slider-welcome:before {
                 transform: translateX(20px);
             }
-            
+
             .demo-toggle-label-welcome {
                 font-size: 0.875rem;
                 font-weight: 500;
@@ -2947,6 +2973,7 @@ window.Kiosk = {
         if (path.includes('building')) return 'building-access';
         if (path.includes('session')) return 'session-kiosk';
         if (path.includes('coffee')) return 'coffeeshop';
+        if (path.includes('federated')) return 'federatedlogin';
         return 'ayra-kiosk';
     },
 
@@ -2961,7 +2988,7 @@ window.Kiosk = {
             actionsHtml += `
                 <div class="action-section" style="margin-bottom: 1rem;">
                     <p class="action-label" style="font-weight: 600; color: #374151; margin-bottom: 0.5rem;">Credential Verification</p>
-                    <button 
+                    <button
                         onclick="Kiosk.verifyCredential('${originalPayload.id}')"
                         class="action-button verify-button" style="background-color: #2563eb; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; border: none; font-weight: 500; cursor: pointer; transition: background-color 0.2s;"
                         onmouseover="this.style.backgroundColor='#1d4ed8'"
@@ -2973,12 +3000,12 @@ window.Kiosk = {
                 </div>`;
         }
 
-        // DCQL request action  
+        // DCQL request action
         if (originalPayload.type.toLowerCase().includes('dcql')) {
             actionsHtml += `
                 <div class="action-section" style="margin-bottom: 1rem;">
                     <p class="action-label" style="font-weight: 600; color: #374151; margin-bottom: 0.5rem;">DCQL Request</p>
-                    <button 
+                    <button
                         onclick="Kiosk.sendDcqlRequest('${originalPayload.id}')"
                         class="action-button dcql-button" style="background-color: #059669; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; border: none; font-weight: 500; cursor: pointer; transition: background-color 0.2s;"
                         onmouseover="this.style.backgroundColor='#047857'"
@@ -3200,7 +3227,7 @@ window.Kiosk = {
                     </label>
                     <span class="demo-toggle-label" style="font-weight: 600; color: #333; font-size: 14px;">Mode</span>
                 </div>
-                
+
                 <!-- Manual Next Button (bottom right, only visible in manual mode) -->
                 <button id="demo-next-btn" class="demo-next-btn" onclick="Kiosk.advanceManualStep()" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: #4f46e5; color: white; border: none; padding: 12px 24px; border-radius: 25px; font-weight: 600; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.2); display: none; transition: background-color 0.2s;">
                     Next →
@@ -3238,19 +3265,19 @@ window.Kiosk = {
                     transition: .4s;
                     border-radius: 50%;
                 }
-                
+
                 input:checked + .demo-toggle-slider {
                     background-color: #4f46e5;
                 }
-                
+
                 input:checked + .demo-toggle-slider:before {
                     transform: translateX(26px);
                 }
-                
+
                 .demo-next-btn:hover {
                     background-color: #3730a3;
                 }
-                
+
                 /* Welcome screen demo toggle styles */
                 .demo-mode-toggle-welcome {
                     position: absolute;
@@ -3264,18 +3291,18 @@ window.Kiosk = {
                     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
                     border: 1px solid rgba(255, 255, 255, 0.2);
                 }
-                
+
                 .demo-toggle-switch-welcome {
                     display: flex;
                     align-items: center;
                     cursor: pointer;
                     gap: 8px;
                 }
-                
+
                 .demo-toggle-switch-welcome input[type="checkbox"] {
                     display: none;
                 }
-                
+
                 .demo-toggle-slider-welcome {
                     position: relative;
                     width: 44px;
@@ -3284,7 +3311,7 @@ window.Kiosk = {
                     border-radius: 12px;
                     transition: background-color 0.3s;
                 }
-                
+
                 .demo-toggle-slider-welcome:before {
                     content: '';
                     position: absolute;
@@ -3297,15 +3324,15 @@ window.Kiosk = {
                     transition: transform 0.3s;
                     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
                 }
-                
+
                 input:checked + .demo-toggle-slider-welcome {
                     background-color: #3b82f6;
                 }
-                
+
                 input:checked + .demo-toggle-slider-welcome:before {
                     transform: translateX(20px);
                 }
-                
+
                 .demo-toggle-label-welcome {
                     font-size: 0.875rem;
                     font-weight: 500;
@@ -3384,50 +3411,50 @@ style.textContent = `
         from { transform: rotate(0deg); }
         to { transform: rotate(360deg); }
     }
-    
+
     @keyframes pulse {
         0%, 100% { opacity: 1; }
         50% { opacity: 0.5; }
     }
-    
+
     .payload-tabs {
         display: flex !important;
     }
-    
+
     .modal-content {
         width: 650px !important;
         max-width: 90vw !important;
         word-wrap: break-word;
         overflow-wrap: break-word;
     }
-    
+
     .credential-field {
         max-width: 100%;
         overflow: hidden;
         word-wrap: break-word;
         overflow-wrap: break-word;
     }
-    
+
     .field-value {
         word-wrap: break-word;
         overflow-wrap: break-word;
         hyphens: auto;
         max-width: 100%;
     }
-    
+
     .field-label {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 100%;
     }
-    
+
     .text-truncate {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    
+
     .long-text-container {
         max-width: 100%;
         overflow-wrap: break-word;

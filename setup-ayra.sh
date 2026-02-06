@@ -133,6 +133,14 @@ cd ..
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "Setting up Keycloak Verifier..."
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+cd keycloak-verifier
+./setup.sh
+cd ..
+
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "Setting up Mobile App..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 cd mobile-app
