@@ -163,7 +163,7 @@ To request different credentials, modify the `federatedlogin` client in `clients
 {
   "id": "federatedlogin",
   "name": "Federated Login",
-  "description": "Login with Employment Credential",
+  "description": "Login with Ayra Business Card",
   "credential_types": ["EmploymentCredential"],
   "fields": ["email", "display_name", "employeeId"]
 }

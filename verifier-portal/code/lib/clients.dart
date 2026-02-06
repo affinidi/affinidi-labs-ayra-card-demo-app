@@ -41,7 +41,7 @@ final clientsAvailable = [
     id: "federatedlogin",
     name: 'Federated Login',
     type: 'external',
-    description: 'Login with Employment Credential',
+    description: 'Login with Ayra Business Card via Keycloak',
     purpose: 'Share your credentials to authenticate via Keycloak',
   ),
 ];
